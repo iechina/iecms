@@ -1,0 +1,92 @@
+/* ::::: http://wsq.discuz.qq.com/cdn/discuz/css/comm.css?t=1409211091 ::::: */
+
+html { font-size: 56.3%; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, a, img, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { margin: 0px; padding: 0px; font-family: "Helvetica Neue",Helvetica,STHeiTi,sans-serif; font-size: 1.4rem; }
+body { margin: 0px auto; padding-bottom: 55px; background-color: rgb(239, 239, 239); color: rgb(137, 137, 137); }
+.warp { overflow: hidden; }
+ul, ol { list-style: none outside none; }
+a, button, input { outline: 0px none; text-decoration: none; }
+a { color: rgb(90, 133, 206); }
+a:active { outline: 0px none; }
+.fl { float: left; }
+.db { display: block; }
+img { border: 0px none; vertical-align: bottom; }
+@font-face {
+	font-family: "icomoon";
+	font-style: normal;
+	font-weight: normal;
+	src: url('icomoon.eot') format("embedded-opentype"), url('icomoon.ttf') format("truetype"), url('icomoon.woff') format("woff"), url('icomoon.svg') format("svg");
+}
+.iconT, .incoV, .incoS, .incoR, .leftInco, .upBtn, .incoTime, .expreSelect, .photoSelect, .infoInco, .iSucc, .iInco, .incoP, .incoA, .praise, .noPraise, .incoAnswer, .incoTravel, .incoSports, .incoFood, .incoMaternal, .incoCar, .incoSecondHand, .incoJob, .incoHouse, .incoPet, .editInco, .incoSec, .seeNum, .commF { font-family: 'icomoon'; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; }
+.iconT, .incoV, .incoS, .incoR, .leftInco, .upBtn, .incoTime, .expreSelect, .photoSelect, .infoInco, .iSucc, .iInco, .incoP, .incoA, .praise, .noPraise, .incoAnswer, .commF, .cf { font-family: "icomoon" ! important; font-size: 16px; font-style: normal; }
+.subTitle span { margin-right: 10px; }
+.subTitle em, .member em { font-style: normal; }
+.subTitle em{ color: rgb(255, 162, 0); }
+.topicBox, .bImg, .sImg, .pageNum, .sendBorder, .cancelBtn, .sendBtn, .photoBtn, .popLayer, .editBtn1, .editBtn2, .floatLayer, .iImg, .tpImg, .pImg, .inviteF, .downApp, .fillet { border-radius: 0.5rem; }
+.interestBox { overflow: hidden; color: rgb(84, 84, 84); }
+.interestList .hd { background-color: rgb(255, 255, 255); }
+.interestList .bd { background-color: rgb(245, 245, 246); }
+.interestList .bd li { padding-left: 30px; padding-right: 30px; }
+.interestList li { height: 45px; padding: 10px 65px 10px 10px; border-bottom: 1px solid rgb(229, 229, 229); position: relative; overflow: hidden; }
+.interestList h4, .interestMy h4 {  }
+.iImg { width: 45px; height: 45px; margin-right: 10px; }
+.iL .iText, .iL .st { border-right: 1px solid rgb(229, 229, 229); }
+.iText, .st { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st { line-height: 28px; color: rgb(167, 167, 167); }
+.iText { font-weight: normal; font-size: 1.8rem; line-height: 21px; }
+.iText span { color: rgb(255, 162, 0); }
+.iBtn, .iBtnOn { width: 65px; height: 65px; position: absolute; right: 0px; top: 19px; background-color: rgb(255, 255, 255); text-align: center; color:red;}
+.hd .incoA:before, .iBtnOn .upBtn:before { position: absolute; top: 25px; left: 23px; font-size: 2.1rem; color: rgb(212, 212, 212); }
+.incoAnswer:before { content: ""; font-size: 1.2rem; color: rgb(118, 156, 220); position: absolute; top: 8px; right: 5px; }
+.incoA:before { content: ""; font-size: 1.2rem; color: rgb(222, 222, 222); }
+.topicTab a:nth-child(1) { position: relative; }
+.bottomBar, .topBar { position: fixed; left: 0px; width: 100%; height: 40px; padding: 5px 0px; background-color: rgb(249, 249, 249); font-size: 1.8rem; text-align: center; z-index: 9999; }
+.bottomBar { bottom: 0px; border-top: 1px solid rgb(179, 179, 179); }
+.bottomBarCon { position: relative; }
+.attention .iInco, .back:before { margin-right: 7px; font-size: 1.6rem; vertical-align: -10%; }
+.backBtn { width: 20px; height: 30px; padding: 5px 20px 5px 5px; border-right: 1px solid rgb(212, 212, 212); position: absolute; left: 0px; top: 0px; }
+.back:before { transform: rotateY(180deg); display: block; top: 13px; }
+.joinNum span:nth-child(2) { position: absolute; right: 0px; top: 10px; text-align: right; }
+.listShow li:nth-child(2n) .listShowCon { margin-left: 5px; }
+.bottomBar, .bottomBarHQ { position: fixed; left: 0px; bottom: 0px; width: 100%; height: 40px; padding: 5px 0px; }
+.bottomBar { background-color: rgb(249, 249, 249); border-top: 1px solid rgb(235, 235, 235); font-size: 1.8rem; text-align: center; z-index: 9999; }
+.bottomBarCon { position: relative; }
+.attention .iInco, .back:before, .attention .iAttInco { margin-right: 7px; font-size: 1.9rem; vertical-align: -10%; }
+.backBtn { width: 20px; height: 30px; padding: 5px 20px 5px 5px; border-right: 1px solid rgb(212, 212, 212); position: absolute; left: 0px; top: 0px; }
+.back:before { transform: rotateY(180deg); display: block; top: 13px; }
+@media screen and (max-width: 320px) {
+}
+.num-top {
+	width: 16px;
+	height: 16px;
+	color: #fff;
+	text-align: center;
+	display: inline;
+	float: left;
+	font-size: 10px;
+	line-height: 10px;
+	background: #F23D7C;
+	border: 1px solid #DD2464;
+	margin-right: 20px;
+	margin-top: 10px;
+	line-height:16px;
+}
+.num-top {
+	background: #ED4138;
+	border: 1px solid #db2b28;
+}
+.num-normal {
+	width: 16px;
+	height: 16px;
+	color: #fff;
+	text-align: center;
+	display: inline;
+	float: left;
+	font-size: 10px;
+	line-height: 10px;
+	background: #C0C1C3;
+	border: 1px solid #ACAEB2;
+	margin-right: 20px;
+	margin-top: 10px;
+	line-height:16px;
+}

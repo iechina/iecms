@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0">
+    <title>拜访父母</title><link href="/tpl/Wap/default/common/wk/css/cardshow.css" rel="stylesheet" type="text/css" />
+			<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+	<script>
+      $(function(){$("#send").click(function(){$("#cover").show();$("#guide").show();});$("#cover").click(function(){$("#cover").hide();$("#guide").hide();$("#guide2").hide();});$("#fengmian").click(function(){$("#fengmian").slideToggle("slow");});$("#sendother").click(function(){if(navigator.userAgent.indexOf("iPhone")==-1){location.href='weixin://contacts/profile/{pigcms:$lj.name}'}else
+{location.href='{pigcms:$lj.sm}';}});});function codefans(){var box=document.getElementById("priview3");box.style.display="block";}setTimeout("codefans()",3000);function codefans2(){var box=document.getElementById("fengmian");box.style.display="none";}setTimeout("codefans2()",4000);
+    var params = {"cardTo":"","cardFrom":"","cardBody":""};   
+    (function(){
+        var onBridgeReady =  function () {
+        //WeixinJSBridge.call('hideOptionMenu'); 
+    }
+    if(document.addEventListener){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }
+    else if(document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady'   , onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady' , onBridgeReady);
+    }
+    })();
+</script>
+<style>div[class^="ad-widsget"],div.ad960-90,div.ad-side,table.adtable,div.a_mu,div.a_h,ins.adsbygoogle,div.ad_pic,div#ggPar,div.wp.a_f,div.wp.a_t,div.a_p,div.a_pb,div.a_pt,div.a_pr,#preAdContent,div.a_cn,div.bm.a_c,div[id^="div-gpt-ad-"],.ad{display:none !important;}</style></head>
+<body>
+
+		<div id="loading" style="width:13%;height:12%;margin: 40% 45%; position: absolute; background: url('/tpl/Wap/default/common/wk/images/img/loading.gif') no-repeat center;background-size: 100%;"></div>
+    <style type="text/css">
+        html{
+            -webkit-text-size-adjust: none;   /* 禁用iPhone中Safari的字号自动调整 */
+        }
+
+        *{
+            padding:0;
+            margin:0;
+        }
+
+        html,body {
+            margin:0;
+            padding:0;
+            width:100%;
+            height:100%;
+        }
+        body {
+            -webkit-backface-visibility: hidden;  /*设置3D旋转时，背面不可见*/
+            line-height:1.3em;
+            font-size:12px;
+            font-weight:bold;
+            color:#000;
+            text-shadow:1px 0px 0px #fff,-1px 0px 0px #fff,0px 1px 0px #fff,0px -1px 0px #fff;
+        }
+        .stage
+        {
+            position:relative;
+            background-color:rgb(255,255,255);
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
+
+        .screenImage
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin:0px;
+            top: 0%;
+            left: 0%;
+            background-size:100% 100%;
+            -webkit-background-size:100% 100%;
+            -moz-background-size:100% 100%;
+            -o-background-size:100% 100%;
+            background-position:0px 0px;
+            background-repeat: no-repeat no-repeat;
+            background-image:url("/tpl/Wap/default/common/wk/images/img/GH009_bg.jpg");
+        }
+
+        .cardTo
+        {
+            position:absolute;
+            left:36%;
+            top:25%;
+            width:auto;
+            height:auto;
+            white-space:nowrap;
+            opacity:0;
+        }
+
+        .cardBody
+        {
+	        text-indent:2em;
+            position:absolute;
+            width:60%;
+            left:15%;
+            top:15%;
+            height:auto;
+            max-height:45%;
+            overflow-y:scroll;
+            visibility:hidden;
+        }
+
+        .cardFrom
+        {
+            position:absolute;
+            height:auto;
+            width:auto;
+            left:9%;
+            top:55%;
+            white-space:nowrap;
+            opacity:0;
+        }
+
+        .split_Lines{
+            position:absolute;
+            width:100%;
+            height:100%;
+        }
+
+    </style><script type="text/javascript">var APP_PUBLIC = "./tpl/Wap/default/common/wk/";</script>
+    <script src="/tpl/Wap/default/common/wk/js/jquery.min.js"></script>
+    <script src="/tpl/Wap/default/common/wk/js/jquery.transit.js"></script>
+    <script src="/tpl/Wap/default/common/wk/js/txtanimatelibrary.js"></script>
+</head>
+<body>
+<div class="stage" id="stage">
+    <div class="screenImage"></div>
+    <div id="cardTo" class="cardTo"><if condition="$cardTo neq ''">{pigcms:$cardTo}：<else />亲爱的国秋：</if></div>
+    <div id="cardBody" class="cardBody"> <if condition="$cardBody neq ''">{pigcms:$cardBody}
+							<else /> 任天高地远，<br>隔不断对你深深的思念；<br>任时光变迁，<br>挡不住对你真挚的情感；<br>岁月可以令你我生华发、<br>变容颜，<br>深厚情谊永不变，<br>依旧停留在心间。<br>恭祝元旦快乐，<br>我们真情久远！</if></div>
+    <div id="cardFrom" class="cardFrom"><if condition="$cardFrom neq ''">{pigcms:$cardFrom} 赠上<else />小骏 赠</if></div>
+    <div id="split_Lines" class="split_Lines"></div>
+</div>
+
+</body>
+<script type="text/javascript">
+            $(function(){
+                    cardWaitReady();
+                    cardReplaceText();
+                    createbjMusic("http://ceshi.wxbox.cn/resource/attachment/music/2014/09/GH009_music.mp3");
+                    if(!$.support.transition)
+                    {
+                       $.fn.transition = $.fn.animate;  
+                    }
+                    var txtCard=new CardAutoAnimation("#cardTo","#cardBody","#cardFrom","#split_Lines");
+                    txtCard.anmitionLines({type:"leftInShow",time:1000,delay:2000},{type:"lineShow",time:1000,delay:1000},{type:"leftInShow",time:1000,delay:1000},function(){
+                        cardEndingSkip();
+                    })
+                });
+            </script></html></div>
+<!-- /content -->
+<if condition="$cardBody eq ''">
+<div class="btnBox" id="btnBox">
+	<div class="priview"> <a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}" id="cancel" class="btnPink">挑选别的</a>
+ <a href="/index.php?g=Wap&m=Wk&a=hcar_make&token={pigcms:$token}&id={pigcms:$id}&cardid={pigcms:$cardid}&defaulttxt="
+		id="ensure" class="btnBlue">开始定制</a>
+
+	</div>
+</div>
+<else />
+	<div class="btnBox" id="btnBox">
+<div class="priview" id="priview2" style="display:block;">
+<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}" rel="external" id="back" class="btnPink">返回修改</a>
+<a href="javascript:void(0);" id="send" class="btnBlue">发给朋友</a>
+</div>
+<div class="priview" id="priview3" style="">
+<a href="javascript:void(0);" id="sendother" class="btnblack" style="display:none;">关注我们的公众号获取很多贺卡</a>
+</div>
+</div>
+<div id="cover"></div>
+<div id="guide">
+<div><img src="{pigcms:$lj.tanchu}"></div>
+<div id="guide_button">
+<div class="left"><button class="button2" onclick="location.href='/index.php?g=Wap&m=Wk&a=hcar_make&token={pigcms:$token}&id={pigcms:$id}&cardid={pigcms:$cardid}&defaulttxt='">再生成一张</button></div>
+<div class="left"><button class="button2" onclick="location.href='http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}'">挑选其他贺卡</button></div>
+</div>
+</div>
+
+
+</if>
+</body>

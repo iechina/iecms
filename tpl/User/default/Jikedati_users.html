@@ -1,0 +1,53 @@
+<include file="Public:head" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+		 <h4>参与用户 </h4><a href="javascript:history.go(-1);" class="right btnGrayS vm" style="margin-top:-27px">返回</a>
+	</div>
+	<div class="tab">
+		<ul>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('Jikedati/index')}">题目管理</a>
+			</li>
+			<li class="current  tabli" id="tab20"><a href="{pigcms::U('Jikedati/users')}">参与用户</a>
+			</li>
+			<li class="tabli" id="tab2"><a href="{pigcms::U('Jikedati/reply')}">回复信息配置</a>
+			</li>
+		</ul>
+	</div>
+	<!--tab end-->
+		<div class="msgWrap">
+			<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+				<thead>
+					<tr>
+						<th width="100">姓名</th>
+						<th width="120">电话</th>
+						<th width="160">时间</th>
+						<th width="120" class="norightborder">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr></tr>
+					<volist name="data" id="item">
+						<form method="post" action="" id="info">
+							<tr>
+								<td>{pigcms:$item.username}</td>
+								<td>{pigcms:$item.phone}</td>
+								<td>{pigcms:$item.date} {pigcms:$item.time}</td>
+								<td class="norightborder">	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Jikedati/delinfos',array('id'=>$item['id'],'token'=>$token))}');">删除 </a>
+								</td>
+							</tr>
+						</form>
+					</volist>
+				</tbody>
+			</table>
+		</div>
+		<div class="cLine">
+			<div class="pageNavigator right">
+				<div class="pages">{pigcms:$page}</div>
+			</div>
+			<div class="clr"></div>
+		</div>
+	</div>
+	<include file="Public:footer" />

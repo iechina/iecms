@@ -1,0 +1,143 @@
+
+<html>
+	<head>
+		<title>元宵节快乐</title>
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="copyright" content="版权所有，抄袭必究">
+        <meta name="format-detection" content="telephone=no">
+		<script>
+        //需要调用leafinit（）来启动，需要声明外层div，id="container"，还有内层div，id="leafContainer"
+        //参数设置
+        var leafNum = 12;           //落下叶子的数量
+        var kindNum = 5;            //叶子的种类
+        //叶子使用图片地址，数量应与kindNum相同
+        var kindurl = new Array("tpl/Wap/default/common/kawahk/9397/2000.png","tpl/Wap/default/common/kawahk/9397/2000 (1).png","tpl/Wap/default/common/kawahk/9397/2000 (2).png","tpl/Wap/default/common/kawahk/9397/2000 (4).png","tpl/Wap/default/common/kawahk/9397/2000 (1).png");
+        </script>
+     
+		<script src="tpl/Wap/default/common/kawahk/common/fleavesup.js"></script>
+		<link rel="stylesheet" href="tpl/Wap/default/common/kawahk/common/leavesup.css" type="text/css" media="screen" charset="utf-8">
+
+		<style type="text/css">
+       
+		#puX7c0csr-an-obj-1 {
+			position:absolute;
+			-webkit-transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);
+			width: 500px;
+			height: 750px;
+			top:0; left:0;
+		}
+
+		#puX7c0csr-an-obj-2 {
+			position:absolute;
+			-webkit-transform: translate3d(0px, 1px, 0px);
+			width: 500px;
+			height: 746px;
+			top:0; left:0;
+			-webkit-animation: ani-puX7c0csr-an-obj-2-0 2.0s 2.5s 1 linear normal both ;
+		}
+
+		@-webkit-keyframes ani-puX7c0csr-an-obj-2-0 {
+			0% {
+				-webkit-transform: translate3d(0px, 1px, 0px);
+				opacity: 0;
+				-webkit-animation-timing-function:linear;
+			}
+			100% {
+				-webkit-transform: translate3d(0px, 1px, 0px);
+				opacity: 1;
+				-webkit-animation-timing-function:linear;
+			}
+		}
+
+		#puX7c0csr-an-obj-3 {
+			position:absolute;
+			-webkit-transform: translate3d(0px, -1px, 0px);
+			width: 500px;
+			height: 746px;
+			top:0; left:0;
+			-webkit-animation: ani-puX7c0csr-an-obj-3-0 2s 7s 1 linear normal both ;
+		}
+
+		@-webkit-keyframes ani-puX7c0csr-an-obj-3-0 {
+			0% {
+				-webkit-transform: translate3d(0px, -1px, 0px);
+				opacity: 0;
+				-webkit-animation-timing-function:linear;
+			}
+			100% {
+				-webkit-transform: translate3d(0px, -1px, 0px);
+				opacity: 1;
+				-webkit-animation-timing-function:linear;
+			}
+		}
+
+        }
+		</style>
+		<script type="text/javascript">
+				function load()
+				{
+					create_base();
+					read_base();
+					setTimeout(create_textdiv,6500);
+					add_kawa_icon();
+					create_music();
+					create_modify();
+				}
+        </script>
+	</head><!--  -->
+	<body style="margin:0; height: 100%;background-color:#000000;" onload="load();">	
+	
+        <script>
+        	words = '喜喜的是节日；圆圆的是汤圆；黏黏的是情谊；甜甜的是思念；滑滑的是日子；溜溜的是好运；浓浓的是祝福。元宵快乐！';
+
+            kawa_data = {
+                words 			   : words,
+                <if condition=" $words eq ''">
+				replace_words      : '喜喜的是节日；圆圆的是汤圆；黏黏的是情谊；甜甜的是思念；滑滑的是日子；溜溜的是好运；浓浓的是祝福。元宵快乐！',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '230 50 350 250', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 30,     // 每秒移动的像素
+                text_color         : '#e78000', // rgb(1,2,3) 'black'
+                font_size          : '21pt',
+                line_height        : '42pt',
+                music              : 'http://sound.kagirl.net/sound/yuanxiao3.mp3',     // url
+                <if condition=" $music eq ''">
+				replace_music      : 'http://sound.kagirl.net/sound/yuanxiao3.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m9397.jpg',
+                title              : '元宵节快乐',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '9397',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '115.28.135.41:8000',
+                modify_optfile     : 'yuanxiao',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes'
+            };
+        </script>
+        <div id="container" style="left:0%;top:0%;z-index:10">
+        <div id="leafContainer"></div>
+    </div>
+
+    <script>
+        leafinit();
+    </script>			
+		<div id="puX7c0csr-an-obj-1"><div><img  height="746" width="500"  src="tpl/Wap/default/common/kawahk/9397/2000.jpg"></div></div>
+		<div id="puX7c0csr-an-obj-2"><div><img  height="746" width="500"  src="tpl/Wap/default/common/kawahk/9397/2000 (1).jpg"></div></div>
+		<div id="puX7c0csr-an-obj-3"><div><img  height="746" width="500"  src="tpl/Wap/default/common/kawahk/9397/2000 (2).jpg"></div></div>
+    </body>
+<include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

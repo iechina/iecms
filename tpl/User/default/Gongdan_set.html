@@ -1,0 +1,198 @@
+<include file="Public:head"/>
+
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+
+
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script>
+
+var KE;
+
+  KindEditor.ready(function(K) {
+
+        KE = K.create("#info", {
+
+resizeType : 1,
+
+allowPreviewEmoticons : false,
+
+items : [
+
+						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+
+						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video'],
+
+allowImageUpload : true,
+
+allowFlashUpload : true,
+
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+
+allowFileManager : false,
+
+filterMode: false,//是否开启过滤模式
+
+syncType:"form",
+
+afterCreate : function() {
+
+var self = this;
+
+self.sync();
+
+},
+
+afterChange : function() {
+
+var self = this;
+
+self.sync();
+
+},
+
+afterBlur : function() {
+
+var self = this;
+
+self.sync();
+
+}
+
+        });
+
+KE.appendHtml = function(id,val) {
+
+this.html(this.html() + val);
+
+if (this.isCreated) {
+
+var cmd = this.cmd;
+
+cmd.range.selectNodeContents(cmd.doc.body).collapse(false);
+
+cmd.select();
+
+}
+
+return this;
+
+}
+
+});
+
+
+
+</script> 
+
+
+
+<div class="content">
+
+          <div class="cLineB"><h4>工单个人微信接收设置</h4></div>
+
+<!--<include file="Auth:header"/>-->
+
+ <div class="ftip" style="margin:25px auto 5px auto;">微信通知，将消息通知到个人微信号【可扩展接口】</div>
+
+ 
+
+ <div class="msgWrap">
+
+<form class="form" method="post" enctype="multipart/form-data" >
+
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+  <THEAD>
+
+
+
+<TR>
+
+  <TH valign="top" align="right" style="text-align:right">开启该功能：</TH>
+
+  <TD><label for="radio3"><input id="radio3" class="radio" type="radio" name="statue" value="1"  <eq name="info.statue" value="1">checked="checked"</eq> /> 开启</label>&nbsp;&nbsp;<label for="radio4"><input class="radio" id="radio4" type="radio" name="statue" value="0" <eq name="info.statue" value="0">checked="checked"</eq> /> 关闭</label></TD>
+
+</TR>
+<TH valign="top" align="right" style="text-align:right">自动回复内容设置：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.zdhf}" name="zdhf" style="width:500px" ></TD>
+  
+</TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">处理bugOpenid：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.openid}" name="openid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
+  
+</TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">操作问题Openid：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.czopenid}" name="czopenid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
+  
+</TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">买前咨询Openid：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.mqopenid}" name="mqopenid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
+  
+</TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">客服昵称：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.name}" name="name" style="width:500px" ></TD>
+  
+</TR>
+<TR>
+
+  <TH valign="top" align="right" style="text-align:right">客服头像：</TH>
+
+  <TD><input type="text" class="px"  name="head" id="head" value="{pigcms:$info.head}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('head',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('head')">预览</a></TD>
+
+</TR
+
+
+  ><TH></TH>
+
+  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　
+
+  	</TD>
+
+  </TR>
+
+  </TBODY>
+
+</TABLE>
+
+  </form>
+
+
+
+
+
+
+
+  </div> 
+
+  
+
+ 
+
+          
+
+        </div>
+
+<include file="Public:footer"/>

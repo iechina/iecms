@@ -1,0 +1,241 @@
+
+<html>
+	<head><script src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script><script>wx.config({debug:false,appId: 'wx2d2fd8b8b9efa1ad',timestamp: 10000,nonceStr: 'hellokawa',signature: 'bcead0e0f0467437abe0b26d50ff760fc38f259f',jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'chooseImage', 'uploadImage', 'getNetworkType']});</script>
+		<title>送给你</title>
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src='kawa.js?ver=26'></script>
+    	<script type="text/javascript">
+        initViewport();
+    	</script>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+        <meta name="format-detection" content="telephone=no">
+		
+		<style type="text/css">
+        @-webkit-keyframes zhuiyao
+        {
+            from{-webkit-transform:rotate(0deg);}
+            to{-webkit-transform:rotate(5deg);}
+        }
+        @-webkit-keyframes denglongyao
+        {
+            from{-webkit-transform:rotate(0deg);}
+            to{-webkit-transform:rotate(8deg);}
+        }
+        @-webkit-keyframes showdaji
+        {
+            from{opacity: 0;-webkit-transform:scale(0,0);}
+            to{opacity: 1;-webkit-transform:scale(1,1);}
+        }
+        @-webkit-keyframes dis
+        {
+            from{opacity: 1}
+            to{opacity: 0}
+        }
+        @-webkit-keyframes clickme
+        {
+            from{opacity: 0;-webkit-transform:scale(0.8,0.8);}
+            to{opacity: 1;-webkit-transform:scale(1,1);}
+        }
+		</style>
+	</head><!--  -->
+	<body style="margin:0; height: 100%;background-color:black;" onload="Init()">	
+	
+        <script>
+        	words = '爆竹声声辞旧岁，喜气洋洋过大年！在这新春来临之际，愿你在新的一年里，事业正当午，身体壮如虎，金钱不胜数，浪漫似乐谱，幸福非你莫属。';
+
+            kawa_data = {
+                words 			   : words,
+                <if condition=" $words eq ''">
+				replace_words      : '爆竹声声辞旧岁，喜气洋洋过大年！在这新春来临之际，愿你在新的一年里，事业正当午，身体壮如虎，金钱不胜数，浪漫似乐谱，幸福非你莫属。',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '120 360 300 220', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : 'red', // rgb(1,2,3) 'black'
+                font_size          : '20pt',
+                line_height        : '40pt',
+                music              : 'http://sound.kagirl.net/sound/20037.mp3',     // url
+               <if condition=" $music eq ''">
+				replace_music      : 'http://sound.kagirl.net/sound/20037.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m20038.jpg',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '20038',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '115.28.135.41:8000',
+                modify_optfile     : 'yangnian',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'no',
+                text_align         :'center',
+                channel            :'zuixinyu'
+            };
+        </script>
+        <script type="text/javascript">
+
+        var imgsrc=['http://t3.qpic.cn/mblogpic/e7f42d473e1e43b9595e/2000',
+        'http://t3.qpic.cn/mblogpic/f7a303d4fbba5b859860/2000',
+        'http://t3.qpic.cn/mblogpic/4f920526ffaac16cf760/2000',
+        'http://t3.qpic.cn/mblogpic/97309503a184ac662b1c/2000',
+        'http://t3.qpic.cn/mblogpic/f0ec48638aa9d0830d24/2000',
+        'http://t3.qpic.cn/mblogpic/4c47d0e0b3004949d3c0/2000',
+        'http://t3.qpic.cn/mblogpic/b1530108b390030b3140/2000',
+        'http://t3.qpic.cn/mblogpic/317313e4b3b227263f94/2000',
+        'http://t3.qpic.cn/mblogpic/db4cb39749396d0c2766/2000',
+        'http://t3.qpic.cn/mblogpic/34493ab43c2851f33b0e/2000',
+        'http://t3.qpic.cn/mblogpic/d758bd4421e37d73e82e/2000',
+        'http://t3.qpic.cn/mblogpic/d90088d0239cd3627ab0/2000',
+        'http://t3.qpic.cn/mblogpic/8cae39b815a7640c2c2c/2000',
+        'http://t3.qpic.cn/mblogpic/237d9b1313c2e0e5cfc2/2000',
+        'http://t3.qpic.cn/mblogpic/59e9a78bfda78eb0de38/2000',
+        'http://t3.qpic.cn/mblogpic/f52c90c18bfd2e77669a/2000',
+        'http://t3.qpic.cn/mblogpic/8517fd0aaf4399c7876a/2000',
+        'http://t3.qpic.cn/mblogpic/eecd3fffb60f318e822c/2000',
+        'http://t3.qpic.cn/mblogpic/416d491780d65bb6e040/2000',
+        'http://t3.qpic.cn/mblogpic/682eee45d31b9fd25454/2000',
+        'http://t3.qpic.cn/mblogpic/142496d25c724180b36a/2000',
+        'http://t3.qpic.cn/mblogpic/d533c70d1c91d559b32e/2000',
+        'http://t3.qpic.cn/mblogpic/c534c1a647e494c31b4e/2000',
+        'http://t3.qpic.cn/mblogpic/d5a14a9706d82941c5b0/2000',
+        'http://t3.qpic.cn/mblogpic/f95902f09c77a7892b2c/2000',
+        'http://t3.qpic.cn/mblogpic/2631f168ed8f8c589a78/2000',
+        'http://t3.qpic.cn/mblogpic/7c6340a7767a6603543e/2000',
+        'http://t3.qpic.cn/mblogpic/7d6e080e318b37db0902/2000',
+        'http://t3.qpic.cn/mblogpic/cef335eb241ff10981d6/2000',
+        'http://t3.qpic.cn/mblogpic/82f9a3767e537e5e3766/2000',
+        'http://t3.qpic.cn/mblogpic/550418415503bafa4100/2000',
+        'http://t3.qpic.cn/mblogpic/da2af35514e642ce1070/2000',
+        'http://t3.qpic.cn/mblogpic/755dd31bfb1193a62428/2000',
+        'http://t3.qpic.cn/mblogpic/412d0f82acfe7ef890ec/2000',
+        'http://t3.qpic.cn/mblogpic/6815d74bbffd74b2fcb2/2000'
+        ]
+
+
+        function Init () {
+            kawa_init();
+            // setmove();
+            // body...
+            // index=1;
+            // src_str='http://hg.jielanhua.cn/ps/20038/'
+            // tt=setInterval(
+            //     function()
+            //     {
+            //         index=index+1;
+            //         if(index>35)
+            //         {
+            //             clearInterval(tt);
+            //             return;
+            //         }
+            //         else
+            //         {
+            //             id('bianpao').src=src_str+index+'.png';
+            //         }
+            //     },200)
+            
+        }
+        function dian()
+        {
+            id('clickdiv').style.display='none';
+            music_player.pause();
+            id('bianpaosheng').play();
+            index=0;
+            // src_str='http://hg.jielanhua.cn/ps/20038/'
+            tt=setInterval(
+                    function()
+                    {
+                        index=index+1;
+                        if(index>=33)
+                        {
+                            showfinal();
+                            if(index==34)
+                                {
+                                    clearInterval(tt);
+                                    id('bianpao').src=imgsrc[index];
+                                    id('bianpaosheng').pause();
+                                    music_player.play();
+
+                                }
+                            // return;
+                        }
+                        else
+                        {
+                            id('bianpao').src=imgsrc[index];
+                        }
+                },200)    
+        }
+        function showfinal()
+        {
+            // console.log('1');
+            id('bao').style.display='block';
+            id('tou').style.display='none';
+            id('bao').style.webkitAnimation='dis 0.5s linear forwards'
+            id('daji').style.webkitAnimation='showdaji 0.5s ease-out forwards';
+            show_textdiv();
+            
+        }
+        function id(name)
+        {
+            return document.getElementById(name)
+        }
+        function setmove() {
+            var startX, startY, endX, endY;
+             var showADID = 1;
+             id('huo').addEventListener("touchstart", touchStart, false);
+             id('huo').addEventListener("touchmove", touchMove, false);
+             id('huo').addEventListener("touchend", touchEnd, false);
+             function touchStart(event) {
+                 var touch = event.touches[0];
+                 startY = touch.pageY;
+                 startX = touch.pageX;
+             }
+             function touchMove(event) {
+                 var touch = event.touches[0];
+                 //endY = (startY - touch.pageY);
+                 // endX = touch.pageX;
+                 // var changestr='translate('+touch.pageX+'px,'+touch.pageY+'px)';
+                 id('huo').style.top=touch.pageY+'px';
+                 id('huo').style.left=touch.pageX+'px';
+                 // console.log(id('huo').style.webkitTransform)
+             }
+             function touchEnd(event) {
+                // alert();
+                // var touch = event.touches[0];
+                // alert(touch.pageX);
+             }
+         }
+
+        </script>
+        <div style='width:500px;height:750px;background-image:url(tpl/Wap/default/common/kawahk/20038/2000.jpg);position:absolute;overflow:hidden;'>
+            <img id='bianpao' src='tpl/Wap/default/common/kawahk/20038/2000.png' style='position:absolute;left:-90px;top:-37px;width:750px;height:800px;'>
+            <img id='tou' src='tpl/Wap/default/common/kawahk/20038/2000 (1).png' style='position:absolute;left:210px;top:00px;'>
+
+            <div id='clickdiv' onclick='dian()' style='position:absolute;width:70px;height:70px;top:505px;left:210px;-webkit-animation:clickme 0.5s linear infinite alternate;-webkit-transform-origin:50% 100%;'>
+                
+                <img src='tpl/Wap/default/common/kawahk/20038/2000 (2).png' style='position:absolute;left:18px;'>
+                <div style='position:absolute;left:8px;top:35px;width:50px;font-size:25px;'>点我</div>
+
+            </div>
+
+        
+            <img id='bao' src='tpl/Wap/default/common/kawahk/20038/2000 (3).png' style='position:absolute;left:120px;top:-10px;display:none;'>
+            <img id='daji' src='tpl/Wap/default/common/kawahk/20038/2000 (4).png' style='position:absolute;width:480px;height:300px;left:10px;top:20px;opacity:0;-webkit-transform-origin:50% 10%'>
+        </div>
+        <div style='display:none;'>
+        <audio id='bianpaosheng' controls="controls" loop="loop" style='display:none'>
+          <source src="http://sound.kagirl.net/sound/bianpao10.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+        </audio>
+    </body>
+   <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script>
+</html>

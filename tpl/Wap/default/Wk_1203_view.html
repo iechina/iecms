@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0">
+<title>来自星星的你</title><link href="/tpl/Wap/default/common/wk/css/cardshow.css" rel="stylesheet" type="text/css" />
+			<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+	<script>
+      $(function(){$("#send").click(function(){$("#cover").show();$("#guide").show();});$("#cover").click(function(){$("#cover").hide();$("#guide").hide();$("#guide2").hide();});$("#fengmian").click(function(){$("#fengmian").slideToggle("slow");});$("#sendother").click(function(){if(navigator.userAgent.indexOf("iPhone")==-1){location.href='weixin://contacts/profile/{pigcms:$lj.name}'}else
+{location.href='{pigcms:$lj.sm}';}});});function codefans(){var box=document.getElementById("priview3");box.style.display="block";}setTimeout("codefans()",3000);function codefans2(){var box=document.getElementById("fengmian");box.style.display="none";}setTimeout("codefans2()",4000);
+    var params = {"cardTo":"","cardFrom":"","cardBody":""};   
+    (function(){
+        var onBridgeReady =  function () {
+        //WeixinJSBridge.call('hideOptionMenu'); 
+    }
+    if(document.addEventListener){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }
+    else if(document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady'   , onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady' , onBridgeReady);
+    }
+    })();
+</script>
+<style>div[class^="ad-widsget"],div.ad960-90,div.ad-side,table.adtable,div.a_mu,div.a_h,ins.adsbygoogle,div.ad_pic,div#ggPar,div.wp.a_f,div.wp.a_t,div.a_p,div.a_pb,div.a_pt,div.a_pr,#preAdContent,div.a_cn,div.bm.a_c,div[id^="div-gpt-ad-"],.ad{display:none !important;}</style></head>
+<body>
+
+		<div id="loading" style="width:13%;height:12%;margin: 40% 45%; position: absolute; background: url('/tpl/Wap/default/common/wk/images/img/loading.gif') no-repeat center;background-size: 100%;"></div>
+<style type="text/css">
+    html{
+        -webkit-text-size-adjust: none;   /* 禁用iPhone中Safari的字号自动调整 */
+    }
+
+    *{
+        padding:0;
+        margin:0;
+    }
+
+    html,body {
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100%;
+    }
+    body {
+        -webkit-backface-visibility: hidden;  /*设置3D旋转时，背面不可见*/
+        line-height:1.3em;
+        font-size:14px;
+        font-weight:bold;
+        color:#000;
+        text-shadow:1px 0px 0px #ffffff,-1px 0px 0px #ffffff,0px 1px 0px #ffffff,0px -1px 0px #ffffff;
+    }
+    .stage
+    {
+        position:relative;
+        background-color:rgb(255,255,255);
+        width:100%;
+        height:100%;
+        overflow:hidden;
+    }
+    .screenImage
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin:0px;
+        top: 0%;
+        left: 0%;
+        background-size:100% 100%;
+        -webkit-background-size:100% 100%;
+        -moz-background-size:100% 100%;
+        -o-background-size:100% 100%;
+        background-position:0px 0px;
+        background-repeat: no-repeat no-repeat;
+        background-image:url("/tpl/Wap/default/common/wk/images/img/XX001_bg.jpg");
+    }
+    .cardTo
+    {
+        position:absolute;
+        left:7%;
+        top:17%;
+        width:auto;
+        height:auto;
+        white-space:nowrap;
+        opacity:0;
+    }
+    .cardBody
+    {
+        text-indent:2em;
+        position:absolute;
+        width:86%;
+        height:auto;
+        max-height:45%;
+        overflow:hidden;
+        visibility:hidden;
+    }
+    .cardFrom
+    {
+        position:absolute;
+        height:auto;
+        width:auto;
+        left:10%;
+        top:39%;
+        white-space:nowrap;
+        opacity:0;
+    }
+    .split_Lines,#rainContainer,#words{
+        position:absolute;
+        width:100%;
+        height:100%;
+    }
+
+
+    @-webkit-keyframes fade
+    {
+        0%{opacity: 1;}
+        95% { opacity: 1;}
+        100% { opacity: 0;}
+    }
+
+    @-moz-keyframes fade
+    {
+        0%{opacity: 1; }
+        95%{ opacity: 1; }
+        100% {opacity: 0;}
+    }
+
+    @keyframes fade
+    {
+        0%{opacity: 1; }
+        95%{opacity: 1;}
+        100% { opacity: 0; }
+    }
+
+
+    @-webkit-keyframes drop
+    {
+        0%{-webkit-transform: translate(0%, -5%); }
+        100% { -webkit-transform: translate(0%, 110%);}
+    }
+
+    @keyframes drop
+    {
+        0% { transform: translate(0%, -5%);}
+        100% {transform: translate(0%, 110%); }
+    }
+
+    @-moz-keyframes drop
+    {
+        0%{ -moz-transform: translate(0%, -5%);}
+        100%{-moz-transform: translate(0%, 110%); }
+    }
+
+    @-webkit-keyframes clockwiseSpin
+    {
+        0%{-webkit-transform: rotate(-50deg); }
+        100%{-webkit-transform: rotate(50deg);}
+    }
+
+    @keyframes clockwiseSpin
+    {
+        0%{ transform: rotate(-50deg);}
+        100%{ transform: rotate(50deg); }
+    }
+
+    @-moz-keyframes clockwiseSpin
+    {
+        0%{-moz-transform: rotate(-50deg);}
+        100%{  -moz-transform: rotate(50deg);}
+    }
+
+    @-webkit-keyframes counterclockwiseSpinAndFlip
+    {
+        0%{ -webkit-transform: scale(-1, 1) rotate(50deg);}
+        100%{-webkit-transform: scale(-1, 1) rotate(-50deg);}
+    }
+
+    @keyframes counterclockwiseSpinAndFlip
+    {
+        0%{transform: scale(-1, 1) rotate(50deg);}
+        100%{transform: scale(-1, 1) rotate(-50deg); }
+    }
+    @-moz-keyframes counterclockwiseSpinAndFlip
+    {
+        0% {-moz-transform: scale(-1, 1) rotate(50deg);}
+        100%{-moz-transform: scale(-1, 1) rotate(-50deg); }
+    }
+
+    /*#animation{*/
+        /*-webkit-animation:bounce 1s .2s ease both;*/
+        /*-moz-animation:bounce 1s .2s ease both;}*/
+    /*@-webkit-keyframes bounce{*/
+        /*0%,20%,50%,80%,100%{-webkit-transform:translateY(0)}*/
+        /*40%{-webkit-transform:translateY(-30px)}*/
+        /*60%{-webkit-transform:translateY(-15px)}*/
+    /*}*/
+    /*@-moz-keyframes bounce{*/
+        /*0%,20%,50%,80%,100%{-moz-transform:translateY(0)}*/
+        /*40%{-moz-transform:translateY(-30px)}*/
+        /*60%{-moz-transform:translateY(-15px)}*/
+    /*}*/
+</style><script type="text/javascript">var APP_PUBLIC = "./tpl/Wap/default/common/wk/";</script>
+<script src="/tpl/Wap/default/common/wk/js/jquery.min.js"></script>
+<script src="/tpl/Wap/default/common/wk/js/jquery.transit.js"></script>
+<script src="/tpl/Wap/default/common/wk/js/txtanimatelibrary.js"></script>
+<script type="text/javascript">
+    $(function(){
+        cardWaitReady();
+        createbjMusic("http://ceshi.wxbox.cn/resource/attachment/music/2014/09/XX001_music.mp3");
+        cardReplaceText();
+        createflowers();
+        if(!$.support.transition)
+        {
+            $.fn.transition = $.fn.animate;
+        }
+        var txtCard=new CardAutoAnimation("#cardTo","#cardBody","#cardFrom","#split_Lines");
+        txtCard.anmitionLines({type:"leftInShow",time:1000,delay:1500},{type:"floatBottomIn",time:1000,delay:1000},{type:"leftInShow",time:1000,delay:2000},function(){
+            cardEndingSkip();
+        })
+    });
+
+    function randomFloat(low, high)
+    {
+        return low + Math.random() * (high - low);
+    }
+
+    function randomInt(low,high)
+    {
+        return Math.round(Math.random()*(high-low)+low);
+    }
+    function createflowers()
+    {
+        for(var i=0;i<6;i++)
+        {
+            createflower();
+        }
+    };
+
+    function createflower() {
+
+        var imgDiv=$("<div style=\"position:absolute;width:100%;height:100%;\"></div>");
+        var leafDur=randomFloat(5,10) + "s";
+        var leafDelay = randomFloat(0, 5) + "s";
+        imgDiv.css({
+            "-webkit-animation-iteration-count": "infinite,infinite",
+            "-webkit-animation-direction":"normal,normal",
+            "-webkit-animation-timing-function": "linear,ease-in",
+            "-webkit-animation-name": "fade, drop",
+            "-webkit-animation-duration":leafDur+","+leafDur,
+            "-webkit-animation-delay":leafDelay+","+leafDelay,
+
+            "-moz-animation-iteration-count": "infinite,infinite",
+            "-moz-animation-direction": "normal,normal",
+            "-moz-animation-timing-function":"linear,ease-in",
+            "-moz-animation-name": "fade, drop",
+            "-moz-animation-duration":leafDur+","+leafDur,
+            "-moz-animation-delay":leafDelay+","+leafDelay,
+
+            "animation-iteration-count": "infinite,infinite",
+            "animation-direction":"normal,normal",
+            "animation-timing-function":"linear,ease-in",
+            "animation-name": "fade, drop",
+            "animation-duration":leafDur+","+leafDur,
+            "animation-delay":leafDelay+","+leafDelay
+        });
+        var spinAnimationName = (Math.random() < 0.5) ? 'clockwiseSpin' : 'counterclockwiseSpinAndFlip';
+
+        var img =$("<img src=\"./tpl/Wap/default/common/wk/images/9.png\">");
+        img.css({
+            "position":"absolute",
+            "top":"-5%",
+            "left": randomInt(10, 90) + "%",
+            "-webkit-animation-iteration-count": "infinite",
+            "-webkit-animation-direction": "alternate",
+            "-webkit-animation-timing-function":"ease-in-out",
+            "-webkit-transform-origin":"50% -100%",
+            "-webkit-animation-name":spinAnimationName,
+            "-webkit-animation-duration":randomFloat(4,8)+"s",
+
+            "-moz-animation-iteration-count":"infinite",
+            "-moz-animation-direction":"alternate",
+            "-moz-animation-timing-function":"ease-in-out",
+            "-moz-transform-origin":"50% -100%",
+            "-moz-animation-name":spinAnimationName,
+            "-moz-animation-duration":randomFloat(4,8)+"s",
+
+            "animation-iteration-count":"infinite",
+            "animation-direction": "alternate",
+            "animation-timing-function": "ease-in-out",
+            "transform-origin":"50% -100%",
+            "animation-name":spinAnimationName,
+            "animation-duration":randomFloat(4,8)+"s"
+        });
+        img.appendTo(imgDiv);
+        imgDiv.appendTo($("#rainContainer"));
+    }
+</script>
+</head>
+<body>
+<div class="stage" id="stage">
+    <div class="screenImage"></div>
+    <div id="rainContainer">
+    </div>
+    <div id="cardTo" class="cardTo"><if condition="$cardTo neq ''">{pigcms:$cardTo}：<else />亲爱的＿＿：</if></if></div>
+    <div id="cardBody" class="cardBody"> <if condition="$cardBody neq ''">{pigcms:$cardBody}
+							<else /> 雪下完了，留下炸鸡和啤酒。雪人化了，留下和你一起堆雪人的我，只想轻轻告诉你：春天来了，都敏俊和二千在外星球愉快的玩耍，给我留下唯一的超能力就是奋不顾身的保护你，只要你开心，一年四季都是初雪的心情。</if></div>
+    <div id="cardFrom" class="cardFrom"><if condition="$cardFrom neq ''">{pigcms:$cardFrom} 赠上<else />你的＿＿</if></div>
+    <div id="split_Lines" class="split_Lines"></div>
+</div>
+</body>
+</html></div>
+<!-- /content -->
+<if condition="$cardBody eq ''">
+<div class="btnBox" id="btnBox">
+	<div class="priview"> <a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}" id="cancel" class="btnPink">挑选别的</a>
+ <a href="/index.php?g=Wap&m=Wk&a=hcar_make&token={pigcms:$token}&id={pigcms:$id}&cardid={pigcms:$cardid}&defaulttxt="
+		id="ensure" class="btnBlue">开始定制</a>
+
+	</div>
+</div>
+<else />
+	<div class="btnBox" id="btnBox">
+<div class="priview" id="priview2" style="display:block;">
+<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}" rel="external" id="back" class="btnPink">返回修改</a>
+<a href="javascript:void(0);" id="send" class="btnBlue">发给朋友</a>
+</div>
+<div class="priview" id="priview3" style="">
+<a href="javascript:void(0);" id="sendother" class="btnblack" style="display:none;">关注我们的公众号获取很多贺卡</a>
+</div>
+</div>
+<div id="cover"></div>
+<div id="guide">
+<div><img src="{pigcms:$lj.tanchu}"></div>
+<div id="guide_button">
+<div class="left"><button class="button2" onclick="location.href='/index.php?g=Wap&m=Wk&a=hcar_make&token={pigcms:$token}&id={pigcms:$id}&cardid={pigcms:$cardid}&defaulttxt='">再生成一张</button></div>
+<div class="left"><button class="button2" onclick="location.href='http://<?php echo $_SERVER['HTTP_HOST'] ?>/index.php?g=Wap&m=Wk&a=index&token={pigcms:$token}&id={pigcms:$info.id}'">挑选其他贺卡</button></div>
+</div>
+</div>
+
+
+</if>
+</body>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<title>定制贺卡显示文字</title>
+		<link rel="stylesheet" type="text/css" href="/tpl/Wap/default/common/wk/css/css.css" />
+		<script src="/tpl/Wap/default/common/wk/js/jquery-1.7.1.min.js"></script>
+	</head>
+	<body>
+		<div class="area2 notice">发布违法、反动的内容或冒用他人、组织名义发布信息，将依据记录提交公安机关处理，请不要涉及敏感政治话题</div>
+		<div id="notice"></div>
+		<script language=javascript>
+					function gocard()
+					{  var cardBody = document.getElementById("cardBody").value
+					   var cardFrom = document.getElementById("cardFrom").value
+					   var cardTo = document.getElementById("cardTo").value
+					    
+					    location.href = "/index.php?g=Wap&m=Wk&a=hcar_make&token={pigcms:$token}&id={pigcms:$id}&cardid={pigcms:$cardid}&action=1&cardBody="+cardBody+'&cardFrom='+cardFrom+'&cardTo='+cardTo
+					}
+				</script>
+		<form action="" id="signupForm">
+			<div>
+				<input type="text" id="cardTo" maxlength="70" name="cardTo" placeholder="收卡人的名字" value="亲爱的朋友" onblur="if(this.value=='') this.value='亲爱的朋友';" onfocus="if(this.value=='亲爱的朋友') this.value='';" onblur="localStorage.cardTo=this.value"/>
+			</div>
+			<div style="background-color:#E3E7E8;padding:10px;border-radius: 5px;margin:20px 0;">
+				<textarea id="cardBody" class="textarea1" name="cardBody" placeholder="这里写祝福语内容" onblur="localStorage.cardBody=this.value">时间流过沙漏，留下大浪淘沙的沉淀，如果一滴水代表一个祝福，我送你一个东海；如果一颗星代表一份幸福，我送你一条银河；如果一棵树代表一份思念，我送你一片森林。 祝您年年有今日，生日快乐！</textarea>
+			</div>
+			<div>
+				<input type="text" id="cardFrom" maxlength="20" name="cardFrom" placeholder="发卡人的名字" value="您的朋友" onblur="if(this.value=='') this.value='您的朋友';" onfocus="if(this.value=='您的朋友') this.value='';" onblur="localStorage.cardTo=this.value"/>
+			</div>
+			<div>
+				<input type="button" class="button1" value="生成微卡" onClick="gocard()">
+				
+			</div>
+		</form>
+		<div class="area2 notice"></div>
+		<div class="area2 notice" id="mazmun_193" onclick="myModal(this)" ; "  data-src="当我把神灯擦三下后，灯神问我想许什么愿望？我说：请帮我保佑一个正在看贺卡的人生日快乐，希望那人永远幸福！唱着生日快乐的歌向你走近，任时光匆匆，永不褪色的是感情，烛光闪闪幸福，折一只祝福的纸鹤，吃一块甜蜜的蛋糕，许一个梦想成真的愿望，生日快乐！ ">当我把神灯擦三下后，灯神问我想许什么愿望？我说：请帮我保佑一个正在看贺卡的人生日快乐，希望那人永远幸福！唱着生日快乐的歌向你走近，任时光匆匆，永不褪色的是感情，烛光闪闪幸福，折一只祝福的纸鹤，吃一块甜蜜的蛋糕，许一个梦想成真的愿望，生日快乐！</div>
+            <div class="area2 notice "  id="mazmun_193 " onclick="myModal(this) ";" data-src="来到这世界的30天里你多数时间都在迷恋甜甜的梦乡，粉粉小小的拳头攥成一团，像是握着对这个大大世界的小小不安，可爱的宝贝，我亲亲的将祝福吻上你绵软的脸颊，愿幸福与好运拥抱你甜美的每一天。亲爱的小宝贝，满月快乐！">来到这世界的30天里你多数时间都在迷恋甜甜的梦乡，粉粉小小的拳头攥成一团，像是握着对这个大大世界的小小不安，可爱的宝贝，我亲亲的将祝福吻上你绵软的脸颊，愿幸福与好运拥抱你甜美的每一天。亲爱的小宝贝，满月快乐！</div>
+		<div class="area2 notice" id="mazmun_196" onclick="myModal(this)" ; "  data-src="新生宝宝的到来，又为这个世界增添了一份亮丽的色彩，在这样美好的日子里，祝小宝宝健康成长，幸福快乐！快乐日子从此降临，幸福的生活即将开始。也祝你们合家幸福，欢乐不断！ ">新生宝宝的到来，又为这个世界增添了一份亮丽的色彩，在这样美好的日子里，祝小宝宝健康成长，幸福快乐！快乐日子从此降临，幸福的生活即将开始。也祝你们合家幸福，欢乐不断！</div>           
+		<div class="area2 notice" id="mazmun_198" onclick="myModal(this)" ; "  data-src="时间流过沙漏，留下大浪淘沙的沉淀，如果一滴水代表一个祝福，我送你一个东海；如果一颗星代表一份幸福，我送你一条银河；如果一棵树代表一份思念，我送你一片森林。
+		祝您年年有今日，生日快乐！ ">时间流过沙漏，留下大浪淘沙的沉淀，如果一滴水代表一个祝福，我送你一个东海；如果一颗星代表一份幸福，我送你一条银河；如果一棵树代表一份思念，我送你一片森林。 祝您年年有今日，生日快乐！</div>
+           <volist name="hcar " id="o ">
+			<div class="area2 notice "  id="mazmun_198 " onclick="myModal(this) ";" data-src="{pigcms:$o.content}">{pigcms:$o.content}</div>
+		</volist>
+		<script type="text/javascript">
+			function myModal(_this) {
+			var mazmun = $(_this).attr('data-src');
+		        $('#cardBody').html(mazmun);	
+			}
+		</script>
+		<script src="/tpl/Wap/default/common/wk/js/jquery.validate.min.js"></script>
+		<script src="/tpl/Wap/default/common/wk/js/sendform.js"></script>
+	</body>
+
+</html>

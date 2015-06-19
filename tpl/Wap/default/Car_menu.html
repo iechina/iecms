@@ -1,0 +1,22 @@
+
+<script type="text/javascript" src="/tpl/Wap/default/common/js/ChatFloat.js"></script>
+<if condition="$kefu['car'] eq '1'"><a href="{pigcms:$kefu.info2}" id="CustomerChatFloat" style="position: fixed; right: 0px; top: 150px; z-index: 99999; height: 70px; width: 65px; min-width: 65px; background-image: url(/tpl/Wap/default/common/css/img/MobileChatFloat.png); background-size: 65px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></a></if> 
+    <span class="copyright" >
+    <if condition="$iscopyright eq 1">
+    {pigcms:$homeInfo.copyright}
+    <else/>
+    {pigcms:$siteCopyright}
+    </if>
+    </span>
+
+<script type="text/javascript">
+window.shareData = {
+            "moduleName":"Car",
+            "moduleID":"0",
+            "imgUrl": "",
+            "sendFriendLink": "{pigcms:$f_siteUrl}{pigcms::U('Car/index',array('token'=>$token))}",
+            "tTitle": "微汽车",
+            "tContent": "微汽车"
+        };
+</script>
+{pigcms:$shareScript}

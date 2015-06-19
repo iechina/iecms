@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0060)http://www.eefarm.cn/sendemail/sr.html?param=500M&r=30%u5143 -->
+<html  xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta  name="apple-mobile-web-app-capable"  content="yes">
+    <meta  name="apple-mobile-web-app-status-bar-style"  content="black">
+    <meta  name="format-detection"  content="telephone=no">
+    <script  type="text/javascript"  src="tpl/static/wqllltc/jquery.js"></script>
+    <script  src="tpl/static/wqllltc/jquery-1.7.2.min.js"  type="text/javascript"></script>
+    <title></title>
+    <link  href="tpl/static/wqllltc/general.css"  rel="stylesheet"  type="text/css">
+    <script  src="tpl/static/wqllltc/public.js"  type="text/javascript"></script>
+</head>
+<body>
+    <script  type="text/javascript">
+       
+        $(function () {
+            $(".tc_1 a").click(function () {
+                $(".sr_tc").hide();
+				
+				window.location.href="{pigcms:$haves.tz}";
+			
+            })
+        })
+        function sendEmail() {
+            var re = /^1\d{10}$/;
+
+            if (!re.test($("#phone").val())) {
+                alert("手机号格式错误！");
+                return;
+            }
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                async: false,
+                data: "",
+                url: "index.php?g=Wap&m=Wqllltc&a=add&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}&id={pigcms:$id}&phone=" + $("#phone").val()+" &hddw=" + $("#hddw").val(),
+                error: function (XmlHttpRequest, textStatus, errorThrown) { if (XmlHttpRequest.responseText != "") { alert(XmlHttpRequest.responseText); } },
+                success: function (d) {
+				
+                    $(".sr_tc").show();
+					
+                }
+            });
+        }
+        $(function (date) {
+			
+            $("#r").html(q("r"));
+		
+        })
+    </script>
+    <div  class="w_w640">
+        <div  class="sr_ph">
+            <em>手机号码</em>
+            <input  id="phone"  type="text"  placeholder="请输入11位手机号码"    >
+            <input  id="hddw"  type="hidden"  value="{pigcms:$info.hddw}"  >
+        </div>
+        <div  class="bor_c">
+        </div>
+        <p  class="sr_p">
+            您已同意办理升级为<span style="color:#F35A00">{pigcms:$info.hddw}</span>流量套餐业务</p>
+        <a  href="javascript:sendEmail();"  class="sr_a">提交</a>
+        <div  class="sr_tc">
+            <div  class="tc_1">
+                <div  class="tc_2">
+				<if condition="$have.pid eq ''">
+                    <h3>
+                        您已提交成功</h3>
+                    <p>
+                        稍后会有客户人员与您联系！</p><else/>
+						 <h3>
+                        您已经提交过了</h3>
+                    <p>
+                        请不要重复提交</p></if>
+                </div>
+                <a  href="javascript:;">确定</a>
+            </div>
+        </div>
+		        
+    </div>
+
+
+</body></html>

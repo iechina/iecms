@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{pigcms:$vote.title}</title>
+<base href="." />
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="./tpl/Wap/default/common/css/allcss/cate28_0.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/128/reset.css" media="all">
+<script type="text/javascript" src="{pigcms::RES}/css/128/maivl.js"></script>
+<script type="text/javascript" src="{pigcms::RES}/css/116/jQuery.js"></script>
+<script type="text/javascript" src="{pigcms::RES}/css/128/swipe.js"></script>
+<script type="text/javascript" src="{pigcms::RES}/css/128/zepto.js"></script>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/128/font-awesome.css" media="all">
+<link rel="stylesheet" href="/tpl/Wap/default/common/paiming/cate36_0.css" >
+<style>
+	.zzs{
+		width:100%;
+		height:75px;
+		text-align:center;
+		line-height:0px;
+		background:url(/tpl/Wap/default/common/Mvote/bg_zz1.png) repeat-x;
+	}
+	.zzs img{ margin:auto;}
+</style>
+
+<script type="text/javascript" src="/tpl/Wap/default/common/paiming/scroll.js"></script>
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+
+.scroll{width:360px;height:181px;margin:0px auto 0 auto; position:relative;overflow:hidden;}
+.mod_01{float:left;width:360px;}
+.mod_01 img{display:block;width:360px;height:181px;}
+.dotModule_new{padding:0 5px;height:11px;line-height:6px;-webkit-border-radius:11px;background:rgba(45,45,45,0.5);position:absolute;bottom:5px;right:10px;z-index:11;}
+#slide_01_dot{text-align:center;margin:3px 0 0 0;}
+#slide_01_dot span{display:inline-block;margin:0 3px;width:5px;height:5px;vertical-align:middle;background:#f7f7f7;-webkit-border-radius:5px;}
+#slide_01_dot .selected{background:#66ff33;}
+</style>
+
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<div class="body" style="background-color:#FFFFFF">
+  <div style="-webkit-transform:translate3d(0,0,0);">
+    <div class="scroll">
+	<div class="slide_01" id="slide_01">
+    <volist name="piclist" id="so">    
+		<div class="mod_01"><a href="{pigcms:$so.url}"><img src="{pigcms:$so.img}" alt=""></a></div>
+	</volist>
+	</div>
+	<div class="dotModule_new">
+		<div id="slide_01_dot"></div>
+	</div>
+</div>
+  </div>
+
+  <!--
+
+        用户分类管理
+
+        -->
+  <section>
+    <ul class="list_ul">
+      <if condition="$vote['zxbm'] eq 1">
+        <li> <a href="/index.php?g=Wap&m=Hvote&a=baoming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+        <figure>
+          <div style="background-image:url(/tpl/Wap/default/common/Mvote/3.png);">&nbsp;</div>
+        </figure>
+        </a> </li>
+      <else/>
+       <li> <a href="javascript:alert('在线报名已经关闭');">
+        <figure>
+          <div style="background-image:url(/tpl/Wap/default/common/Mvote/3.png);">&nbsp;</div>
+        </figure>
+        </a> </li>
+      </if>
+      
+      
+      <li> <a href="/index.php?g=Wap&m=Hvote&a=toupiao&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+        <figure>
+          <div style="background-image:url(/tpl/Wap/default/common/Mvote/4.png);">&nbsp;</div>
+        </figure>
+        </a> </li>
+      <li> <a href="{pigcms:$vote.gzlj}">
+        <figure>
+          <div style="background-image:url(/tpl/Wap/default/common/Mvote/5.png);">&nbsp;</div>
+        </figure>
+        </a> </li>
+    </ul>
+  </section>
+   <section>
+   	<p style="text-align:center">赞助合作单位</p>
+		<p style="text-align:center">︾</p>
+   </section>
+  <section>
+  	<volist id="zzs" name="zzs">
+  		<div class="zzs">
+			<a href="{pigcms:$zzs.lj}"><img src="{pigcms:$zzs.pic}" height="60" width="auto"></a>
+		</div>
+	</volist>	
+  </section>
+ 
+ 
+  
+</div>
+<div style="width:100%; height:50px"></div>
+<div class="device">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="content-slide">
+                    <a href="/index.php?g=Wap&m=Hvote&a=index&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}" >
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/6.png" alt=""></p>
+                        <p class="title2">投票主页</p>
+                    </a>
+                    <a href="{pigcms:$vote.xqlj}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/7.png" alt=""></p>
+                        <p class="title2">活动详情</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=baoming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/8.png" alt=""></p>
+                        <p class="title2">我要参加</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=paiming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                            <p class="ico"><img src="/tpl/Wap/default/common/paiming/9.png" alt=""></p>
+                            <p class="title2">人气排行</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+
+<!--微信分享朋友代码-->
+<script type="text/javascript" src="/tpl/Wap/default/common/wxsharejs.js"></script>
+<script>
+$(function() {
+	var shareTitle = '{pigcms:$vote.title}';
+	var imgUrl = '{pigcms:$vote.picurl}';
+	var descContent = "{pigcms:$vote.info}";
+	wx_share_out(shareTitle,imgUrl,descContent);
+});
+</script>
+<script type="text/javascript">
+if(document.getElementById("slide_01")){
+	var slide_01 = new ScrollPic();
+	slide_01.scrollContId   = "slide_01"; //内容容器ID
+	slide_01.dotListId      = "slide_01_dot";//点列表ID
+	slide_01.dotOnClassName = "selected";
+	slide_01.arrLeftId      = "sl_left"; //左箭头ID
+	slide_01.arrRightId     = "sl_right";//右箭头ID
+	slide_01.frameWidth     = 360;
+	slide_01.pageWidth      = 360;
+	slide_01.upright        = false;
+	slide_01.speed          = 10;
+	slide_01.space          = 30; 
+	slide_01.initialize(); //初始化
+}
+</script>
+</body>
+</html>

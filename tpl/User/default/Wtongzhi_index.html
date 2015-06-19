@@ -1,0 +1,174 @@
+<include file="Public:head"/>
+
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+
+
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/themes/default/default.css" />
+
+<link rel="stylesheet" href="{pigcms::STATICS}/kindeditor/plugins/code/prettify.css" />
+
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script>
+
+var KE;
+
+  KindEditor.ready(function(K) {
+
+        KE = K.create("#info", {
+
+resizeType : 1,
+
+allowPreviewEmoticons : false,
+
+items : [
+
+						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+
+						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video'],
+
+allowImageUpload : true,
+
+allowFlashUpload : true,
+
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+
+allowFileManager : false,
+
+filterMode: false,//是否开启过滤模式
+
+syncType:"form",
+
+afterCreate : function() {
+
+var self = this;
+
+self.sync();
+
+},
+
+afterChange : function() {
+
+var self = this;
+
+self.sync();
+
+},
+
+afterBlur : function() {
+
+var self = this;
+
+self.sync();
+
+}
+
+        });
+
+KE.appendHtml = function(id,val) {
+
+this.html(this.html() + val);
+
+if (this.isCreated) {
+
+var cmd = this.cmd;
+
+cmd.range.selectNodeContents(cmd.doc.body).collapse(false);
+
+cmd.select();
+
+}
+
+return this;
+
+}
+
+});
+
+
+
+</script> 
+
+
+
+<div class="content">
+
+          <div class="cLineB"><h4>微信通知设置</h4></div>
+
+<!--<include file="Auth:header"/>-->
+
+ <div class="ftip" style="margin:25px auto 5px auto;">微信通知，将消息通知到个人微信号【可扩展接口】</div>
+
+ 
+
+ <div class="msgWrap">
+
+<form class="form" method="post" enctype="multipart/form-data" >
+
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+  <THEAD>
+
+
+
+<TR>
+
+  <TH valign="top" align="right" style="text-align:right">开启该功能：</TH>
+
+  <TD><label for="radio3"><input id="radio3" class="radio" type="radio" name="statue" value="1"  <eq name="info.statue" value="1">checked="checked"</eq> /> 开启</label>&nbsp;&nbsp;<label for="radio4"><input class="radio" id="radio4" type="radio" name="statue" value="0" <eq name="info.statue" value="0">checked="checked"</eq> /> 关闭</label></TD>
+
+</TR>
+<TH valign="top" align="right" style="text-align:right">Openid：</TH>
+  
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.openid}" name="openid" style="width:500px" >在微信端回复“微通知”后，复制您的openid</TD>
+  
+</TR>
+<!--<TR>
+
+  <TH valign="top" align="right" style="text-align:right">获取用户信息：</TH>
+
+  <TD><label for="radio5"><input id="radio5" class="radio" type="radio" name="oauthinfo" value="1"  <eq name="info.oauthinfo" value="1">checked="checked"</eq> /> 获取昵称头像等所有信息</label>&nbsp;&nbsp;<label for="radio6"><input class="radio" id="radio6" type="radio" name="oauthinfo" value="0" <eq name="info.oauthinfo" value="0">checked="checked"</eq> /> 只获取openid不获取昵称等信息</label></TD>
+
+</TR>-->
+
+
+  <TH></TH>
+
+  <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　
+
+  	</TD>
+
+  </TR>
+
+  </TBODY>
+
+</TABLE>
+
+  </form>
+
+
+
+
+
+
+
+  </div> 
+
+  
+
+ 
+
+          
+
+        </div>
+
+<include file="Public:footer"/>

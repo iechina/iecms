@@ -1,0 +1,101 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+
+
+
+<div class="cLineB">
+
+  <h4>【{pigcms:$infos.name}】的消息发送记录</h4>
+
+ <a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+
+ </div>
+
+        
+
+ <div class="ftip" style="margin:25px auto 5px auto;">发送信息统计：已发送{pigcms:$count}条消息</div>
+
+ <div class="msgWrap form">
+
+
+
+<div class="bdrcontent">
+
+<div id="div_ptype">
+
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+<thead>
+
+<tr>
+
+<th style=" width:50px;text-align:center">编号</th>
+
+<th  style=" width:250px;text-align:center">发送时间</th>
+<th style=" width:750px;text-align:center" >消息内容</th>
+
+
+
+</tr>
+
+</thead>
+
+<volist name="info" id="vo">
+
+<tr>
+
+
+
+<td style="text-align:center">{pigcms:$i}</td>
+
+
+<td style="text-align:center">{pigcms:$vo.time|date='Y-m-d H:i:s',###}</td>
+
+<td style="text-align:center">{pigcms:$vo.msg}</td>
+
+
+
+</tr>
+
+</volist>
+
+
+
+  </table>
+
+</div>
+
+</div>
+
+<div class="footactions" style="padding-left:10px">
+
+  <div class="pages">{pigcms:$page}</div>
+
+</div>
+
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="clr"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--底部-->
+
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+
+<include file="Public:footer"/>
+
+</if>

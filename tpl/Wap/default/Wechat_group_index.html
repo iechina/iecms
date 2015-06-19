@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://wevas.info/vipstyle/mobile/client/wifi/credit/v2/index.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>交友吧</title>
+	<link rel="stylesheet" href="tpl/static/jiaoyou/global.css">
+	<link rel="stylesheet" href="tpl/static/jiaoyou/style.css">
+<script id="b5mmain" type="text/javascript" charset="utf-8" src="tpl/static/jiaoyou/b5m.main.js"></script></head>
+<style>
+.pages {
+padding: 3px;
+margin: 3px;
+text-align: center;
+}
+.pages .current {
+border: #036cb4 1px solid;
+padding: 2px 5px;
+font-weight: bold;
+margin: 2px;
+color: #fff;
+background-color: #036cb4;
+}
+.pages a {
+border: #eee 1px solid;
+padding: 2px 5px;
+margin: 2px;
+color: #036cb4;
+text-decoration: none;
+}
+
+</style>
+<body ontouchstart="">
+<div class="wrapper">
+
+    <header>
+      <div class="header-wrapper">
+        <div class="header-inner">
+          
+          <div class="waves" >
+          <img src="tpl/static/jiaoyou/1.jpg" style="width:100%">
+           
+          </div>
+        </div>
+      </div>
+    </header>
+ 
+    <h3 class="title">粉丝列表</h3>
+    <ul class="ui-list list-function">
+    <pigcmslist array="list" foreach="list">
+      <li>
+        <div class="thumb">
+          <span><img <if condition="$list.sex eq '1'">  style="width:100% ; border:solid 2px rgb(19, 218, 196)" <else/>style="width:100% ; border:solid 2px rgb(242, 47, 210)"</if>src="{pigcms:$list.smallheadimgurl}&token={pigcms:$token}&wecha_id={pigcms:$list.openid}" class="cateimg_small"  /></span>
+          <span></span>
+        </div>
+        <div class="info ui-border-top" style="margin-left:15px">
+          <h3>{pigcms:$list.nickname}</h3>
+          <p>性别：<if condition="$list.sex eq '1'">男<else/>女</if></p>
+          <p>地区：{pigcms:$list.province}{pigcms:$list.city	}</p>
+        </div>
+        <div class="ui-btn use">私聊</div>
+      </li>
+     </pigcmslist>
+    </ul>
+<div class="footactions" style="padding-left:10px">
+
+  <div class="pages">{pigcms:$page}</div>
+
+</div>
+   
+
+<!-- 添加 show 类显示 -->
+
+<script src="tpl/static/jiaoyou/zepto.min.js"></script>
+<script>
+(function() {
+
+  var $stick = $('.waves');
+  var $header = $('.header-inner');
+
+  window.addEventListener('deviceorientation', orientationListener, false);
+
+  function orientationListener(evt) {
+    evt.gamma = (evt.x * (180 / Math.PI));  //转换成角度值
+    evt.beta = (evt.y * (180 / Math.PI));
+    evt.alpha = (evt.z * (180 / Math.PI));
+
+    var gamma = evt.gamma;
+    var beta  = evt.beta;
+    var alpha = evt.alpha;
+
+    if (evt.accelerationIncludingGravity) {
+      window.removeEventListener('deviceorientation', this.orientationListener, false);
+      gamma = event.accelerationIncludingGravity.x*10;
+      beta  = -event.accelerationIncludingGravity.y*10;
+      alpha = event.accelerationIncludingGravity.z*10;
+    }
+
+    if (this._lastGamma != gamma || this._lastBeta != beta) {
+
+      gamma = gamma.toFixed(0);
+      beta  = beta.toFixed(0);
+      alpha = alpha !== null ? alpha.toFixed(0) : 0;
+
+      if (gamma > 60 && gamma < 90) {
+        gamma = 60;
+      }
+      else if (gamma > -90 && gamma < -60) {
+        gamma = -60;
+      }
+      else if (gamma <= -90 || gamma >= 90) {
+        gamma = 0;
+      }
+
+      if (beta > 0) {
+          $stick.css({
+            '-webkit-transform': "rotate("+-gamma+"deg)"
+          })
+      }
+
+      this._lastGamma = gamma;
+      this._lastBeta = beta;
+    }
+  }
+
+
+  $('.use').on('click', function(evt) {
+
+    if (!$header.hasClass('pulse')) {
+      var $thumb = $(this).siblings('.thumb');
+      var $clone = $thumb.clone();
+
+      $clone.appendTo('.wrapper').css({
+        'position': 'absolute',
+        'left': $thumb.offset().left,
+        'top': $thumb.offset().top + $thumb.height()*0.17,
+        'opacity': 0,
+        '-webkit-transform': 'translate('+($(window).width()/2-20)+'px, '+(80-$(this).offset().top)+'px)'
+      });
+
+      setTimeout(function() {
+        $clone.remove();
+        $header.addClass('pulse');
+      }, 600);
+    }
+  })
+
+  $header.on('webkitAnimationEnd', function() {
+    $header.removeClass('pulse');
+  })
+
+
+})()
+</script>
+
+<object id="b5tplugin" type="application/x-bang5taoplugin" style="position:absolute;left:-9000px;top:-9000px;" width="0" height="0"></object></body></html>

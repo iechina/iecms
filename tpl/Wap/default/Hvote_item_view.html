@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{pigcms:$vote.title}，我是{pigcms:$item.rank}号：{pigcms:$item.item}，请为我投一票，谢谢！</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,maximum-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="{pigcms:$vote.title}">
+<link href="{pigcms::STATICS}/vote/wap/css/custom.css?v=1.0.1" rel="stylesheet">
+<link href="{pigcms::STATICS}/vote/wap/skins/all.css?v=1.0.1" rel="stylesheet">
+<!--link href="{pigcms::STATICS}/vote/wap/vote.css" rel="stylesheet"-->
+<script src="{pigcms::STATICS}/vote/wap/js/jquery.js"></script>
+<link rel="stylesheet" href="/tpl/Wap/default/common/paiming/cate36_0.css" >
+ <style>
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+  margin:0;
+  padding:0;
+}
+body{
+  font:normal 14px/1.5 Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif;color:#000;
+  /*background: url(../images/themes/bg009.jpg) #D0D0D0;*/
+  background-size:288px auto;
+-webkit-user-select:none;margin:0 auto;padding:0;list-style:none;vertical-align:middle}
+a {
+  color: #C00;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+#vote-text ul {
+    list-style: none outside none;
+    margin: 0 auto;
+    padding: 0;
+    background-color: white;
+}
+#vote-text li{
+  display:block;
+  position:relative;
+  display:block;
+  width:30%;
+  float:left;
+  margin:5px;
+  padding:0;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius: 3px;
+  /*box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow:0 0 2px 0 rgba(0, 0, 0, 0.1);*/
+  border-bottom:1px solid #E6E6E6;
+}
+/*#vote-text li:hover{
+  background-color:#FAFAFA;
+}*/
+#vote-text li label{
+  display:block; padding:15px 5px 15px 10px; cursor:pointer;
+}
+#vote-text li label div{
+  float:left;
+}
+#vote-text li label span{
+  display: block;
+    margin-left: 25px;
+  margin-right: 5px;
+  font-size:14px;line-height: 20px
+}
+
+/*li label div.checked ~ span{
+  color:#3498db;
+}*/
+
+
+#vote-text .votebar{
+  padding-bottom:8px;
+}
+#vote-text .percentage{
+  bottom: 8px;
+    font-size: 10px;
+    max-width: 100px;
+    position: absolute;
+  line-height:10px;
+    right: 7px;
+}
+#vote-text .user{
+  max-width: 50px;
+  font-style:normal;
+  color:#333;
+  margin-left:3px;
+
+}
+#vote-text .pbg {
+  height: 10px;
+  background-color:rgba(0, 0, 0, 0.02);
+  box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
+  -moz-box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
+  -webkit-box-shadow:1px 1px 1px 1px rgba(0, 0, 0, 0.07) inset;
+  -webkit-border-radius:6px;
+  -moz-border-radius:6px;
+    border-radius: 6px;
+  margin-left:10px;
+  margin-right:100px;
+}
+#vote-text .pbr {
+    background-color: #5AAF4A;
+    border-radius: 6px;
+    height: 10px;
+}
+ul li{list-style:none;margin:5px;}
+.div_test {
+padding: 5px 10px 6px;
+text-decoration: none;
+
+border-radius: 15px;
+-moz-border-radius: 15px;
+-webkit-border-radius: 15px;
+
+-moz-box-shadow: 0 1px 2px rgba（0，0，0，0.5）;
+-webkit-box-shadow: 0 1px 2px rgba（0，0，0，0.5）;
+text-shadow: 0 -1px 1px rgba（0，0，0，0.25）;
+border-bottom: 1px solid rgba（0，0，0，0.25）;
+position: relative;
+cursor: pointer;
+background-color: #fff;
+}
+.date {
+  display:block;
+    color: #8C8C8C;
+    font-size: 11px;
+    margin:5px auto 10px auto;
+}
+.modus{
+  margin:0; font-size:14px; line-height:30px;border-top:1px solid #E6E6E6;border-bottom:1px solid #E6E6E6; margin:15px 0 0 0; background-color:#FAFAFA; text-align:center
+}
+.number{
+  color:#999;
+}
+.clr{
+  display:block;
+  clear:both;
+  height:1px;
+  overflow:hidden;
+}
+h2{
+  font-size:18px;
+  line-height:22px;
+  font-weight:normal;
+  margin:0;
+  word-break:normal;
+  word-wrap:break-word;
+}
+
+.pxbtn {
+
+  background: #ff6501;
+  background-image: -webkit-gradient(linear, left top, left bottom, from( #ffa201 ), to( #ff6501 )); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient( #ffa201 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient( #ffa201 , #ff6501 ); /* FF3.6 */
+  background-image:     -ms-linear-gradient( #ffa201 , #ff6501 ); /* IE10 */
+  background-image:      -o-linear-gradient( #ffa201 , #ff6501 ); /* Opera 11.10+ */
+  background-image:         linear-gradient( #ffa201 , #ff6501 );
+  border: 1px solid #ff6501;
+  border-bottom: 1px solid #d35605;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #FFFFFF;
+  border-radius: 0.6em 0.6em 0.6em 0.6em;
+  display: block;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0 0 2px #BE4205;
+  font-size: 18px;
+  padding:10px;
+  margin:15px 0 0 0;
+}
+.pxbtn:visited {
+  background-image: -webkit-gradient(linear, left top, left bottom, from( #ffa201 ), to( #ff6501 )); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient( #ffa201 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient( #ffa201 , #ff6501 ); /* FF3.6 */
+  background-image:     -ms-linear-gradient( #ffa201 , #ff6501 ); /* IE10 */
+  background-image:      -o-linear-gradient( #ffa201 , #ff6501 ); /* Opera 11.10+ */
+  background-image:         linear-gradient( #ffa201 , #ff6501 );
+}
+.pxbtn:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from( #ff7f01 ), to( #ff6501 )); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient( #ff7f01 , #ff6501 ); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient( #ff7f01 , #ff6501 ); /* FF3.6 */
+  background-image:     -ms-linear-gradient( #ff7f01 , #ff6501 ); /* IE10 */
+  background-image:      -o-linear-gradient( #ff7f01 , #ff6501 ); /* Opera 11.10+ */
+  background-image:         linear-gradient( #ff7f01 , #ff6501 );
+}
+.pxbtn:active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from( #ff6501 ), to( #ffa201 )); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient( #ff6501 , #ffa201 ); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient( #ff6501 , #ffa201 ); /* FF3.6 */
+  background-image:     -ms-linear-gradient( #ff6501 , #ffa201 ); /* IE10 */
+  background-image:      -o-linear-gradient( #ff6501 , #ffa201 ); /* Opera 11.10+ */
+  background-image:         linear-gradient( #ff6501 , #ffa201 );
+  border: 1px solid #ff6501;
+  border-top: 1px solid #d35605;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) inset;
+}
+
+.vote_result_meta {
+    display: inline-block;
+    vertical-align: top
+}
+ .vote_graph {
+    display: block;
+    background-color: #dedede
+}
+ .vote_progress {
+    display: block;
+    background-color: #dedede;
+    height: 5px
+}
+section{box-shadow:0 0 5px 2px #E4E4E4;background:#fff;border-radius:3px 3px 3px 3px;padding:5px 0;margin-bottom:10px;}
+
+section .sp{display:block;width:80%;height:20px;line-height:20px;margin:0 auto;margin-bottom:15px;margin-top:10px;text-align:center;background-color:#F9CAB4;background-image: -moz-linear-gradient(center bottom , #ce9479 0%, #dbb29f 100%);border-radius: 5px;box-shadow: 0 1px 0 #e5b097, 0 1px 2px rgba(9, 105, 181, 0.5);color: #FD605F;display: block;font-size: 18px;font-weight:bold;padding: 10px 20px;text-align: center;text-decoration: none;text-shadow: 3px 3px rgba(225, 200, 189, 0.8);}
+
+section .sp2{display:block;width:80%;height:20px;line-height:20px;margin:0 auto;margin-bottom:15px;margin-top:10px;text-align:center;background-color:#0F6;background-image: -moz-linear-gradient(center bottom , #ce9479 0%, #dbb29f 100%);border-radius: 5px;color:#FFF;display: block;font-size: 18px;font-weight:bold;padding: 10px 20px;text-align: center;text-decoration: none;}
+
+/* ͶƱ˵�� */
+section .sm{padding:10px;}
+section .sm .f14{font-size:14px;}
+section .sm p{font-size:12px;color:#666;line-height:24px;}
+section .title {
+margin-top: 0px;
+margin-bottom: 0px;
+white-space: normal;
+max-width: 100%;
+min-height: 1.5em;
+padding: 5px 3px;
+line-height: 2em;
+color: rgb(255, 255, 255);
+font-family: 微软雅黑;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom-left-radius: 0px;
+text-align: center;
+background-color: #f9cbb4;
+word-wrap: break-word !important;
+box-sizing: border-box !important;
+font-size: 16px;
+font-weight: bold !important;
+}
+section .search{width:75%;margin:0 auto;height:30px;padding:10px;text-align:center;margin-top:-20px;}
+section .search input[type="text"] {width:72%;height:28px;border:1px solid #ccc;-webkit-appearance:none;-moz-appearance:none;-webkit-border-radius: 6em;-moz-border-radius: 3px;border-radius:3px 3px 3px 3px;text-indent:5px;}
+section .sub{width:45px;height:30px;background:#ECECEC;cursor:pointer;-webkit-appearance:none;-moz-appearance:none; line-height:30px; float:right}
+
+.gz {
+color: red;
+padding: 10px;
+font-weight: bold;
+margin: auto 10px;
+font-size: 1.2rem;
+border: 2px solid;
+border-radius: 25px;
+-moz-border-radius: 25px;
+line-height: 22px;
+}
+</style>
+</head>
+<body id="vote-text" style="width:100%;margin:0 auto;">
+               <div style="-webkit-transform:translate3d(0,0,0);">
+    <div id="banner_box" class="box_swipe" style="visibility: visible;">
+      <img src="{pigcms:$vote.picurl}" alt="" width="100%">
+      <if condition="$vote['ljnn'] neq ''">
+      <a href="{pigcms:$vote.dblj}" style="position:absolute;bottom:10px; right:10px"><img src="{pigcms:$vote.ljnn}" width="100" height="30"></a>
+      </if>
+    </div>
+  </div>
+
+<section>
+<style>
+ .contentss{margin:10px; text-align:center}
+ .contentss img{ width:95%;}
+</style>
+<span class="sp">我是{pigcms:$item.rank}号：{pigcms:$item.item}</span>
+<div class="contentss">
+ {pigcms:$item['content']|html_entity_decode}
+ <if condition="$item['movie_link'] neq ''">
+  <video width="100%" height="200" controls><source src="{pigcms:$item.movie_link}" type="video/mp4" >示例视频1</source></video>
+ </if> 
+</div>
+<span class="sp"><a href="/index.php?g=Wap&m=Hvote&a=paiming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}"  style="border-bottom:none">查看排名</a></span>
+<div  style="margin:10px; text-align:center">
+已经有<font size="+3" color="#FF0000" style="color:red; font-weight:bold;font-family:Georgia;" >{pigcms:$item.vcount}</font>人支持我<br/>
+第<font size="+3" color="#FF0000" style="color:red; font-weight:bold;font-family:Georgia;" >{pigcms:$vpm}</font>名
+</div>
+
+<span class='sp2'><a href="{pigcms:$vote.lj}" style="border-bottom:none;">点击关注 “{pigcms:$wuser.wxname}” </a></span>
+<div style="margin:10px; font-size:14px">
+第一步：关注"{pigcms:$wuser.wxname}"微信号：{pigcms:$wuser.weixin}<br/>
+第二步：发送 {pigcms:$vote.tpkeyword}+编号至"{pigcms:$wuser.wxname}"微信公众号，即可为我投票哦！例如：{pigcms:$vote.tpkeyword}{pigcms:$item.rank}</div>
+<span class="sp"><a onClick="lp();" style="border-bottom:none ">分享到朋友圈拉票</a></span>
+<div style="margin:10px; font-size:14px">
+点击右上角<img src="/tpl/Wap/default/common/paiming/fx.jpg">分享给微信好友或朋友圈</div>
+<!--<span class="sp">活动声明</span>-->
+<div style="margin:20px; font-size:14px">
+ {pigcms:$vote['zzs']|html_entity_decode}</div>
+<div class="gz">
+关注{pigcms:$wuser.wxname}微信号：{pigcms:$wuser.weixin}<br>
+发送：{pigcms:$vote.tpkeyword}+编号,例如：{pigcms:$vote.tpkeyword}{pigcms:$item.rank}，可以为我投票哦！快来支持我吧！
+</div>
+
+</section>
+
+	 <style>
+#mcover{ position: fixed;   top:0;  left:0; width:100%; height:100%;background:rgba(0, 0, 0, 0.7);  display:none;z-index:20000;}
+#mcover img {position: fixed;right: 18px;top:5px;width: 260px;height: 180px;z-index:20001;}
+     </style>
+
+<div style="width: 100%; text-align: center;margin-top:10px;">
+<!-- 
+<a onclick="document.getElementById('mcover').style.display='block';"><img src="http://loupan.jyfw.cn/images/Baoming/xiantao/clsqyx/images/btn_2.png" style="width:120px"></a>
+ -->
+</div>
+<div id="mcover" onClick="document.getElementById('mcover').style.display='';"><img src="/tpl/static/vote/wap/guide.png"></div>
+
+<div style="width:100%; height:50px"></div>
+<div class="device">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="content-slide">
+                    <a href="/index.php?g=Wap&m=Hvote&a=index&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}" >
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/6.png" alt=""></p>
+                        <p class="title2">投票主页</p>
+                    </a>
+                    <a href="{pigcms:$vote.xqlj}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/7.png" alt=""></p>
+                        <p class="title2">活动详情</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=baoming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/8.png" alt=""></p>
+                        <p class="title2">我要参加</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=paiming&id={pigcms:$vote.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                            <p class="ico"><img src="/tpl/Wap/default/common/paiming/9.png" alt=""></p>
+                            <p class="title2">人气排行</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+
+			window.shareData = {  
+
+					"moduleName":"Hvote",
+
+					"moduleID": '0',
+
+					"imgUrl": "{pigcms:$item.startpicurl}", 
+
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U('Hvote/item_view',array('token'=>$token,'id'=>$id,'vid'=>$vid))}",
+
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U('Hvote/item_view',array('token'=>$token,'id'=>$id,'vid'=>$vid))}",
+
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U('Hvote/item_view',array('token'=>$token,'id'=>$id,'vid'=>$vid))}",
+
+					"tTitle": "我是{pigcms:$item.rank}号{pigcms:$item.item}，请为我投票吧!",
+
+					"tContent": "我是{pigcms:$item.rank}号{pigcms:$item.item}，请为我投票吧!"
+
+				};
+
+		</script>
+
+        	
+
+        {pigcms:$shareScript}
+    <script type="text/javascript">
+       function lp(){
+	document.getElementById('mcover').style.display='block';
+     }
+    </script>
+
+{pigcms:$shareScript}
+</body>
+</html>

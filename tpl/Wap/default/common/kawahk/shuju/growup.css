@@ -1,0 +1,326 @@
+@import url("http://faycheng.com/vipstyle/mobile/client/profile/v2/css/animate.css");
+@font-face {
+  font-family: 'fzlantingheis-ul-gbregular';
+  src: url("http://faycheng.com/vipstyle/mobile/client/profile/v2/fonts/fzltcxhjw_0-webfont.ttf");
+  font-weight: normal;
+  font-style: normal; }
+body {
+  background-color: #fff; }
+
+.mod-action {
+  padding: 8px 15px;
+  line-height: 30px;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 46px;
+  background: #F8F9Fa;
+  top: 0;
+  left: 0;
+  z-index: 11; }
+  .mod-action button {
+    float: right; }
+
+.mod-action + section {
+  margin-top: 46px; }
+
+.mod-total {
+  background-color: #1a90e9;
+  overflow: hidden; }
+
+.circle-out {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  position: relative;
+  background: #56aef0;
+  margin: 32px auto 0; }
+
+.circle-out-left {
+  position: absolute;
+  width: 50%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+
+.circle-range-left {
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 100px;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, white), to(white));
+  opacity: 0; }
+
+.circle-out-right {
+  position: absolute;
+  width: 50%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+
+.circle-range-right {
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 100px;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), color-stop(50%, white), color-stop(50%, transparent), to(transparent));
+  opacity: 0; }
+
+.circle-inner-center {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border-radius: 94px;
+  background: #1a90e9;
+  color: #fff;
+  z-index: 9; }
+  .circle-inner-center p:last-child {
+    color: #bbd7f6; }
+
+.ui-center {
+  height: 100%; }
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #fff;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -4px;
+  display: none; }
+
+.circle-range-right .dot {
+  top: 0; }
+
+.circle-s .circle-out {
+  width: 60px;
+  height: 60px;
+  background: #d9d9d9;
+  margin: 20px auto 8px; }
+
+.circle-s .circle-inner-center {
+  top: 3px;
+  left: 3px;
+  bottom: 3px;
+  right: 3px;
+  background: #fff; }
+
+.num {
+  display: inline-block;
+  font-size: 24px;
+  text-align: center; }
+
+.num span {
+  font-size: 82px;
+  line-height: 82px;
+  font-family: fzlantingheis-ul-gbregular;
+  width: 50px;
+  display: inline-block; }
+
+.num span.text-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 3px;
+  background: #fff;
+  margin: 0 8px; }
+
+.mod-title {
+  line-height: 44px;
+  height: 44px;
+  margin-left: 15px;
+  position: relative;
+  color: #fff;
+  margin-top: 20px; }
+  .mod-title.mod-title-link:after {
+    background: url("http://faycheng.com/vipstyle/mobile/client/profile/v2/img/arrow.png") no-repeat;
+    -webkit-background-size: 8px auto;
+    content: "";
+    display: block;
+    width: 8px;
+    height: 14px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -8px; }
+  .mod-title .action {
+    position: absolute;
+    right: 25px; }
+
+.mod-privilege-list {
+  margin: 10px 0 30px;
+  overflow: hidden; }
+  .mod-privilege-list li {
+    width: 50%;
+    float: left;
+    color: #5d8ca6;
+    text-align: center; }
+
+.mod-privilege-list li .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #5794ee), to(#5794ee)); }
+.mod-privilege-list li .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#5794ee), color-stop(50%, #5794ee), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(2) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #3ed086), to(#3ed086)); }
+.mod-privilege-list li:nth-child(2) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#3ed086), color-stop(50%, #3ed086), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(3) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #c875e4), to(#c875e4)); }
+.mod-privilege-list li:nth-child(3) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#c875e4), color-stop(50%, #c875e4), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(4) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #f9b511), to(#f9b511)); }
+.mod-privilege-list li:nth-child(4) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#f9b511), color-stop(50%, #f9b511), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(5) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #1ca5ee), to(#1ca5ee)); }
+.mod-privilege-list li:nth-child(5) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#1ca5ee), color-stop(50%, #1ca5ee), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(6) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #55c8f3), to(#55c8f3)); }
+.mod-privilege-list li:nth-child(6) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#55c8f3), color-stop(50%, #55c8f3), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(7) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #00aeef), to(#00aeef)); }
+.mod-privilege-list li:nth-child(7) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#00aeef), color-stop(50%, #00aeef), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(8) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #ff8e2a), to(#ff8e2a)); }
+.mod-privilege-list li:nth-child(8) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#ff8e2a), color-stop(50%, #ff8e2a), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list li:nth-child(9) .circle-range-left {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(transparent), color-stop(50%, transparent), color-stop(50%, #97d226), to(#97d226)); }
+.mod-privilege-list li:nth-child(9) .circle-range-right {
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(#97d226), color-stop(50%, #97d226), color-stop(50%, transparent), to(transparent)); }
+.mod-privilege-list .circle-inner-center i {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url("http://faycheng.com/vipstyle/mobile/client/profile/v2/img/icon_growup.png") -40px 0;
+  -webkit-background-size: 100px auto;
+          background-size: 100px auto; }
+.mod-privilege-list .done .circle-inner-center i {
+  background-position: 0 0; }
+.mod-privilege-list .icon-ok {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("http://faycheng.com/vipstyle/mobile/client/profile/v2/img/icon_growup.png") -80px 0;
+  -webkit-background-size: 100px auto;
+          background-size: 100px auto;
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  z-index: 10;
+  display: none; }
+.mod-privilege-list li:nth-child(1) .circle-inner-center i {
+  background-position: -40px 0px; }
+.mod-privilege-list li:nth-child(1) .done .circle-inner-center i {
+  background-position: 0 0px; }
+.mod-privilege-list li:nth-child(1) .icon-ok {
+  background-position: -80px 0px; }
+.mod-privilege-list li:nth-child(2) .circle-inner-center i {
+  background-position: -40px -40px; }
+.mod-privilege-list li:nth-child(2) .done .circle-inner-center i {
+  background-position: 0 -40px; }
+.mod-privilege-list li:nth-child(2) .icon-ok {
+  background-position: -80px -20px; }
+.mod-privilege-list li:nth-child(3) .circle-inner-center i {
+  background-position: -40px -80px; }
+.mod-privilege-list li:nth-child(3) .done .circle-inner-center i {
+  background-position: 0 -80px; }
+.mod-privilege-list li:nth-child(3) .icon-ok {
+  background-position: -80px -40px; }
+.mod-privilege-list li:nth-child(4) .circle-inner-center i {
+  background-position: -40px -120px; }
+.mod-privilege-list li:nth-child(4) .done .circle-inner-center i {
+  background-position: 0 -120px; }
+.mod-privilege-list li:nth-child(4) .icon-ok {
+  background-position: -80px -60px; }
+.mod-privilege-list li:nth-child(5) .circle-inner-center i {
+  background-position: -40px -160px; }
+.mod-privilege-list li:nth-child(5) .done .circle-inner-center i {
+  background-position: 0 -160px; }
+.mod-privilege-list li:nth-child(5) .icon-ok {
+  background-position: -80px -80px; }
+.mod-privilege-list li:nth-child(6) .circle-inner-center i {
+  background-position: -40px -200px; }
+.mod-privilege-list li:nth-child(6) .done .circle-inner-center i {
+  background-position: 0 -200px; }
+.mod-privilege-list li:nth-child(6) .icon-ok {
+  background-position: -80px -100px; }
+.mod-privilege-list li:nth-child(7) .circle-inner-center i {
+  background-position: -40px -240px; }
+.mod-privilege-list li:nth-child(7) .done .circle-inner-center i {
+  background-position: 0 -240px; }
+.mod-privilege-list li:nth-child(7) .icon-ok {
+  background-position: -80px -120px; }
+.mod-privilege-list li:nth-child(8) .circle-inner-center i {
+  background-position: -40px -280px; }
+.mod-privilege-list li:nth-child(8) .done .circle-inner-center i {
+  background-position: 0 -280px; }
+.mod-privilege-list li:nth-child(8) .icon-ok {
+  background-position: -80px -140px; }
+.mod-privilege-list li:nth-child(9) .circle-inner-center i {
+  background-position: -40px -320px; }
+.mod-privilege-list li:nth-child(9) .done .circle-inner-center i {
+  background-position: 0 -320px; }
+.mod-privilege-list li:nth-child(9) .icon-ok {
+  background-position: -80px -160px; }
+
+.bounceInUp {
+  -webkit-animation-name: bounceInUp;
+  animation-name: bounceInUp; }
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both; }
+
+@-webkit-keyframes bounceInUp {
+  0%, 60%, 75%, 90%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30px, 0);
+    transform: translate3d(0, 30px, 0); }
+
+  20% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0); }
+
+  35% {
+    -webkit-transform: translate3d(0, 7px, 0);
+    transform: translate3d(0, 7px, 0); }
+
+  50% {
+    -webkit-transform: translate3d(0, -5px, 0);
+    transform: translate3d(0, -5px, 0); }
+
+  65% {
+    -webkit-transform: translate3d(0, 3px, 0);
+    transform: translate3d(0, 3px, 0); }
+
+  80% {
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -2px, 0); }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); } }

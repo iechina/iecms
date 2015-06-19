@@ -1,0 +1,95 @@
+<include file="Public:head"/>
+
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+
+
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+
+
+
+<div class="content">
+
+          <div class="cLineB"><h4>下发工单消息给用户</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a></div>
+
+<!--<include file="Auth:header"/>-->
+
+ <div class="ftip" style="margin:25px auto 5px auto;">该消息将直接发送给{pigcms:$info.name}用户，文本的内容请不要带上格式</div>
+
+ 
+
+ <div class="msgWrap">
+
+<form class="form" method="post" enctype="multipart/form-data" >
+
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+  <THEAD>
+
+
+
+<TR>
+
+  <TH valign="top" align="right" style="text-align:right">商户名称:</TH>
+
+  <TD style="padding-left: 200px;">{pigcms:$info.name}</TD>
+
+</TR>
+<TR>
+
+  <TH valign="top" align="right" style="text-align:right">商户头像:</TH>
+
+  <TD ><img style="width: 200px;
+margin-left: 150px;" src="{pigcms:$info.headimgurl}"></TD>
+
+</TR>
+<TH valign="top" align="right" style="text-align:right">通知内容设置：</TH>
+  
+  <TD><textarea class="px" id="Hfcontent" name="text" style="width:500px; height:150px"></textarea></TD>
+  
+</TR>
+<!--<TR>
+
+  <TH valign="top" align="right" style="text-align:right">获取用户信息：</TH>
+
+  <TD><label for="radio5"><input id="radio5" class="radio" type="radio" name="oauthinfo" value="1"  <eq name="info.oauthinfo" value="1">checked="checked"</eq> /> 获取昵称头像等所有信息</label>&nbsp;&nbsp;<label for="radio6"><input class="radio" id="radio6" type="radio" name="oauthinfo" value="0" <eq name="info.oauthinfo" value="0">checked="checked"</eq> /> 只获取openid不获取昵称等信息</label></TD>
+
+</TR>-->
+
+
+  <TH></TH>
+
+  <TD><button type="submit"  name="button"  class="btnGreen left" >发送通知</button>　
+
+  	</TD>
+
+  </TR>
+
+  </TBODY>
+
+</TABLE>
+
+  </form>
+
+
+
+
+
+
+
+  </div> 
+
+  
+
+ 
+
+          
+
+        </div>
+
+<include file="Public:footer"/>

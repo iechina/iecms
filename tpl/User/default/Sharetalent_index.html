@@ -1,0 +1,68 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+<h4 class="left">分享达人</h4>
+    <div class="clr"></div>
+    </div>
+    <!--tab start-->
+<div class="tab">
+<ul>
+<li class="current  tabli" id="tab0"><a href="{pigcms::U('Sharetalent/index',array('token'=>$token))}">分享管理</a></li>
+<li class="<pigcmsif where="$tabid eq 2">current</pigcmsif> tabli" id="tab1"><a href="{pigcms::U('Sharetalent/sm',array('token'=>$token))}">分享说明</a></li>
+<li class="<pigcmsif where="$tabid eq 3">current</pigcmsif> tabli" id="tab2"><a href="{pigcms::U('Sharetalent/user',array('token'=>$token))}">用户管理</a></li>
+<li class="<pigcmsif where="$tabid eq 4">current</pigcmsif> tabli" id="tab3"><a href="{pigcms::U('Sharetalent/reply',array('token'=>$token))}">分享配置</a></li> 
+</ul>
+</div>
+<!--tab end-->
+          <div class="cLine">
+            <div class="pageNavigator left">
+            <a href="{pigcms::U('Sharetalent/add')}" title="添加分享活动" class="btnGrayS vm bigbtn"><img src="./tpl/User/default/common/images/product/add.png" class="vm">添加分享活动</a>
+            </div>
+          
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap bgfc">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					
+					<th  width="20%" class="time"> 活动介绍标题</th>
+					<th width="15%">活动奖励</th>
+					
+					<th width="10%">奖励规则</th>
+                    <th width="10%">截至时间</th>
+                      <th width="10%">剩余奖品数量</th>
+                      <th width="10%">总浏览量</th>
+					
+					<th width="25%" class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="list" name="info">
+                <tr>
+                  <td>{pigcms:$list.title}</td>
+                  <td>{pigcms:$list.prize}</td>
+                   <td>浏览量达到<span style="color:red">{pigcms:$list.rule}</span>人</td>
+                
+                  <td>{pigcms:$list.statdate|date='Y-m-d',###}</td>
+                  <td><span style="color:red">{pigcms:$list.number}</span></td>
+                  <td><span style="color:red">{pigcms:$list.click}</span></td>
+                  
+                  <td class="norightborder"><a class="btnGreen" href="{pigcms::U('Sharetalent/edit',array('id'=>$list['id']))}" title="编辑">编辑</a> <a class="btnGreen" href="javascript:drop_confirm('您确定要删除吗？', '{pigcms::U('Sharetalent/del',array('id'=>$list['id']))}');">删除</a> 
+                   
+				   <a  class="btnGreen" href="{pigcms::U('Sharetalent/prize',array('id'=>$list['id']))}">奖品发放</a> 
+                   </td>
+          
+                </tr>
+                  </volist>
+      			                
+                  
+              </tbody>
+            </table>
+            
+   </div> 
+          
+  </div>
+<include file="Public:footer"/>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0038)http://www.eefarm.cn/sendemail/gz.html -->
+<html  xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta  name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta  name="apple-mobile-web-app-capable"  content="yes">
+    <meta  name="apple-mobile-web-app-status-bar-style"  content="black">
+    <meta  name="format-detection"  content="telephone=no">
+    <title></title>
+    <link  href="tpl/static/wqllltc/general.css"  rel="stylesheet"  type="text/css">
+</head>
+<body>
+    <div  class="w_w640">
+    <p  class="tit_p">点击<i>”立即办理“</i>会有客服人员和您核对信息后再开通</p>
+        <table  width="96%">
+            <tbody><tr  class="bg_color">
+                <td  width="14%">
+                    活动档位
+                </td>
+                <td  width="13%">
+                    包含流量
+                </td>
+                <td  width="20%">
+                    每月赠送业务<br>
+                    （3个月）
+                </td>
+                <td  width="10%">
+                    额外赠送<br>
+                    (即时到账)
+                </td>
+                <td  width="18%">
+                    限以下用户办理
+                </td>
+                <td  width="25%">&nbsp;
+                    
+                </td>
+            </tr>
+            <volist name="info" id="vo">
+            <tr>
+                <td>
+                    {pigcms:$vo.hddw}
+                </td>
+                <td>
+                  {pigcms:$vo.bhll}
+                </td>
+                <td>
+                  {pigcms:$vo.zsyw}
+                </td>
+                <td  >
+                   {pigcms:$vo.ewzs}
+                </td>
+                <td>
+                    {pigcms:$vo.xz}
+                </td>
+                <td>
+                    <a  href="index.php?g=Wap&m=Wqllltc&a=bl&token={pigcms:$token}&id={pigcms:$vo.id}&wecha_id={pigcms:$wecha_id}">立即办理</a>
+                </td>
+            </tr>
+           </volist>
+           
+        </tbody></table>
+        <div  class="hd_text">
+            <h3>
+                活动规则</h3>
+           {pigcms:$infoss.gz|htmlspecialchars_decode}
+        </div>
+    </div>
+
+
+<script  type="text/javascript">
+    function go(p, r) {
+        location.href = "sr.html?param=" + p + "&r=" + escape(r);
+    }
+</script>
+</body></html>

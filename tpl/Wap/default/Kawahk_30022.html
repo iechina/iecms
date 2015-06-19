@@ -1,0 +1,600 @@
+
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta charset="utf-8"> 
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+       
+        <script src="http://weika5.kagirl.net/kawa2/js/StackBlur.js?ver=17"></script>
+        <style type="text/css">
+        body{   
+            -webkit-touch-callout: none; 
+            -webkit-text-size-adjust: none;
+            margin:0 auto;          
+            overflow:hidden;   
+            position:relative;          
+            background:white;
+        }
+        div#content{
+            position:relative;   
+            border:1px solid #000; 
+            width:500px;        
+            height:815px;
+            margin:0 auto; 
+            top:0px;    
+            overflow:hidden;   
+            clear:both;
+        }
+        @-webkit-keyframes SnowLeft{
+            0%{
+                -webkit-transform:translate(0px,0px);
+                
+            }
+            25%{
+                -webkit-transform:translate(-5px,0px);
+            }
+            50%{
+                -webkit-transform:translate(0px,0px);
+            }
+            75%{
+                -webkit-transform:translate(5px,0px);
+            }
+            100%{
+                -webkit-transform:translate(0px,0px);
+            }
+        }
+        @-webkit-keyframes SnowDown{
+            0%{
+                -webkit-transform:translate(0px,0px);
+                
+            }
+            100%{
+                -webkit-transform:translate(300px,800px);
+            }
+        }
+        @-webkit-keyframes ZhiDown1{
+            0%{
+                -webkit-transform:translate(50px,0px);
+                
+            }
+            20%{
+                -webkit-transform:translate(-50px,180px);
+            }
+            40%{
+                -webkit-transform:translate(50px,360px);
+            }
+            60%{
+                -webkit-transform:translate(-50px,540px);
+            }
+            80%{
+                -webkit-transform:translate(50px,720px);
+            }
+            100%{
+                -webkit-transform:translate(-50px,900px);
+            }
+        }
+        @-webkit-keyframes ZhiDown2{
+            0%{
+                -webkit-transform:translate(-50px,0px);
+                
+            }
+            20%{
+                -webkit-transform:translate(50px,100px);
+            }
+            40%{
+                -webkit-transform:translate(-50px,200px);
+            }
+            60%{
+                -webkit-transform:translate(50px,300px);
+            }
+            80%{
+                opacity:1;
+                -webkit-transform:translate(-50px,400px);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(50px,500px);
+            }
+        }
+        
+        #guan1{
+            position:absolute;
+            top:-300px;left:110px;
+            width:300px;
+            -webkit-animation:Down 4s linear forwards;
+            -webkit-animation-iteration-count:2;
+        }
+        #fu1{
+            position:absolute;
+            top:-290px;left:130px;
+            width:300px;
+            -webkit-animation:Downfu-1 4s 1.5s linear forwards;
+            -webkit-animation-iteration-count:2;
+        }
+        @-webkit-keyframes Down{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            60%{
+                opacity:1;
+                -webkit-transform:translate(0px,700px);
+            }
+            90%{
+                opacity:1;
+                -webkit-transform:translate(0px,550px) scale(0.3);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(0px,500px) scale(0.2);
+            }
+        }
+        @-webkit-keyframes Downfu-1{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            60%{
+                opacity:1;
+                -webkit-transform:translate(0px,700px);
+            }
+            90%{
+                opacity:1;
+                -webkit-transform:translate(0px,650px) scale(0.3);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(0px,600px) scale(0.2);
+            }
+        }
+        #guan2{
+            position:absolute;
+            top:-320px;left:-20px;
+            width:300px;
+            -webkit-animation:MoveGuan-2 4s 3s linear forwards;
+        }
+        @-webkit-keyframes MoveGuan-2{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            60%{
+                opacity:1;
+                -webkit-transform:translate(0px,800px);
+            }
+            90%{
+                opacity:1;
+                -webkit-transform:translate(30px,600px) scale(0.3);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(50px,550px) scale(0.2);
+            }
+        }
+        #fu2{
+            position:absolute;
+            top:-250px;left:310px;
+            width:300px;
+            -webkit-animation:Downfu-2 4s 3.5s linear forwards;
+        }
+        @-webkit-keyframes Downfu-2{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            60%{
+                opacity:1;
+                -webkit-transform:translate(0px,800px);
+            }
+            90%{
+                opacity:1;
+                -webkit-transform:translate(-150px,600px) scale(0.3);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(-180px,550px) scale(0.2);
+            }
+        }
+        @-webkit-keyframes MoveWord1{
+            0%{
+                opacity:0;
+                -webkit-transform:translate(0px,0px);
+            }
+            40%{
+                opacity:1;
+                -webkit-transform:translate(-50px,0px);
+            }
+            80%{
+                opacity:1;
+                -webkit-transform:translate(-50px,0px);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(-50px,0px);
+            }
+        }
+        @-webkit-keyframes MoveWord2{
+            0%{
+                opacity:0;
+                -webkit-transform:translate(0px,0px);
+            }
+            40%{
+                opacity:1;
+                -webkit-transform:translate(50px,0px);
+            }
+            80%{
+                opacity:1;
+                -webkit-transform:translate(50px,0px);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:translate(50px,0px);
+            }
+        }
+        @-webkit-keyframes FadeOut{
+            0%{
+                opacity:1;
+            }
+            100%{
+                opacity:0;
+            }
+        }
+        @-webkit-keyframes FadeIn{
+            0%{
+                opacity:0;
+            }
+            100%{
+                opacity:1;
+            }
+        }
+        #hua{
+            position:absolute;
+            top:350px;left:-400px;
+            width:500px;height:500px;
+            -webkit-animation:Lefthua 5s 9s linear forwards;
+        }
+        #di{
+            position:absolute;
+        }
+        #zi{
+            position:absolute;
+            top:20px;left:50px;
+            width:220px;
+            opacity:0;
+            -webkit-animation:ChangeZi 1s 11s linear forwards;
+        }
+        @-webkit-keyframes Lefthua{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            40%{
+                -webkit-transform:translate(450px,0px);
+            }
+            80%{
+                -webkit-transform:translate(450px,0px);
+            }
+            100%{
+                -webkit-transform:translate(450px,-200px);
+            }
+        }
+        @-webkit-keyframes ChangeZi{
+            0%{
+                opacity:0;
+                -webkit-transform:scale(1.5);
+            }
+            100%{
+                opacity:1;
+                -webkit-transform:scale(1);
+            }
+        }
+        #gua1{
+            position:absolute;
+            top:-100px;left:350px;
+            width:150px;
+            -webkit-transform-origin:49.51% 23%;
+            -webkit-transform:rotate(-10deg);
+            -webkit-animation:Rotate 2s 6s linear infinite alternate;
+        }
+        #gua2{
+            position:absolute;
+            top:-140px;left:400px;
+            width:150px;
+            -webkit-transform-origin:48.84% 22%;
+            -webkit-transform:rotate(-10deg);
+            -webkit-animation:Rotate 3s 6s  linear infinite alternate;
+        }
+        #gua3{
+            position:absolute;
+            top:-170px;left:330px;
+            width:100px;
+            opacity:0.7;
+            -webkit-transform-origin:48.84% 42%;
+            -webkit-transform:rotate(-10deg);
+            -webkit-animation:Rotate 3s 6s linear infinite alternate;
+        }
+        @-webkit-keyframes Rotate{
+            0%{
+                -webkit-transform:rotate(-10deg);
+            }
+            100%{
+                -webkit-transform:rotate(10deg);
+            }
+        }
+        #guan3{
+            position:absolute;
+            top:490px;left:500px;
+            -webkit-animation:Leftyuan 3s 12s linear forwards;
+        }
+        #g2{
+            position:absolute;
+            width:250px;
+        }
+        #fu3{
+            position:absolute;
+            top:100px;left:50px;
+            width:170px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:Rotate 1s 12s linear infinite alternate;
+        }
+        @-webkit-keyframes Leftyuan{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            100%{
+                -webkit-transform:translate(-500px,0px);
+            }
+        }
+        #pao{
+            position:absolute;
+            top:-40px;left:-100px;
+            -webkit-animation:Leftpao 3s 6s linear forwards;
+        } 
+        #bian{
+            position:absolute;
+            width:150px;
+            -webkit-transform-origin:49.4% 10.4%;
+            -webkit-animation:Rotate 2s 6s linear infinite alternate;
+        }
+        #shan1{
+            position:absolute;
+            top:220px;left:40px;
+            opacity:0;
+            -webkit-animation:Shine 1s 7s linear infinite;
+        }
+        #shan2{
+            position:absolute;
+            top:240px;left:30px;
+            opacity:0;
+            -webkit-transform-origin:59% 50%;
+            -webkit-transform:rotate(90deg);
+            -webkit-animation:Shine 0.8s 9s linear infinite;
+        }
+        @-webkit-keyframes Leftpao{
+            0%{
+                -webkit-transform:translate(0px,0px);
+            }
+            100%{
+                -webkit-transform:translate(50px,0px);
+            }
+        }
+        @-webkit-keyframes Shine{
+            0%{
+                opacity:1;
+                
+            }
+            40%{
+                opacity:1;
+            }
+            50%{
+                opacity:0;
+            }
+            100%{
+                opacity:0;
+            }
+        }
+        </style>
+        
+        <script>
+        function rand(min,max)
+        {
+            return min+Math.floor(Math.random()*(max-min));
+        }
+        var i = 0;
+        var j = 0;
+        var k = 0;
+        var l = 0;
+        var imgq = new Array('/tpl/Wap/default/common/kawahk/30022/2000 (3).png','/tpl/Wap/default/common/kawahk/30022/2000 (2).png','/tpl/Wap/default/common/kawahk/30022/2000 (1).png');
+        function CreateQian()
+        {
+            setInterval(function()
+            {
+                if(i<35)
+                {
+                    if(i%3!=0)
+                    {
+                       div = document.createElement('div');
+                        div.style.position = 'absolute';
+                        div.id = 'snow'+ i;
+                        i++;
+                        div.style.top = '-10px';
+                        div.style.left = rand(0,400)+'px';
+                        div.style.width = '26px';
+                        div.style.height = '26px';
+                        div.style.webkitAnimation = 'SnowDown 6s linear infinite';
+                        img = document.createElement('img');
+                        img.src = imgq[k];
+                        img.style.position = 'absolute';
+                        img.style.opacity = rand(0.8,1);
+                        img.id='snowX'+j;
+                        img.style.width = rand(20,50)+'px';
+                        j++;
+                        img.style.webkitAnimation = 'SnowLeft 0.5s linear infinite';
+                        div.appendChild(img);
+                        objid('QianContainer').appendChild(div); 
+                    }
+                    else
+                    {
+                        div = document.createElement('div');
+                        div.style.position = 'absolute';
+                        div.id = 'snow'+ i;
+                        i++;
+                        div.style.top = rand(0,250)+'px';
+                        div.style.left = rand(-300,0)+'px';
+                        div.style.width = '26px';
+                        div.style.height = '26px';
+                        div.style.webkitAnimation = 'SnowDown 6s linear infinite';
+                        img = document.createElement('img');
+                        img.src = imgq[k];
+                        img.style.position = 'absolute';
+                        img.style.opacity = rand(0.8,1);
+                        img.id='snowX'+j;
+                        img.style.width = rand(20,50)+'px';
+                        j++;
+                        img.style.webkitAnimation = 'SnowLeft 0.5s linear infinite';
+                        div.appendChild(img);
+                        objid('QianContainer').appendChild(div);
+                    }                   
+                }
+                else
+                {
+                    clearInterval();  
+                }    
+            },200);
+        }
+        function CreateZhi()
+        {
+            
+            setInterval(function()
+            {
+                k = rand(1,3);
+                if(l<35)
+                {
+                    if(l%2!=0)
+                    {
+                        img = document.createElement('img');
+                        img.src = imgq[k];
+                        img.style.position = 'absolute';
+                        img.style.top = '-10px';
+                        img.style.left = rand(-10,450)+'px';
+                        img.style.width = rand(12,22)+'px';
+                        img.id='ZiX'+l;
+                        l++;
+                        img.style.webkitAnimation = 'ZhiDown'+rand(1,3)+' 7s linear infinite';
+                        objid('ZhiContainer').appendChild(img); 
+                    }
+                    else
+                    {
+                        img = document.createElement('img');
+                        img.src = imgq[k];
+                        img.style.position = 'absolute';
+                        img.style.top = rand(0,250)+'px';
+                        img.style.left = rand(-10,480)+'px';
+                        img.style.width = rand(12,22)+'px';                        
+                        img.id='ZiX'+l;
+                        l++;
+                        img.style.webkitAnimation = 'ZhiDown'+rand(1,3)+' 8s linear infinite';
+                        objid('ZhiContainer').appendChild(img);
+                    }                   
+                }
+                else
+                {
+                    clearInterval();  
+                }    
+            },300);
+        }
+        function run()
+        {
+            create_base();
+            read_base();
+            setTimeout(create_textdiv,12500);
+            add_kawa_icon();
+            create_music();
+            create_modify();
+
+            CreateQian();   
+            setTimeout(CreateZhi ,9000);
+        }
+
+        </script>
+    </head>
+
+    <body style='margin:0px' onload='run()'>
+        <script>
+            words = '羊年到，愿你身体棒，健康长寿喜气”羊羊“；生活美，幸福美满"羊羊"得意；日子火，吉星高照”羊“年大发；事业旺，一帆风顺如羊中天；心情爽，开心快乐"羊"眉吐气！';
+            
+            kawa_data = {
+                words              : words,
+                <if condition=" $words eq ''">
+				replace_words      : '羊年到，愿你身体棒，健康长寿喜气”羊羊“；生活美，幸福美满"羊羊"得意；日子火，吉星高照”羊“年大发；事业旺，一帆风顺如羊中天；心情爽，开心快乐"羊"眉吐气！',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '230 350 400 210', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 35,     // 每秒移动的像素
+                text_color         : '#000000', // rgb(1,2,3) 'black'
+                font_size          : '25pt',
+                line_height        : '40pt',
+                music              : 'http://kawaweika.qiniudn.com/sound/jiamen.mp3',     // url
+                 <if condition=" $music eq ''">
+				replace_music      : 'http://kawaweika.qiniudn.com/sound/jiamen.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m30022.jpg',
+                title              : '送给你',
+                desc               : '祝我的朋友们羊年大发！',
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '30022',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '115.28.135.41:8000',
+                font_family        : 'hkww',
+                modify_optfile     : 'yangnian',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes',
+                text_align         : '',
+            };
+        </script>
+
+        <div id='content' style='position:absolute;width:500px;height:815px;overflow:hidden;'>
+            <div id='showOne' style='position:absolute; '> <!-- -webkit-animation:FadeOut 2s 8s linear forwards; -->
+                <img src="/tpl/Wap/default/common/kawahk/30022/2000.jpg">
+                
+                <img id='guan2' src="/tpl/Wap/default/common/kawahk/30022/2000.png" />
+                <img id='fu2' src="/tpl/Wap/default/common/kawahk/30022/20001.png" />
+                <img id='guan1' src="/tpl/Wap/default/common/kawahk/30022/20002.png" />
+                <img id='fu1' src="/tpl/Wap/default/common/kawahk/30022/20001.png" />
+                <div id='word1' style="position:absolute;width:300px;top:560px;left:100px;color:#000000;font-size:25pt;font-weight:900pt;font-family: 'Microsoft YaHei';opacity:0;-webkit-animation:MoveWord1 5s 1.5s linear forwards;">财到</div>
+                <div id='word2' style="position:absolute;width:300px;top:600px;left:50px;color:#000000;font-size:25pt;font-weight:900pt;font-family: 'Microsoft YaHei';opacity:0;-webkit-animation:MoveWord2 5s 2.5s linear forwards;">福到</div>
+                <div id='word2' style="position:absolute;width:300px;top:650px;left:180px;color:#000000;font-size:25pt;font-weight:900pt;font-family: 'Microsoft YaHei';opacity:0;-webkit-animation:MoveWord1 5s 3.5s linear forwards;">进家门</div>
+                <div id='QianContainer' style='position:absolute;top:0px;left:0px;'></div>
+            </div>
+            <div id='showTwo' style='position:absolute;opacity:0;-webkit-animation:FadeIn 2s 7s linear forwards;'>
+                <img src="/tpl/Wap/default/common/kawahk/30022/20004.jpg">
+                <div id='hua'>
+                    <img id='di' src="/tpl/Wap/default/common/kawahk/30022/20005.png">
+                    <img id='zi'src="/tpl/Wap/default/common/kawahk/30022/20006.png">  
+                </div>
+                <img id='gua3' src="/tpl/Wap/default/common/kawahk/30022/20007.png">
+                <img id='gua1' src="/tpl/Wap/default/common/kawahk/30022/20008.png">
+                <img id='gua2' src="/tpl/Wap/default/common/kawahk/30022/20007.png">
+                <div id='guan3'>
+                    <img id='g2' src="/tpl/Wap/default/common/kawahk/30022/20009.png">
+                    <img id='fu3'src="/tpl/Wap/default/common/kawahk/30022/20001.png">  
+                </div>
+                <div id='pao'>
+                    <img id='bian' src="/tpl/Wap/default/common/kawahk/30022/20009.png">
+                    <img id='shan1'src="/tpl/Wap/default/common/kawahk/30022/20010.png">
+                    <img id='shan2'src="/tpl/Wap/default/common/kawahk/30022/20010.png">    
+                </div>
+               <div id='ZhiContainer' style='position:absolute;top:0px;left:0px;'></div>
+
+            </div>
+            
+        </div>
+
+    </body>
+    <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

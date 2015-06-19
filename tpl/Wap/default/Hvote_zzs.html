@@ -1,0 +1,37 @@
+<include file="Public:head"/>
+
+<div class="content">
+         <div>
+         <form action="/index.php?g=User&m=Hvote&a=zzs&vid={pigcms:$vid}" method="post">   
+         连接：<input type="text" value="" name="lj" />
+		 图片：<input type="text" name="pic" value="{pigcms:$vo.pic}" class="px" onclick="document.getElementById('pic_src').src=this.value;" id="pic" style="width:300px;">
+              <script src="/tpl/static/upyun.js"></script>
+              <a href="###" onclick="upyunPicUpload('pic',700,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>&nbsp;图片最高为70px
+         <input type="submit" value="增加" name="提交" class="btn btn-primary btn_submit J_ajax_submit_btn"/>
+         </form>
+         </div>
+          
+  <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<th>编号</th>                 
+                    <th>照片</th>
+					<th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="item" name="item">
+                <tr>
+					<td>{pigcms:$item.id}</td>
+                    <td><img src="{pigcms:$item.pic}"  width="200" /></td>
+                    <td><a href="/index.php?g=User&m=Hvote&a=zzs&id={pigcms:$item.id}&vid={pigcms:$item.vid}" style="margin-left:50px">删除</a></td>
+                    </tr>
+                  </volist>
+              </tbody>
+            </table>
+
+   </div>
+  </div>
+<include file="Public:footer"/>

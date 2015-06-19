@@ -1,0 +1,132 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+
+<style>
+.ftip  a {
+background-image: none !important;
+border: 1px solid #E6E7EC !important;
+text-shadow: none !important;
+padding: 4px 12px !important;
+cursor: pointer !important;
+display: inline-block !important;
+overflow: visible !important;
+border-radius: 4px !important;
+-moz-border-radius: 4px !important;
+-webkit-border-radius: 4px !important;
+background-color: #F4F5F9 !important;
+color: #222 !important;
+font-size: 14px !important;
+margin-bottom: 5px;
+margin-left: 3px;
+line-height:23px
+}
+</style>
+
+<div class="cLineB">
+
+  <h4>【{pigcms:$infos.name}】的消息发送记录</h4>
+<a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+ 
+
+ </div>
+<div class="ftip" style="margin:25px auto 5px auto; font-size:20px">便捷操作栏目： <a style="margin-left:20px" href="{pigcms::U('Gongdan/index',array('statue'=>3,token=>$infos['token']))}">排队中</a>
+ <a  style="margin-left:20px"href="{pigcms::U('Gongdan/index',array('statue'=>1,token=>$infos['token']))}">受理中</a>
+ <a style="margin-left:20px"  href="{pigcms::U('Gongdan/index',array('statue'=>2,token=>$infos['token']))}">处理完毕</a>
+  <a style="margin-left:20px"  href="{pigcms::U('Gongdan/index',array(token=>$infos['token']))}">全部</a>　</div>
+        
+
+ <div class="ftip" style="margin:25px auto 5px auto; font-size:20px">用户反馈内容：<span style="color:rgb(65, 0, 255)">{pigcms:$infos.liuyan}</span><a href="{pigcms::U('Gongdan/statue',array(id=>$infos['id'],statue=>'2',token=>$infos['token'],'wecha_id'=>$infos['wecha_id']))}" style="margin-left:20px">处理完毕</a><a href="{pigcms::U('Gongdan/notice',array(token=>$infos['token'],'openid'=>$infos['wecha_id']))}" style="margin-left:20px">回复</a>
+ </span><a href="{pigcms::U('Gongdan/detail',array(token=>$infos['token'],'wecha_id'=>$infos['wecha_id']))}">刷新</a>　</div>
+
+ <div class="msgWrap form">
+
+
+
+<div class="bdrcontent">
+
+<div id="div_ptype">
+
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+<thead>
+
+<tr>
+
+<th style=" width:50px;text-align:center">编号</th>
+<th style=" width:50px;text-align:center">头像</th>
+<th  style=" width:250px;text-align:center">名称</th>
+
+<th style=" width:750px;text-align:center" >消息内容</th>
+<th  style=" width:250px;text-align:center">发送时间</th>
+
+
+</tr>
+
+</thead>
+
+<volist name="info" id="vo">
+<if condition="$vo.from eq 'yonghu'">
+
+<tr  style="background:#2EB5F0; color:#FFFFFF">
+
+</if>
+
+
+
+<!--<if condition="$vo.from eq 'yonghu'"><img src="tpl/static/weiqianlong/news.png" / style="position: absolute;
+margin-left: 951px;
+margin-top: -47px;"></if>-->
+<td style="text-align:center">{pigcms:$i}</td>
+<td style="text-align:center"><div class="cateimg" style="margin-left:20px"><img src="{pigcms:$vo.head}" class="cateimg_small"  /><img src="{pigcms:$vo.head}" class="cateimg_big"  /></td>
+<td style="text-align:center">{pigcms:$vo.user}</td>
+
+
+
+<td style="text-align:center"><if condition="($vo.type eq '1') AND ($vo.from eq 'yonghu')"><div class="cateimg" style="margin-left:20px"><img src="{pigcms:$vo.msg}" class="cateimg_small"  /><img src="{pigcms:$vo.msg}" class="cateimg_big"  /><else/>{pigcms:$vo.msg}</if></td>
+<td style="text-align:center">{pigcms:$vo.time|date='Y-m-d H:i:s',###}</td>
+
+
+</tr>
+
+</volist>
+
+
+
+  </table>
+
+</div>
+
+</div>
+
+<div class="footactions" style="padding-left:10px">
+
+  <div class="pages">{pigcms:$page}</div>
+
+</div>
+
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="clr"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--底部-->
+
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+
+<include file="Public:footer"/>
+
+</if>

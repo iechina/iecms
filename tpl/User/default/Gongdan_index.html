@@ -1,0 +1,154 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+<style>
+.ftip  a {
+background-image: none !important;
+border: 1px solid #E6E7EC !important;
+text-shadow: none !important;
+padding: 4px 12px !important;
+cursor: pointer !important;
+display: inline-block !important;
+overflow: visible !important;
+border-radius: 4px !important;
+-moz-border-radius: 4px !important;
+-webkit-border-radius: 4px !important;
+background-color: #F4F5F9 !important;
+color: #222 !important;
+font-size: 14px !important;
+margin-bottom: 5px;
+margin-left: 3px;
+line-height:23px
+}
+</style>
+
+
+<div class="cLineB">
+
+  <h4>微乾隆工单管理系统</h4>
+  <a href="{pigcms::U('Gongdan/index',array(token=>$token))}"  class="right btnGrayS vm" style="margin-top:-27px" >刷新</a>
+  
+ </div>
+ <div class="ftip" style="margin:25px auto 5px auto;">评价信息统计：非常好：{pigcms:$pj_1}&nbsp;&nbsp;&nbsp;&nbsp;一般般：{pigcms:$pj_2}&nbsp;&nbsp;&nbsp;&nbsp;差评：{pigcms:$pj_3}
+</div>
+  <div class="ftip" style="margin:25px auto 5px auto;">问题分类：
+ <a style="margin-left:20px; float:none" href="{pigcms::U('Gongdan/index',array('znfl'=>1,token=>$token))}">BUG问题</a>
+ <a  style="margin-left:20px; float:none"href="{pigcms::U('Gongdan/index',array('znfl'=>2,token=>$token))}">功能操作问题</a>
+ <a style="margin-left:20px; float:none"  href="{pigcms::U('Gongdan/index',array('znfl'=>3,token=>$token))}">买前咨询</a>
+ </div>      
+
+ <div class="ftip" style="margin:25px auto 5px auto;">工单信息统计：总用户量：{pigcms:$total}&nbsp;&nbsp;&nbsp;&nbsp;正在排队用户：{pigcms:$total_0}&nbsp;&nbsp;&nbsp;&nbsp;受理中：{pigcms:$total_1}&nbsp;&nbsp;&nbsp;&nbsp;受理完毕：{pigcms:$total_2} 
+ <a style="margin-left:20px" href="{pigcms::U('Gongdan/index',array('statue'=>3,token=>$token))}">排队中</a>
+ <a  style="margin-left:20px"href="{pigcms::U('Gongdan/index',array('statue'=>1,token=>$token))}">受理中</a>
+ <a style="margin-left:20px"  href="{pigcms::U('Gongdan/index',array('statue'=>2,token=>$token))}">处理完毕</a>
+  <a style="margin-left:20px"  href="{pigcms::U('Gongdan/index',array(token=>$token))}">全部</a></div>
+
+ <div class="msgWrap form">
+
+
+
+<div class="bdrcontent">
+
+<div id="div_ptype">
+
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+
+<thead>
+
+<tr>
+
+<th style=" width:100px;text-align:center">用户头像</th>
+
+<th  style=" width:100px;text-align:center">微信名称</th>
+<th style=" width:30px;text-align:center">号数</th>
+
+<th style=" width:80px;text-align:center">工单状态</th>
+
+
+<th style="text-align:center">提交时间</th>
+
+
+
+                        <th class="norightborder " style="text-align:center">操作</th>
+
+</tr>
+
+</thead>
+
+<volist name="info" id="vo">
+
+<tr>
+<td style="text-align:center"><div class="cateimg" style="margin-left:20px"><img src="{pigcms:$vo.headimgurl}" class="cateimg_small"  /><img src="{pigcms:$vo.headimgurl}" class="cateimg_big"  /></div></td>
+
+
+<td style="text-align:center">{pigcms:$vo.name}</td>
+
+
+<td style="text-align:center">{pigcms:$vo.number}</td>
+
+<td style="text-align:center"><eq name="vo.statue" value="0"><p style="color:rgb(20, 1, 186)" >排队中......</p></eq><eq name="vo.statue" value="1"><p  style="color:red">受理中......</p></eq><eq name="vo.statue" value="2">受理完毕</eq></td>
+<td style="text-align:center">{pigcms:$vo.time|date='Y-m-d H-i-s',###}</td>
+
+<td class="norightborder" width="120">
+
+	<nobr>
+
+	
+
+
+ <a href="{pigcms::U('Gongdan/statue',array('id'=>$vo['id'],'statue'=>'1',token=>$vo['token'],wecha_id=>$vo['wecha_id']))}">受理中</a>
+
+	<a href="{pigcms::U('Gongdan/statue',array('id'=>$vo['id'],'statue'=>2,token=>$vo['token'],wecha_id=>$vo['wecha_id']))}">受理完毕</a>
+
+	<a href="{pigcms::U('Gongdan/notice',array('openid'=>$vo['wecha_id'],token=>$vo['token']))}">通知</a>
+    <a href="{pigcms::U('Gongdan/msgrecord',array('id'=>$vo['id'],token=>$vo['token'],wecha_id=>$vo['wecha_id']))}">记录</a>
+     <a href="{pigcms::U('Gongdan/detail',array('id'=>$vo['id'],token=>$vo['token'],wecha_id=>$vo['wecha_id']))}">详情</a>
+     <a href="{pigcms::U('Gongdan/del',array('id'=>$vo['id'],token=>$vo['token'],wecha_id=>$vo['wecha_id']))}">删除工单</a>
+
+	</nobr>
+
+</td>
+
+</tr>
+
+</volist>
+
+
+
+  </table>
+
+</div>
+
+</div>
+
+<div class="footactions" style="padding-left:10px">
+
+  <div class="pages">{pigcms:$page}</div>
+
+</div>
+
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="clr"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--底部-->
+
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+
+<include file="Public:footer"/>
+
+</if>

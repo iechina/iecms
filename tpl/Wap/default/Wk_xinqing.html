@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>心情卡 - {pigcms:$lj.lj}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  
+    <link href="/tpl/Wap/default/common/wk/css/framework.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/tpl/Wap/default/common/wk/css/elements.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/tpl/Wap/default/common/wk/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/tpl/Wap/default/common/wk/css/hidpi.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/tpl/Wap/default/common/wk/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/tpl/Wap/default/common/wk/js/effects.jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/tpl/Wap/default/common/wk/js/jquery.nivo-slider.min.js"></script>
+    <script type="text/javascript" src="/tpl/Wap/default/common/wk/js/custom.js"></script>
+</head>
+<body>    <div class="websiteWrapper">
+        <div class="headerOuterWrapper homePageHeaderOuterWrapper">
+            <div class="headerWrapper">
+                <a href="#" class="mainMenuButton"></a>
+            </div>
+            <div class="mainMenuOuterWrapper">
+                <ul class="mainMenuWrapper">
+                                 
+                             <li   ><a href=" {pigcms::U('Wk/index',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">生日卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/zhuhe',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">祝贺卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/aiqing',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">爱情卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/qinyou',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">亲友卡</a></li>
+	                    <li   class="currentPage"><a href="{pigcms::U('Wk/xinqing',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">心情卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/ganxie',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">感谢卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/daoqian',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">道歉卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/daqi',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">打气卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/huimian',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">会面卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/jieri',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">节日卡</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/shangwu',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">商务定制</a></li>
+	                    <li   ><a href="{pigcms::U('Wk/qita',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}">其他卡</a></li>
+	                                                </ul>
+            </div>
+        </div>
+        <div class="sliderOuterWrapper">
+            <span class="sliderTopDeco"></span>
+             <a href="{pigcms::U('Wk/index',array('token'=>$token,'wecha_id'=>$wecha_id,'id'=>$id))}" class="mainLogo">
+                <img src="{pigcms:$lj.erweima}" alt="" />
+            </a>
+            <div class="sliderWrapper">
+                <div class="mainSlider" id="mainSlider">
+                                       <a href="">
+                        <img src="/tpl/Wap/default/common/wk/images/slide-1.jpg" alt="" />
+                    </a>
+   	                    <a href="">
+                        <img src="/tpl/Wap/default/common/wk/images/slide-2.jpg" alt="" />
+                    </a>
+   	                    <a href="">
+                        <img src="/tpl/Wap/default/common/wk/images/slide-3.jpg" alt="" />
+                    </a>
+   	                </div>
+            </div>
+        </div>
+        <div class="pageWrapper homePageWrapper">
+            <div class="pageContentWrapper">
+                <h3 class="homePageTitle">{pigcms:$lj.lj}，新时代的送祝福神器！</h3>
+                <div class="pageBreak"></div>
+                <div class="recentProjectsOuterWrapper">
+                    <div class="recentProjectsWrapper">
+                        <h4 class="recentProjectsTitle">心情卡</h4>
+                        <div class="recentProjects">                        
+                            
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=501" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/QG007.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">周末问候</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=502" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ008.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">解药</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=503" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ007.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">不碎</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=504" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ006.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">思春</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=505" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ005.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">童话</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=506" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ004.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">二货</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=507" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ003.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">心安</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=508" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ002.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">微酸</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=509" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/XQ001.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">暖暖</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=510" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/BX003.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">不想上学</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=511" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/BX002.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">不想上班</h4>
+                    </a>
+                       	               <a href="index.php?g=Wap&m=Wk&a=wk_view&token={pigcms:$token}&id={pigcms:$id}&cardid=512" class="recentProject">
+                        <p class="recentProjectImage">
+                            <img src="/tpl/Wap/default/common/wk/images/BX001.jpg" alt=""  />
+                        </p>
+                        <h4 class="recentProjectTitle">不想起床</h4>
+                    </a>
+                       	
+                                        </div>
+                    </div>
+                </div>
+   
+            </div>
+        </div>
+<div class="footerWrapper">
+  <div class="copyrightWrapper"><span class="copyright">请关注微信公众号： <a href="{pigcms:$lj.sm}"><strong>{pigcms:$lj.lj}</strong> </a><a href="" class="backToTopButton"></a> </div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"  />
+<title>{pigcms:$data.title}</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/tpl/Wap/default/common/Mvote/style.css" />
+<script src="./tpl/static/forum/js/jquery_min.js" ></script>  
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script> 
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script> 
+<script src="/tpl/static/upyun.js"></script> 
+<script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
+<script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{pigcms::RES}/css/guajiang/js/jquery.js">\x3C/script>')</script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js?2013"></script>
+<link rel="stylesheet" href="/tpl/Wap/default/common/paiming/cate36_0.css" >
+
+<script type="text/javascript" src="/tpl/Wap/default/common/paiming/scroll.js"></script>
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+
+.scroll{width:360px;height:181px;margin:0px auto 0 auto; position:relative;overflow:hidden;}
+.mod_01{float:left;width:360px;}
+.mod_01 img{display:block;width:360px;height:181px;}
+.dotModule_new{padding:0 5px;height:11px;line-height:6px;-webkit-border-radius:11px;background:rgba(45,45,45,0.5);position:absolute;bottom:5px;right:10px;z-index:11;}
+#slide_01_dot{text-align:center;margin:3px 0 0 0;}
+#slide_01_dot span{display:inline-block;margin:0 3px;width:5px;height:5px;vertical-align:middle;background:#f7f7f7;-webkit-border-radius:5px;}
+#slide_01_dot .selected{background:#66ff33;}
+</style>
+
+<style>
+.page_pic_emotion{
+	
+}
+.page_pic_emotion li{
+	height:1px;
+	visibility: hidden;
+	overflow: hidden;
+	padding-left:7px;
+}
+.page_pic_emotion li.on{
+	visibility: visible;
+	height: auto;
+	min-height:100px;
+}
+.page_pic dd, .page_pic dt{
+	display: inline-block;
+	width:55px;
+	height:55px;
+	margin:15px 3px;
+	position: relative;
+	float:left;
+}
+.page_pic dt{
+	display:inline-block;
+	height:55px;
+	line-height: 55px;
+	width:130px;
+	font-size:12px;
+	color:#aaaaaa;
+	margin: 15px 0px;
+}
+.page_pic dt:nth-last-of-type(n+2){
+	display: none;
+}
+.page_pic dd input[type="file"]{
+	display: block;
+	position: absolute;
+	z-index:100;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	opacity: 0;
+}
+.page_pic dd img{
+	width:100%;
+	height:100%;
+	display: block;
+	border:0;
+}
+.page_pic dd img[src^="data:"]{
+	background:url(http://weixin.xianning.com/tpl/static/forum/css/img/icons.png) no-repeat center -147px;
+	background-size:50px auto;
+	background-color:#888888;
+	border-radius:5px;
+	border:0px solid #d0d0d0;
+}
+
+.page_pic dd span{
+	display: block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	z-index: 110;
+	right: 0px;
+	top: -10px;
+	border-radius: 30px;
+	background: url(http://weixin.xianning.com/tpl/static/forum/css/img/icons.png) no-repeat center -98px;
+	background-size: 31px auto;
+	background-color: red;
+	-webkit-transform: rotate(45deg);
+
+}
+
+.page_pic dd img[src^="data:"]+span{
+	visibility: hidden;
+}
+
+.page_pic dd:nth-of-type(n+9){
+	display: none;
+}
+
+.page_emotion{
+	width:90%;
+	margin:auto;
+}
+.page_emotion dl>div{
+	padding:0 15px;
+	-webkit-box-sizing:border-box;
+}
+.page_emotion dd{
+	display: inline-block;
+	float:left;
+	width:14.2%;
+	height:24px;
+	-webkit-box-sizing:border-box;
+	margin:5px 0;
+	text-align:center;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="header">
+
+<div class="scroll">
+	<div class="slide_01" id="slide_01">
+    <volist name="piclist" id="so">    
+		<div class="mod_01"><a href="{pigcms:$so.url}"><img src="{pigcms:$so.img}" alt=""></a></div>
+	</volist>
+	</div>
+	<div class="dotModule_new">
+		<div id="slide_01_dot"></div>
+	</div>
+</div>
+
+</div>
+<div class="content">
+  
+  <div class="mod_style_2">
+    <div class="tit">立即报名</div>
+    <div class="mod_con">
+      <ul class="input_form address_form">
+      
+      <form action="/index.php?g=Wap&m=Hvote&a=baoming" method="post" enctype="multipart/form-data" name="form_1" id="form_1">
+      	<input type="hidden" id="mid" name="mid"  value="{pigcms:$data.id}"/>
+		<input type="hidden" id="token" name="token"  value="{pigcms:$data.token}"/>	
+        <li class="row">
+          <div class="lab">姓名：</div>
+          <div class="con">
+            <input type="text" id="name" name="name" class="com_ipt" placeholder="请输入您的真实姓名" />
+          </div>
+        </li>
+        <li class="row">
+          <div class="lab">手机号：</div>
+          <div class="con">
+            <input type="text" id="phone" name="phone" class="com_ipt" placeholder="请输入您的真实电话" />
+          </div>
+        </li>
+        <div class="row">
+          <div class="lab">
+            上传照片：</div>
+          <div class="con">
+            <ul class="page_pic_emotion clear" id="nav_page">
+            <li class="page_pic on" id="page_pic">
+                      <dl id="upImgDt">
+                <script>
+
+	
+
+	function upl(){
+
+		var num=1;
+		var no1 = $("#portrait1_src").attr('src');
+		var no2 = $("#portrait2_src").attr('src');
+		var no3 = $("#portrait3_src").attr('src');
+		var no4 = $("#portrait4_src").attr('src');
+		var no5 = $("#portrait5_src").attr('src');
+		if(no1 != ''){
+			num++;
+		}
+		if(no2 != ''){
+			num++;
+		}
+		if(no3 != ''){
+			num++;
+		}
+		if(no4 != ''){
+
+			$('#after4').after('<dd style="display:none" id="imgdd3" type="image"><img src="" class="portrait_src" id="portrait5_src" /><input class="portrait" type="hidden" value="" id="portrait5" name="pics5" size="80" /></dd><dt><label> </label></dt>');
+
+			$('.a_upload').remove();
+
+			num++;
+
+		}
+        var p='portrait'+num;
+		
+		upyunWapPicUpload(p,400,600,'{pigcms:$Think.get.token}');
+
+	}
+
+	setInterval(ddshow,1000);
+
+	function ddshow(){
+		
+		var pic1=$("#portrait1").val();
+		if(pic1!="")$("#portrait1_src").attr('src',pic1);
+		
+		var pic2=$("#portrait2").val();
+		if(pic2!="")$("#portrait2_src").attr('src',pic2);
+		
+		var pic3=$("#portrait3").val();
+		if(pic3!="")$("#portrait3_src").attr('src',pic3);
+		
+		var pic4=$("#portrait4").val();
+		if(pic4!="")$("#portrait4_src").attr('src',pic4);
+		
+		var pic5=$("#portrait5").val();
+		if(pic5!="")$("#portrait5_src").attr('src',pic5);
+		
+		var no1 = $("#portrait1_src").attr('src');
+		var no2 = $("#portrait2_src").attr('src');
+		var no3 = $("#portrait3_src").attr('src');
+		var no4 = $("#portrait4_src").attr('src');
+		var no5 = $("#portrait5_src").attr('src');
+		
+		
+		
+		if(no1 != ''){
+			$('#imgdd1').show();
+		}
+		if(no2 != ''){
+			$('#imgdd2').show();
+		}
+		if(no3 != ''){
+			$('#imgdd3').show();
+		}
+		if(no4 != ''){
+			$('#imgdd4').show();
+		}
+		if(no5 != ''){
+			$('#imgdd5').show();
+		}
+	}
+
+</script>
+                <style>
+
+
+
+
+
+.upImgClass{
+
+	display:block;
+
+	}
+
+		.portrait_src {
+
+		
+
+		height:55px;
+
+		width:55px;
+
+		margin:0 5px;
+
+		border:0px;		
+
+		}
+
+									
+
+</style>
+                
+                <!-- image1 -->
+                
+                <dd style="display:none" id="imgdd1" type="image"> <img src="" class="portrait_src" id="portrait1_src" />
+                          <input class="portrait" type="hidden" value="" id="portrait1" name="pics1" size="80" />
+                        </dd>
+                <dt>
+                          <label> </label>
+                        </dt>
+                
+                <!-- image2 -->
+                
+                <dd style="display:none" id="imgdd2" type="image"> <img src="" class="portrait_src" id="portrait2_src" />
+                          <input class="portrait" type="hidden" value="" id="portrait2" name="pics2" size="80" />
+                        </dd>
+                <dt style="display:none">
+                          <label> </label>
+                        </dt>
+                
+                <!-- image3 -->
+                
+                <dd style="display:none" id="imgdd3" type="image"> <img src="" class="portrait_src" id="portrait3_src" />
+                          <input class="portrait" type="hidden" value="" id="portrait3" name="pics3" size="80" />
+                        </dd>
+                <dt>
+                          <label> </label>
+                        </dt>
+                
+                 <!-- image4 -->
+                
+                <dd style="display:none" id="imgdd4" type="image"> <img src="" class="portrait_src" id="portrait4_src" />
+                          <input class="portrait" type="hidden" value="" id="portrait4" name="pics4" size="80" />
+                        </dd>
+                <dt>
+                          <label> </label>
+                        </dt>
+                        
+                  <!-- image5 -->
+                
+                <dd style="display:none" id="imgdd5" type="image"> <img src="" class="portrait_src" id="portrait5_src" />
+                          <input class="portrait" type="hidden" value="" id="portrait5" name="pics5" size="80" />
+                        </dd>
+                <dt>
+                          <label> </label>
+                        </dt>
+                            
+    
+                <dd> <a href="###" onClick="upl()" class="a_upload" style="color:red"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /></a> </dd>
+                <dt>
+                          <label> 最多可上传2张照片</label>
+                        </dt>
+              </dl>
+                    </li>
+            <li class="page_emotion box_swipe" id="page_emotion">
+                      <dl id="list_emotion" class="list_emotion pt_10">
+                <div> 
+                          
+                          <!-- <dd><span data-key="0-0-/::)" style="background-position:0px 0;"></span></dd> --> 
+                          
+                        </div>
+              </dl>
+                      <dt>
+                <ol id="nav_emotion" class="nav_emotion">
+                          <span class="on"></span> <span></span>
+                        </ol>
+              </dt>
+                    </li>
+          </ul>
+          </div>
+        </div>
+      <script>
+      setInterval(ddshowd,1000);
+
+	function ddshowd(){
+		
+		var movie_link=$("#movie_link").val();
+		if(movie_link!=""){
+			$("#mss").hide();
+			$("#savemsg").html("成功上传视频");
+			}
+		}
+      </script>  
+        
+        <div class="row">
+          <div class="lab">
+            上传视频：</div>
+          <div class="con">
+            <ul class="page_pic_emotion clear" id="nav_page">
+            <li class="page_pic on" id="page_pic">
+            <input class="px" name="movie_link" value="" id="movie_link"  type="hidden">
+                      <dl id="upImgDt">
+                <dd> <a id="mss" href="###" onClick="upyunWapPicUpload('movie_link',640,300,'{pigcms:$Think.get.token}')" class="a_upload" style="color:red"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /></a> </dd>
+                <dt>
+                          <label id="savemsg"> 最多可上传一个视频</label>
+                        </dt>
+              </dl>
+                    </li>
+            <li class="page_emotion box_swipe" id="page_emotion">
+                      <dl id="list_emotion" class="list_emotion pt_10">
+                <div> 
+                          
+                          <!-- <dd><span data-key="0-0-/::)" style="background-position:0px 0;"></span></dd> --> 
+                          
+                        </div>
+              </dl>
+                      <dt>
+                <ol id="nav_emotion" class="nav_emotion">
+                          <span class="on"></span> <span></span>
+                        </ol>
+              </dt>
+                    </li>
+          </ul>
+          </div>
+        </div>
+        
+        
+        
+        <li class="row" style="clear:both">
+          <div class="lab">参赛宣言：</div>
+          <div class="con">
+            <textarea   class="com_ipt" id="content"  name="content" placeholder="来为自己拉拉票吧" ></textarea>
+          </div>
+        </li>
+            
+      </form>
+  
+     </ul>
+      <div style="clear: both;padding-top:15px;" class="panel_btns com_nbg com_bt">
+        <div class="com_box"><a class="com_btn com_btn_4" href="javascript:check();" >提交报名</a></div>
+      </div>
+      
+      <style>
+      .inst img{ width:auto;}
+      </style>
+      
+      <div class="inst">
+	  	{pigcms:$data.zzs|html_entity_decode}
+	  </div>
+      
+    <script> 
+     function check(){
+				//alert("asdf");
+				var name = $("#name").val();
+				
+				var phone = $("#phone").val();
+				
+				var content = $("#content").val();
+				
+				var pic=document.getElementById("imgdd1").style.display;
+				
+				if(!(/^1\d{10}$/g.test(phone))){      
+      				 
+					 alert("手机号错误");return;
+    			}
+				
+				if(name=='' || phone=='' || content==''){
+					
+					alert("请输入完整信息", 2000);return;
+				
+				}
+				
+				if(pic=="none"){
+					
+					alert("至少上传一张图片", 2000);return;
+				
+				}
+
+				$("#form_1").submit();
+
+			}
+     </script>
+      
+    </div>
+  </div>
+</div>
+<div style="width:100%; height:50px"></div>
+<div class="device">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="content-slide">
+                    <a href="/index.php?g=Wap&m=Hvote&a=index&id={pigcms:$data.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}" >
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/6.png" alt=""></p>
+                        <p class="title2">投票主页</p>
+                    </a>
+                    <a href="{pigcms:$data.xqlj}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/7.png" alt=""></p>
+                        <p class="title2">活动详情</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=baoming&id={pigcms:$data.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                        <p class="ico"><img src="/tpl/Wap/default/common/paiming/8.png" alt=""></p>
+                        <p class="title2">我要参加</p>
+                    </a>
+                    <a href="/index.php?g=Wap&m=Hvote&a=paiming&id={pigcms:$data.id}&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}">
+                            <p class="ico"><img src="/tpl/Wap/default/common/paiming/9.png" alt=""></p>
+                            <p class="title2">人气排行</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+<script type="text/javascript">
+if(document.getElementById("slide_01")){
+	var slide_01 = new ScrollPic();
+	slide_01.scrollContId   = "slide_01"; //内容容器ID
+	slide_01.dotListId      = "slide_01_dot";//点列表ID
+	slide_01.dotOnClassName = "selected";
+	slide_01.arrLeftId      = "sl_left"; //左箭头ID
+	slide_01.arrRightId     = "sl_right";//右箭头ID
+	slide_01.frameWidth     = 360;
+	slide_01.pageWidth      = 360;
+	slide_01.upright        = false;
+	slide_01.speed          = 10;
+	slide_01.space          = 30; 
+	slide_01.initialize(); //初始化
+}
+</script>
+</body>
+</html>

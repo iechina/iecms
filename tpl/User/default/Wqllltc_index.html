@@ -1,0 +1,57 @@
+<include file="Public:head"/>  
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">流量套餐包列表</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli current" id="tab0"><a href="#">套餐列别</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Wqllltc/replay')}">回复配置信息</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Wqllltc/user')}">报名用户</a></li>
+</ul>
+</div>
+<!--tab end-->
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<div class="cLine">
+<div class="pageNavigator left"> <a href="{pigcms::U('Wqllltc/add')}" title="" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/product/add.png" class="vm">添加套餐</a></div>
+<div class="clr"></div>
+</div>
+
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="120">活动档位</th>
+<th width="120">包含流量</th>
+<th width="120">每月赠送业务（三个月）</th>
+<th width="80" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="info" id="o"> 
+<tr>
+<td>{pigcms:$o.hddw}</td>
+<td>{pigcms:$o.bhll}</td>
+<td>{pigcms:$o.zsyw}</td>
+<td class="norightborder">&nbsp;&nbsp;<a href="{pigcms::U('Wqllltc/edit',array('id'=>$o['id']))}">修改</a> <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Wqllltc/delete',array('id'=>$o['id']))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

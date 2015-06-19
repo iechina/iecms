@@ -1,0 +1,62 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+<h4>达到资格的用户</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+ 
+    </div>
+    <!--tab start-->
+<div class="tab">
+<ul>
+<li class="<pigcmsif where="$tabid eq 1">current</pigcmsif> tabli" id="tab0"><a href="{pigcms::U('Sharetalent/index',array('token'=>$token))}">分享管理</a></li>
+<li class="<pigcmsif where="$tabid eq 4">current</pigcmsif> tabli" id="tab3"><a href="{pigcms::U('Sharetalent/sm',array('token'=>$token))}">分享说明</a></li>
+<li class="current tabli" id="tab1"><a href="{pigcms::U('Sharetalent/user',array('token'=>$token))}">用户管理</a></li>
+<li class="<pigcmsif where="$tabid eq 3">current</pigcmsif> tabli" id="tab2"><a href="{pigcms::U('Sharetalent/reply',array('token'=>$token))}">分享配置</a></li> 
+</ul>
+          </div>
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					
+					<th  width="18%" class="time"> 达到资格的用户</th>
+					<th width="10%">联系方式</th>
+                    <th width="17%">参与的活动名称</th>
+                    <th width="10%">获得的浏览量</th>
+					
+					<th width="15%">奖品</th>
+                    <th width="10%">兑奖状态</th>
+                    
+					
+					<th width="20%" class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="list" name="info">
+                <tr>
+                  <td>{pigcms:$list.name}</td>
+                  <td>{pigcms:$list.tel}</td>
+                   <td>{pigcms:$list.title}</td>
+                   <td>{pigcms:$list.click}</td>
+                   <td>{pigcms:$list.prize}</td>
+                   <td> <if condition="$list.statu eq '1'  "><span style=" color:#29CA0A;font-size: 20px;">已兑奖</span><else/><span style="color:red;font-size: 20px;">未兑奖</span></if></td>
+                
+                
+                  
+                  <td class="norightborder"> <a class="btnGreen" href="javascript:drop_confirm('您确定要删除吗？', '{pigcms::U('Sharetalent/userdel',array('id'=>$list['id'],'token'=>$list['token'],'wecha_id'=>$list['wecha_id']))}');">删除</a> 
+                   <if condition="$list.statu neq '1'  ">
+				   <a  class="btnGreen" href="{pigcms::U('Sharetalent/sendprize',array('id'=>$list['id'],'token'=>$list['token'],'wecha_id'=>$list['wecha_id'],'id'=>$list['id'],'pid'=>$list['pid']))}">发奖</a></if> 
+                   </td>
+          
+                </tr>
+                  </volist>
+      			                
+                  
+              </tbody>
+            </table>
+            
+   </div> 
+          
+  </div>
+<include file="Public:footer"/>

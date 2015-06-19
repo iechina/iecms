@@ -1,0 +1,120 @@
+
+<html>
+	<head>
+		<title>送给你</title>
+		
+  
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+        <meta name="format-detection" content="telephone=no">
+		
+		<style type="text/css">
+		@-webkit-keyframes bottlechange
+		{
+			from{opacity: 0}
+			to{opacity: 1}
+		}
+        @-webkit-keyframes chongmove1
+        {
+            0% {-webkit-transform: translate3d(327px, 671px, 0px);opacity:0;}
+            10.4807% {-webkit-transform: translate3d(321px, 550px, 0px);opacity: 1}
+            20.499% {-webkit-transform: translate3d(424px, 484px, 0px);opacity: 1}
+            47.3909% {-webkit-transform: translate3d(34px, 337px, 0px);opacity: 1}
+            73.1831% {-webkit-transform: translate3d(433.7px, 117.6px, 0px);opacity: 1}
+            100% {-webkit-transform: translate3d(38px, -22px, 0px);opacity: 1}
+        }
+        @-webkit-keyframes chongmove2
+        {
+            0% {-webkit-transform: translate3d(327px, 671px, 0px);opacity:0;}
+            10% {-webkit-transform: translate3d(321px, 550px, 0px);opacity:0.4;}
+            10.4807% {-webkit-transform: translate3d(301px, 530px, 0px);opacity:0.4;}
+            10.5% {-webkit-transform: translate3d(301px, 530px, 0px);opacity:1;}
+            20.499% {-webkit-transform: translate3d(254px, 454px, 0px);opacity:1;}
+            47.3909% {-webkit-transform: translate3d(404px, 337px, 0px);opacity:1;}
+            73.1831% {-webkit-transform: translate3d(33.6666666666667px, 117.66666666666663px, 0px);opacity:1;}
+            100% {-webkit-transform: translate3d(338px, -22px, 0px);opacity:1;}
+        }
+        @-webkit-keyframes chongmove3
+        {
+            0% {-webkit-transform: translate3d(327px, 671px, 0px);opacity:0;}
+            10% {-webkit-transform: translate3d(321px, 550px, 0px);opacity: 0.4}
+            10.4807% {-webkit-transform: translate3d(321px, 550px, 0px);opacity: 0.4}
+            10.5% {-webkit-transform: translate3d(321px, 550px, 0px);opacity: 0.4}
+            20.499% {-webkit-transform: translate3d(400px, 484px, 0px);opacity: 1}
+            47.3909% {-webkit-transform: translate3d(34px, 337px, 0px);opacity: 1}
+            73.1831% {-webkit-transform: translate3d(333.7px, 117.6px, 0px);opacity: 1}
+            100% {-webkit-transform: translate3d(38px, -22px, 0px);opacity: 1}
+
+        }
+
+
+		</style>
+	</head><!--  -->
+	<body style="margin:0; height: 100%;background-color:#000000;" onload="kawa_init();">	
+	
+        <script>
+        	words = '还记得小时候的梦么？所谓那快乐，赤脚在田里捉萤火虫捉到累了，偷摘水果被蜜蜂给叮到怕了，靠着稻草人吹着风唱着歌睡着了。如果你对这个世界，有太多的抱怨，笑一个吧，功成名就不是目的，让自己快乐，这才叫做意义。';
+
+            kawa_data = {
+                words 			   : words,
+               <if condition=" $words eq ''">
+				replace_words      : '还记得小时候的梦么？所谓那快乐，赤脚在田里捉萤火虫捉到累了，偷摘水果被蜜蜂给叮到怕了，靠着稻草人吹着风唱着歌睡着了。如果你对这个世界，有太多的抱怨，笑一个吧，功成名就不是目的，让自己快乐，这才叫做意义。',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '30 20 450 350', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#ffffaa', // rgb(1,2,3) 'black'
+                font_size          : '20pt',
+                line_height        : '40pt',
+                music              : 'tpl/Wap/default/common/kawahk/mp3/daoxiang.mp3',     // url
+                <if condition=" $music eq ''">
+				replace_music      : 'tpl/Wap/default/common/kawahk/mp3/daoxiang.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m20020.jpg',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '20020',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '114.215.157.155:8000',
+                // font_family        : 'hkww',
+                modify_optfile     : 'xinqing',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes',
+                channel            : 'zuixinyu'
+            };
+        </script>
+        <div style='position:absolute;width:500px;height:750px;top:-60px;'>
+            <img src='tpl/Wap/default/common/kawahk/20020/2000'>
+            <img src='tpl/Wap/default/common/kawahk/20020/2000.png' style='position:absolute;top:532px;left:0px;opacity:0;-webkit-animation:bottlechange 1s linear infinite alternate'>
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove1 8s ease infinite;top:0px;left:0px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove1 8s ease 3s infinite;top:0px;left:0px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove1 8s ease 6s infinite;top:0px;left:0px;opacity:0;' >
+            <!-- <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove1 8s ease 6s infinite;top:0px;left:0px;opacity:0;' >
+            <img src='http://tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove1 8s ease 6s infinite;top:0px;left:0px;opacity:0;' > -->
+
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove2 10s ease 2s infinite;top:50px;left:50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove2 10s ease 5s infinite;top:50px;left:50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove2 10s ease 8s infinite;top:50px;left:50px;opacity:0;' >
+<!--             <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove2 10s ease 7s infinite;top:50px;left:50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove2 10s ease 9s infinite;top:50px;left:50px;opacity:0;' > -->
+
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove3 9s ease 1s infinite;top:50px;left:-50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove3 9s ease 4s infinite;top:50px;left:-50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove3 9s ease 7s infinite;top:50px;left:-50px;opacity:0;' >
+<!--             <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove3 9s ease 6.5s infinite;top:50px;left:-50px;opacity:0;' >
+            <img src='tpl/Wap/default/common/kawahk/20020/20001.png' style='position:absolute;-webkit-animation:chongmove3 9s ease 8s infinite;top:50px;left:-50px;opacity:0;' > -->
+        </div>
+        </body>
+<include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

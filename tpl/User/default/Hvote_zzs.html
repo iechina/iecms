@@ -1,0 +1,52 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+
+<script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+
+<script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+
+<script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<div class="content">
+         <div>
+         <form action="/index.php?g=User&m=Hvote&a=zzs&vid={pigcms:$vid}" method="post">   
+         连接：<input type="text" value="" name="lj" class="px"/>
+		 图片：<input type="text" name="pic" value="{pigcms:$vo.pic}" class="px" onclick="document.getElementById('pic_src').src=this.value;" id="pic" style="width:300px;">
+              <script src="/tpl/static/upyun.js"></script>
+              <a href="###" onclick="upyunPicUpload('pic',700,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>&nbsp;图片最高为70px
+         <input type="submit" value="增加" name="提交" class="btnGreen"/>
+         </form>
+         </div>
+          
+  <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					<th>编号</th>                 
+                    <th>照片</th>
+					<th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="item" name="item">
+                <tr>
+					<td>{pigcms:$i}</td>
+                    <td  class="norightborder"><img  style="width:60px" src="{pigcms:$item.pic}"  />
+                    </td>
+                    <td class="norightborder"><input type="hidden" name="pics" value="{pigcms:$item.pic}" class="px"  id="pics" style="width:300px;"><a href="###" onclick="viewImg('pics')">预览</a><a href="/index.php?g=User&m=Hvote&a=zzs&id={pigcms:$item.id}&vid={pigcms:$item.vid}&action=del" style="margin-left:50px">删除</a></td>
+                    </tr>
+                  </volist>
+              </tbody>
+            </table>
+
+   </div>
+  </div>
+<include file="Public:footer"/>

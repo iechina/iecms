@@ -1,0 +1,78 @@
+<if condition="$homeInfo['start'] eq 1"><include file="Index:kcdh1"/></if>
+<if condition="$homeInfo['start'] eq 2"><include file="Index:kcdh2"/></if>
+<if condition="$homeInfo['start'] eq 3"><include file="Index:kcdh3"/></if>
+<if condition="$homeInfo['start'] eq 4"><include file="Index:kcdh4"/></if>
+
+
+
+<script type="text/javascript" src="/tpl/Wap/default/common/js/ChatFloat.js"></script>
+
+<if condition="$_GET['type'] eq ''">
+
+<if condition="$kefu['status'] eq '1'"><a href="{pigcms:$kefu.info2}" id="CustomerChatFloat" style="position: fixed; right: 0px; top: 150px; z-index: 99999; height: 70px; width: 65px; min-width: 65px; background-image: url(/tpl/Wap/default/common/css/img/MobileChatFloat.png); background-size: 65px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></a></if> 
+
+<else/>
+
+<if condition="$kefu[$_GET['type']] eq '1'"><a href="{pigcms:$kefu.info2}" id="CustomerChatFloat" style="position: fixed; right: 0px; top: 150px; z-index: 99999; height: 70px; width: 65px; min-width: 65px; background-image: url(/tpl/Wap/default/common/css/img/MobileChatFloat.png); background-size: 65px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;"></a></if> 
+
+</if>
+
+	<if condition="ACTION_NAME eq 'index'">
+
+		<script type="text/javascript">
+
+			window.shareData = {  
+
+					"moduleName":"Index",
+
+					"moduleID": "0",
+
+					"imgUrl": "{pigcms:$homeInfo.picurl}", 
+
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"tTitle": "{pigcms:$homeInfo.title}",
+
+					"tContent": "{pigcms:$homeInfo.info}"
+
+				};
+
+		</script>
+
+	<else />
+
+		<script type="text/javascript">
+
+			window.shareData = {  
+
+				"moduleName":"NewsList",
+
+				"moduleID": "{pigcms:$_GET['classid']|intval}",
+
+				"imgUrl": "{pigcms:$thisClassInfo.img}", 
+
+				"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+
+				"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+
+				"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token'],'classid'=>$_GET['classid']))}",
+
+				"tTitle": "{pigcms:$thisClassInfo.name}",
+
+				"tContent": "{pigcms:$thisClassInfo.info}"
+
+			};
+
+		</script>	
+
+	
+
+	</if>
+
+	
+
+{pigcms:$shareScript}

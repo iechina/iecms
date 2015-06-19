@@ -1,0 +1,114 @@
+
+<html>  
+	<head>
+		<title>拜年卡</title>
+		<meta name='copyright' content='警告微贺卡传情、微卡秀，立刻停止抄袭，否则等待被起诉。'/>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">  
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		
+		<script type="text/javascript" src="http://weika5.kagirl.net/kawa2/js/caozuo.js?v=105"></script>
+		<script type="text/javascript">
+			window.onload=function()
+			{
+				var str=location.href;
+				if (getQueryStr('param')!='')
+				{
+					var param=getQueryStr('param');
+					getAction(decodeURIComponent(param));
+					display();
+				}					
+				else
+				{
+					id('bg').style.display='block';
+					id('button').style.display='block';
+					id('button2').style.display='block';
+				}
+				kawa_init();	
+
+			}
+			initViewport();
+		</script>
+		<style>
+			body
+			{
+				overflow: hidden;
+				width:500px;
+				height:815px;
+			}
+			#container
+			{
+				overflow: hidden;
+				width:500px;
+				height:815px;
+			}
+			@-webkit-keyframes boynode
+			{
+				0%{-webkit-transform: translateY(-40px) rotate(-10deg);}
+				100%{-webkit-transform: translateY(-40px) rotate(10deg);}
+			}
+			@-webkit-keyframes girlnode
+			{
+				0%{-webkit-transform: translateY(-30px) rotate(-10deg);}
+				100%{-webkit-transform: translateY(-30px) rotate(10deg);}
+			}
+		</style>
+	</head>
+	<body style='margin:0px;'>
+		<script>
+            words = "岁末甫至，福气东来，鸿运通天。否极泰来时重申鲲鹏之志，惜时勤业中，展军无限风采。祝新年吉祥！";
+            kawa_data = {
+                words              : words,
+                replace_words      : '#replace_words#',
+                text_box           : '0 0 500 42', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'left',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#ffd700', // rgb(1,2,3) 'black'
+                font_size          : '20pt',
+                line_height        : '34pt',
+                music              : 'http://kawaweika.qiniudn.com/sound/bainian.mp3',     // url
+                replace_music      : '#replace_music#',
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : 'tpl/Wap/default/common/kawahk/10024/2c01e0f040da83a08efe/2000',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '10024',
+                share_url          : 'http://mp.weixin.qq.com/s?__biz=MjM5MDg0OTE0Mw==&mid=209444930&idx=1&sn=9bfff5f72b86a87408324e8050eb0ce1#wechat_redirect',  // 当分享的是微信页面时才需要改这里
+                use_share_url      : '#use_share_url#',
+                font_ip            : '115.28.135.41:8000',
+                modify_optfile     : '10024',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'no',
+                write_param_1      : 'inputtype=singleline&showsel=no&prompt=' + encodeURIComponent('输入对方的名字：'),
+                param 			   : '#param#'
+            };
+        </script>
+		<!-- <div  style='display:none;'>
+			<img src='/bai/10024/background.jpg'>
+		</div> -->
+		<div id='container'>
+			<div id='bg'  style='display:none;position:absolute;left:0px;top:0px;z-index:3;'>
+				<img id='bgImg' src='tpl/Wap/default/common/kawahk/10024/2000.png'>
+			</div>
+			<div id='bg1'  style='display:none;position:absolute;left:0px;top:0px;z-index:0;'>
+				<img src='tpl/Wap/default/common/kawahk/10024/2000.jpg'>
+			</div>
+			<div id='hc'  style='display:none;position:absolute;left:220px;top:320px;z-index:5;'>
+				<img src='tpl/Wap/default/common/kawahk/10024/2000.gif'>
+			</div>
+			<div id='button' onclick='chooseImage()'style='display:none;position:absolute;left:60px;top:75%;width:150px;height:70px;z-index:4;background: url("tpl/Wap/default/common/kawahk/10024/2000 (1).png") no-repeat scroll -60px -340px transparent;'></div>
+			<div id='button2' onclick='changeSex()'style='display:none;position:absolute;left:275px;top:75%;width:150px;height:70px;z-index:4;background: url("tpl/Wap/default/common/kawahk/10024/2000 (1).png") no-repeat scroll -49px -180px transparent;'></div>
+			<div id='button1' onclick='done()'style='display:none;position:absolute;left:180px;top:80%;width:150px;height:70px;z-index:4;background: url("tpl/Wap/default/common/kawahk/10024/2000 (1).png") no-repeat scroll -235px -350px transparent;'></div>
+		</div>
+	</body>
+     <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script>
+</html>

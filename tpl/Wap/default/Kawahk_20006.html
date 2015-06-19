@@ -1,0 +1,129 @@
+
+<html>
+    <head
+        <title>送给你</title>
+     
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+         <meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+        <meta name="format-detection" content="telephone=no">
+        
+        <style type="text/css">
+        @-webkit-keyframes trainrun
+        {
+            from{-webkit-transform:translate(300px,-100px);}
+            to{-webkit-transform:translate(-100px,0px);}
+        }
+        @-webkit-keyframes huimove
+        {
+            from{-webkit-transform:scale(1,1) rotate(0deg);opacity: 1}
+            to{-webkit-transform:scale(0.1,0.1) rotate(360deg);opacity: 0}
+        }
+        @-webkit-keyframes backmove
+        {
+            from{-webkit-transform:translate(0px,0px);}
+            to{-webkit-transform:translate(-398px,0px);}
+        }
+        @-webkit-keyframes jiamove
+        {
+            0%{-webkit-transform:translate(0px,0px) scale(1,1);}
+            99%{-webkit-transform:translate(125px,190px) scale(0.2,0.2);opacity: 1}
+            100%{-webkit-transform:translate(125px,190px) scale(0.2,0.2);opacity: 1}
+        }
+        </style>
+    </head><!--  -->
+    <body style="margin:0; height: 100%;background-color:black;" onload='Init()'>    
+    
+        <script>
+            words = '游子在外，行千山，走万里，总是想着家。闯春秋，拼冬夏，心里有爸妈。过年回家，听听父母的唠叨，看看家乡的变化。过年回家已进入倒计时，愿所有漂泊在外的朋友们，都能平安踏上回家的路。';
+
+            kawa_data = {
+                words                : words,
+              <if condition=" $words eq ''">
+				replace_words      : '游子在外，行千山，走万里，总是想着家。闯春秋，拼冬夏，心里有爸妈。过年回家，听听父母的唠叨，看看家乡的变化。过年回家已进入倒计时，愿所有漂泊在外的朋友们，都能平安踏上回家的路。',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '10 50 300 140', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 45,     // 每秒移动的像素
+                text_color         : '#000000', // rgb(1,2,3) 'black'
+                font_size          : '18pt',
+                line_height        : '30pt',
+                music              : 'tpl/Wap/default/common/kawahk/mp3/HuocheHuijia.mp3',     // url
+               <if condition=" $music eq ''">
+				replace_music      : 'tpl/Wap/default/common/kawahk/mp3/HuocheHuijia.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m20006.jpg',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '20006',
+                share_url          :window.location.href, // 当分享的是微信页面时才需要改这里
+                font_ip            : '115.28.135.41:8000',
+                font_weight        : 'bold',
+                modify_optfile     : '',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'no'
+            };
+        </script>
+        <script type="text/javascript">
+        function Init () {
+            kawa_init();
+            id('back').style.webkitAnimation='backmove 10s ease-out forwards';
+            id('jia').style.webkitTransition='opacity 2s linear 1.5s';
+            id('jia').style.opacity=1;
+            id('hui').style.webkitTransition='opacity 2s linear 0.5s';
+            id('hui').style.opacity=1;
+            id('hui').style.webkitAnimation='huimove 2s ease-in 3s forwards';
+            id('ticket').style.webkitTransition='opacity 2s ease-out 4s';
+            id('ticket').style.opacity=1;
+            id('jia').style.webkitAnimation='jiamove 2s linear 3.5s forwards'
+            id('ticket1').style.webkitTransition='opacity 1s ease-out 5.5s'
+            id('ticket1').style.opacity=1;
+            setTimeout(show_textdiv,5000);
+            // var imgindex=2
+            // t=setInterval(
+            //     function()
+            //     {
+            //         if(imgindex>49)
+            //         {
+            //             clearInterval(t);
+            //             return;
+            //         }
+            //         id('train').src='http://hg.jielanhua.cn/ps/train/'+imgindex+'.png';
+            //         imgindex+=3;
+            //     },300)
+        }
+        function id(name)
+        {
+            return document.getElementById(name);
+        }
+
+
+        </script>
+        <div style='position:absolute;height:750px;width:500px;overflow:hidden;'>
+            <img id='back' src='tpl/Wap/default/common/kawahk/20006/2000.jpg' style='position:absolute;top:0px;left:0px;'>
+            <div>
+                <img id='zhi' src='tpl/Wap/default/common/kawahk/20006/2000.png' style='position:absolute;top:-40px'>
+                <img id='jia' src='tpl/Wap/default/common/kawahk/20006/20001.png' style='position:absolute;top:40px;left:130px;height:150px;opacity:0;z-index:100'>
+                <img id='hui' src='tpl/Wap/default/common/kawahk/20006/20002.png' style='position:absolute;height:130px;top:60px;opacity:0;'>
+            </div>
+            <img id='ticket' src='tpl/Wap/default/common/kawahk/20006/20003.png' style='position:absolute;left:40px;top:220px;height:300px;opacity:0;'>
+            <img id='ticket1' src='tpl/Wap/default/common/kawahk/20006/20005.png' style='position:absolute;left:323px;top:290px;height:32px;opacity:0;z-index:101'>
+            <img>
+
+
+            <!-- <img id='train' src='http://hg.jielanhua.cn/ps/huoche/train.png' style='position:absolute;top:100px;left:0px;-webkit-animation:trainrun 5s linear forwards'> -->
+            <!-- <img src='http://hg.jielanhua.cn/ps/train/ticket.png' style='position:absolute;top:50px;width:400px;left:50px;'> -->
+        </div>
+    </body>
+<include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

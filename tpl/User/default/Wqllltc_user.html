@@ -1,0 +1,57 @@
+<include file="Public:head"/>  
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">报名用户列表</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="tabli " id="tab0"><a href="{pigcms::U('Wqllltc/index')}">套餐列别</a></li>
+<li class="tabli" id="tab2"><a href="{pigcms::U('Wqllltc/replay')}">回复配置信息</a></li>
+<li class="tabli current" id="tab2"><a href="{pigcms::U('Wqllltc/user')}">报名用户</a></li>
+</ul>
+</div>
+<!--tab end-->
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<div class="cLine">
+
+<div class="clr"></div>
+</div>
+
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="120">手机号码</th>
+<th width="120">订购的流量套餐</th>
+<th width="120">处理状态</th>
+<th width="80" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="info" id="o"> 
+<tr>
+<td>{pigcms:$o.phone}</td>
+<td>{pigcms:$o.hddw}</td>
+<td><if condition="$o.statue eq '1'">已经处理<else/><p style="color:red">未处理</p></if></td>
+<td class="norightborder">&nbsp;&nbsp;<a href="{pigcms::U('Wqllltc/doit',array('id'=>$o['id']))}">处理</a> </td>
+</tr>
+</volist>
+</tbody>
+</table>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{pigcms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

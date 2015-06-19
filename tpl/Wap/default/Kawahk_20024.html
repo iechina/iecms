@@ -1,0 +1,173 @@
+
+<html>
+	<head>
+		<title>送给你</title>
+		<meta http-equiv="imagetoolbar" content="no">
+		
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+        <meta name="format-detection" content="telephone=no">
+		
+		<style type="text/css">
+		@-webkit-keyframes longzimove
+		{
+			from{-webkit-transform:rotate(1.5deg);}
+			to{-webkit-transform:rotate(-1.5deg);}
+		}
+		@-webkit-keyframes dishen1
+		{
+			0%{-webkit-transform:rotate(0deg);}
+			10%{-webkit-transform:rotate(40deg);}
+			40%{-webkit-transform:rotate(40deg);}
+			50%{-webkit-transform:rotate(0deg);}
+			100%{-webkit-transform:rotate(0deg);}
+		}
+		@-webkit-keyframes ditou1
+		{
+			0%{-webkit-transform:rotate(0deg);}
+			10%{-webkit-transform:rotate(-20deg);}
+			14%{-webkit-transform:rotate(0deg);}
+			16%{-webkit-transform:rotate(-10deg);}
+			20%{-webkit-transform:rotate(10deg);}
+			24%{-webkit-transform:rotate(-10deg);}
+			28%{-webkit-transform:rotate(10deg);}
+			32%{-webkit-transform:rotate(-10deg);}
+			36%{-webkit-transform:rotate(10deg);}
+			40%{-webkit-transform:rotate(0deg);}
+			50%{-webkit-transform:rotate(0deg);}
+			100%{-webkit-transform:rotate(0deg);}
+		}
+		@-webkit-keyframes bird1
+		{
+			0%{-webkit-transform:translate(0px,0px);}
+			12%{-webkit-transform:translate(0px,0px);}
+			13%{-webkit-transform:translate(5px,-10px);}
+			14%{-webkit-transform:translate(10px,-4px);}
+			50%{-webkit-transform:translate(10px,-4px);}
+			51%{-webkit-transform:translate(15px,-14px);}
+			52%{-webkit-transform:translate(20px,-8px);}
+			75%{-webkit-transform:translate(20px,-8px)}
+			76%{-webkit-transform:translate(15px,-14px)}
+			77%{-webkit-transform:translate(10px,-4px)}
+			78%{-webkit-transform:translate(5px,-10px)}
+			79%{-webkit-transform:translate(0px,0px)}
+			100%{-webkit-transform:translate(0px,0px);}
+
+		}
+		@-webkit-keyframes zuimove
+		{
+			0%{-webkit-transform:rotate(0deg);}
+			6%{-webkit-transform:rotate(100deg);}
+			70%{-webkit-transform:rotate(100deg);}
+			76%{-webkit-transform:rotate(0deg);}
+			100%{-webkit-transform:rotate(0deg);}
+		}
+		@-webkit-keyframes shen2move
+		{
+			0%{-webkit-transform:rotate(0deg);}
+			20%{-webkit-transform:rotate(0deg);}
+			25%{-webkit-transform:rotate(40deg);}
+			30%{-webkit-transform:rotate(40deg);}
+			34%{-webkit-transform:rotate(0deg);}
+			50%{-webkit-transform:rotate(0deg);}
+			55%{-webkit-transform:rotate(40deg);}
+			60%{-webkit-transform:rotate(40deg);}
+			65%{-webkit-transform:rotate(0deg);}
+			100%{-webkit-transform:rotate(0deg);}
+
+		}
+		@-webkit-keyframes tou2move{
+			0%{-webkit-transform:rotate(0deg);}
+			25%{-webkit-transform:rotate(0deg);}
+			26%{-webkit-transform:rotate(21deg);}
+			27%{-webkit-transform:rotate(0deg)}
+			28%{-webkit-transform:rotate(21deg)}
+			29%{-webkit-transform:rotate(0deg)}
+			30%{-webkit-transform:rotate(21deg);}
+			55%{-webkit-transform:rotate(0deg)}
+			56%{-webkit-transform:rotate(21deg)}
+			57%{-webkit-transform:rotate(0deg)}
+			58%{-webkit-transform:rotate(21deg)}
+			59%{-webkit-transform:rotate(0deg)}
+			60%{-webkit-transform:rotate(21deg)}
+			61%{-webkit-transform:rotate(0deg)}
+			100%{-webkit-transform:rotate(0deg)}
+		}
+		@-webkit-keyframes bird2
+		{
+			0%{-webkit-transform:translate(0px,0px);}
+			10%{-webkit-transform:translate(0px,0px);}
+			11%{-webkit-transform:translate(8px,-15px);}
+			12%{-webkit-transform:translate(16px,-10px);}
+			25%{-webkit-transform:translate(16px,-10px);}
+			26%{-webkit-transform:translate(23px,-23px);}
+			27%{-webkit-transform:translate(30px,-18px);}
+			50%{-webkit-transform:translate(30px,-18px);}
+			51%{-webkit-transform:translate(23px,-23px);}
+			52%{-webkit-transform:translate(16px,-10px);}
+			53%{-webkit-transform:translate(8px,-15px);}
+			54%{-webkit-transform:translate(0px,0px);}
+			100%{-webkit-transform:translate(0px,0px);}
+		}
+		</style>
+	</head><!--  -->
+	<body style="margin:0; height: 100%;" onload="kawa_init();">	
+	
+        <script>
+        	words = '生活就像笼子，我们像笼子里的鸟。每天重复的生活，从工作到家，再从家到工作，周而复始。其实最可怕的是，笼里的安逸生活，会渐渐磨灭，我们的激情与希望。所以，千万不要让生活，禁锢了我们的心。';
+
+            kawa_data = {
+                words 			   : words,
+                replace_words      : '#replace_words#',
+                text_box           : '15 40 250 300', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#000000', // rgb(1,2,3) 'black'
+                font_size          : '20pt',
+                line_height        : '40pt',
+                music              : 'http://kawaweika.qiniudn.com/sound/niaojiao10.mp3',     // url
+                replace_music      : '#replace_music#',
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : 'tpl/Wap/default/common/kawahk/20024/737efc84529eace1aa54/2000',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '20024',
+                share_url          : '#share_url#',  // 当分享的是微信页面时才需要改这里
+                font_ip            : '121.42.24.240:8000',
+                modify_optfile     : 'xinqing',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes',
+                channel				:'zuixinyu'
+            };
+        </script>
+        <img src='tpl/Wap/default/common/kawahk/20024/2000.jpg'>
+        <div style='position:absolute;width:254px;height:538px;top:0px;left:220px;-webkit-transform-origin:45% -10%;-webkit-transform:rotate(1.5deg);-webkit-animation:longzimove 2s ease-in-out infinite alternate'>
+        	<img src='tpl/Wap/default/common/kawahk/20024/2000.png'>
+        	<div id='bird1' style='position:absolute;top:154px;height:50px;width:100px;left:-5px;-webkit-animation:bird1 8s linear infinite'>
+        		<img src='tpl/Wap/default/common/kawahk/20024/20001.png' style='position:absolute;left:30px;top:0px'>
+        		<div style='position:absolute;width:52px;height:44px;left:8px;top:-18px;-webkit-transform-origin:67.69% 69.89%;-webkit-animation:dishen1 4s linear infinite'>
+        			<img src='tpl/Wap/default/common/kawahk/20024/20002.png' style='position:absolute;'>
+        			<img src='tpl/Wap/default/common/kawahk/20024/20003.png' style='position:absolute;left:33px;top:-9px;-webkit-transform-origin:38.84% 65.63%;-webkit-animation:ditou1 4s linear infinite'>
+        		</div>
+        	</div>
+        	<div style='position:absolute;width:100px;height:80px;top:300px;left:100px;-webkit-animation:bird2 10s linear infinite'>
+        		<img src='tpl/Wap/default/common/kawahk/20024/20004.png' style='position:absolute;left:23px;top:35px'>
+        		<div style='position:absolute;width:46px;height:54px;left:10px;top:3px;-webkit-transform-origin:51% 75%;-webkit-animation:shen2move 10s linear infinite;'>
+        			<img src='tpl/Wap/default/common/kawahk/20024/20005.png' style='position:absolute;'>
+        			<div style='position:absolute;width:20px;height:24px;left:24px;top:-8px;-webkit-transform-origin:27.5% 85.5%;-webkit-animation:tou2move 10s linear infinite;'>
+        				<img src='tpl/Wap/default/common/kawahk/20024/20006.png' style='position:absolute;'>
+        				<img src='tpl/Wap/default/common/kawahk/20024/20007.png' style='position:absolute;-webkit-animation:zuimove 10s linear infinite;-webkit-transform-origin:74% 70%;'>
+        			</div>
+        		</div>
+        	</div>
+    	</div>
+    </body>
+   <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

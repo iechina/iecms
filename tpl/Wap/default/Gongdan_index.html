@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+
+
+<html><head _wxhkphogpkobbkjccgfifhfjlahnoocnan_="shake_1.0"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	
+
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="/tpl/Wap/default/common/zhaopin/geren/main.css" media="all">
+
+	<link rel="stylesheet" type="text/css" href="/tpl/Wap/default/common/zhaopin/geren/dialog.css" media="all">
+
+	<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/jquery-1.9.1.min.js"></script>
+
+	<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/main.js"></script>
+
+	<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/dialog_min.js"></script>
+
+	<title>微乾隆工单通知设置</title>
+
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+
+	<meta name="Keywords" content="{pigcms:$f_siteName}">
+
+	<meta name="Description" content="{pigcms:$f_siteName}">
+
+	<!-- Mobile Devices Support @begin -->
+
+	<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+
+	<meta content="no-cache" http-equiv="pragma">
+
+	<meta content="0" http-equiv="expires">
+
+	<meta content="telephone=no, address=no" name="format-detection">
+
+	<meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/mymain.js"></script>
+
+<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/aSelect.js"></script>
+
+<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/aLocation.js"></script>
+
+<script type="text/javascript" src="/tpl/Wap/default/common/zhaopin/geren/dater_min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/style.css">
+
+<script type="text/javascript" charset="utf-8" src="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/js/page_context.js"></script>
+
+
+
+<style type="text/css">
+
+.list_ul_card {
+
+margin: 10px;
+
+margin-top: 1px;
+
+border: 1px solid #c3cfd0;
+
+}
+
+*[data-card] header {
+
+padding: 10px 30px;
+
+-webkit-box-sizing: border-box;
+
+background: -webkit-gradient(linear, 0 0, 100% 0, from(#ebebeb), to(#ebebeb), color-stop(30%, #ebebeb));
+
+}
+
+.info_tx {
+
+background: #fff;
+
+}
+
+.list_ul_card *[data-card] header label span {
+
+display: inline-block;
+
+width: 40px;
+
+height: 40px;
+
+background: url(/tpl/Wap/default/common/zhaopin/icons12.png) no-repeat center -106px;
+
+-webkit-background-size: 50px auto;
+
+}
+
+.list_ul_card *[data-card] header label {
+
+display: block;
+
+line-height: 40px;
+
+color: #ee5871; 
+
+font-size: 18px;
+
+}
+
+.button {
+
+background: #ee5871;
+
+}
+
+</style></head>
+
+
+
+<body onselectstart="return true;" ondragstart="return false;" style="">
+
+
+
+<div class="container info_tx">
+
+	<div class="body pt_10">
+
+		<ul class="list_ul_card">
+
+		<li data-card="">
+
+		
+
+			<form id="form1" action="" method="post">
+
+				<header class="center">
+
+					<label style="display:inline-block;"><span>&nbsp;</span>微信通知配置</label>
+
+				</header>
+
+								<div class="forms">
+
+						<dl>
+
+							<dt>您的openid： </dt>
+
+							<dd>
+
+								<input type="text" name="openid" id="name"  value="{pigcms:$info.openid}"placeholder="您的openid" maxlength="10" class="input">
+
+							</dd>
+
+						</dl>
+
+						<dl>
+
+							<dt>微信通知状态设置： </dt>
+
+							<dd>
+
+								<select name="statue" id="sex"  class="select" style="width:100%;">
+
+									<option value="1">开启</option>
+
+									<option value="0">关闭</option>
+
+								</select>                        
+
+							</dd>
+
+						</dl>
+
+
+                        <button style="width:100%" type="submit" class="button">提&nbsp;&nbsp;交</button>  
+
+				</div></form></li>
+
+			
+
+			
+
+		</ul>
+
+	</div>
+
+
+
+<style type="text/css">
+
+	.back360{
+
+    display:inline-block;
+
+    width:40px;
+
+    height:40px;
+
+    position:fixed;
+
+    bottom:10px;
+
+    left:10px;
+
+    z-index:1000;
+
+    border-radius:60px;
+
+    background:url('../../images/wap/back.png') no-repeat center center;
+
+    background-size:100% 100%;
+
+}
+
+</style>
+
+<a href="javascript:history.go(-1);" class="back360" style="">&nbsp;</a>
+
+<!-- 			<footer>
+
+				<nav class="nav_add_addr">
+
+					<ul class="tbox">
+
+						<li>
+
+							<a href="wap.php?m=wxuser&a=main&wxid=olqrhjkniK_cMuV-IRKG6aMlmy-Q" class="icons icons_before">&nbsp;</a>
+
+						</li>
+
+					</ul>
+
+				</nav>
+
+			</footer> -->
+
+</div>
+
+
+
+<script>
+
+
+
+
+
+
+
+(function(){
+
+	   var onBridgeReady=function(){
+
+	   WeixinJSBridge.on('menu:share:appmessage', function(argv){
+
+	      WeixinJSBridge.invoke('sendAppMessage',{
+
+	         "appid":dataForWeixin.appId,
+
+	         "img_url":dataForWeixin.MsgImg,
+
+	         "img_width":"640",
+
+	         "img_height":"640",
+
+	         "link":dataForWeixin.path,
+
+	         "desc":dataForWeixin.desc,
+
+	         "title":dataForWeixin.title
+
+	      }, function(res){(dataForWeixin.callback)();});
+
+	   });
+
+	   WeixinJSBridge.on('menu:share:timeline', function(argv){
+
+		  (dataForWeixin.callback)();
+
+		  WeixinJSBridge.invoke('shareTimeline',{
+
+	         "img_url":dataForWeixin.TLImg,
+
+	         "img_width":"640",
+
+	         "img_height":"640",
+
+	         "link":dataForWeixin.path,
+
+	         "desc":dataForWeixin.desc,
+
+	         "title":dataForWeixin.title
+
+	      }, function(res){});
+
+	   });
+
+	   WeixinJSBridge.on('menu:share:weibo', function(argv){
+
+		  WeixinJSBridge.invoke('shareWeibo',{
+
+	         "content":dataForWeixin.title,
+
+	         "url":dataForWeixin.path
+
+	      }, function(res){(dataForWeixin.callback)();});
+
+	   });
+
+	   WeixinJSBridge.on('menu:share:facebook', function(argv){
+
+		  (dataForWeixin.callback)();
+
+		  WeixinJSBridge.invoke('shareFB',{
+
+	         "img_url":dataForWeixin.TLImg,
+
+	         "img_width":"640",
+
+	         "img_height":"640",
+
+	         "link":dataForWeixin.path,
+
+	         "desc":dataForWeixin.desc,
+
+	         "title":dataForWeixin.title
+
+	      }, function(res){});
+
+	   });
+
+	};
+
+	if(document.addEventListener){
+
+	   document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+
+	}else if(document.attachEvent){
+
+	   document.attachEvent('WeixinJSBridgeReady'   , onBridgeReady);
+
+	   document.attachEvent('onWeixinJSBridgeReady' , onBridgeReady);
+
+	}
+
+	})();
+
+	var _cookie={
+
+		_set:function(name,value,expires){
+
+		   if(expires){
+
+			  var _end = new Date();
+
+			  _end.setTime(_end.getTime()+(expires*1000));
+
+		    }
+
+		    document.cookie=name+"="+escape(value)+(expires ? ";expires="+_end.toGMTString() : "")+"; path=/";
+
+	    },
+
+		_get:function(name){
+
+	       var _cookie=document.cookie;
+
+	       var _start=_cookie.indexOf(name+"=");
+
+	       if(_start!=-1){
+
+	          _start+=name.length+1;
+
+	          var _end=_cookie.indexOf(";",_start);
+
+	          if(_end==-1){_end = _cookie.length;}
+
+	          return unescape(_cookie.substring(_start,_end));
+
+	        }
+
+	        return "";
+
+	    }
+
+	};
+
+</script><!-- <footer style="margin-top: 1px;"><a class="" href="http://mp.weixin.qq.com/s?__biz=MjM5NzE1Mzk0Mg==&mid=200035509&idx=1&sn=85296d44e36bce522fdc279639878e75#rd">&copy;2012-2014&nbsp;聚微乐城市生活</a></footer>
+
+</div> -->
+
+
+
+ <script type="text/javascript">
+
+			window.shareData = {  
+
+					"moduleName":"Zhaopin",
+
+					"moduleID": '0',
+
+					"imgUrl": "{pigcms:$date.tp}", 
+
+					"timeLineLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"sendFriendLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"weiboLink": "{pigcms::C('site_url')}{pigcms::U(MODULE_NAME/ACTION_NAME,array('token'=>$_GET['token']))}",
+
+					"tTitle": "{pigcms:$date.title}",
+
+					"tContent": "{pigcms:$date.info}"
+
+				};
+
+		</script>
+
+        	
+
+        {pigcms:$shareScript}
+
+
+
+
+
+</body></html>

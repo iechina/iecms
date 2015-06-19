@@ -1,0 +1,622 @@
+
+<html>
+    <head>
+        <title>荷塘</title>
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta charset="utf-8"> 
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      
+        <script type="text/javascript">
+            initViewport();
+        </script>
+        <script src='tpl/Wap/default/common/kawahk/common/kawamovie.js?ver=10'></script>
+        <style type="text/css">
+        body{   
+            -webkit-touch-callout: none; 
+            -webkit-text-size-adjust: none;
+            margin:0 auto;          
+            overflow:hidden;   
+            position:relative;          
+            background:white;
+        }
+        /*img{
+            position:absolute;
+        }*/
+/*        #water_1,#water_2,#water_3{
+            -webkit-animation:WaterMove 2s linear infinite;
+        }*/
+        #yezi_1,#yezi_2,#hua_1,#yezi_10,#yezi_12{
+            -webkit-transition : -webkit-transform 5s ;
+             -webkit-transform-origin:50% 50%;
+        }
+        #yezi_3,#yezi_4,#yezi_8,#yezi_9,#yezi_13{
+            -webkit-transition : -webkit-transform 6s ;
+        }
+        #yezi_5,#yezi_6,#yezi_7,#yezi_11{
+            -webkit-transform-origin:50% 50%;
+            -webkit-transition : -webkit-transform 6s ;
+        }
+        #yu1{
+            position:absolute;
+            width:100px;
+            left:0px;top:50px;
+        }
+        #wei{
+            position:absolute;
+            width:100px;
+            left:84px;top:8px;
+            -webkit-transform-origin:0% 60%;
+            -webkit-animation:WeiRoll 3s linear infinite;
+        } 
+        #yu2_1{
+            position:absolute;
+            width:50px;
+            left:10px;top:45px;
+            -webkit-transform-origin:50% 100%;
+            -webkit-animation:yu2_1_Move 3s linear infinite;
+        }
+        #yu2_2{
+            position:absolute;
+            width:55px;
+            left:25px;top:90px;
+            -webkit-transform-origin:50% 0%;
+            -webkit-animation:yu2_2_Move 3s linear infinite;
+        }
+        #yu3_1{
+            position:absolute;
+            width:50px;
+            left:60px;top:33px;
+            -webkit-transform-origin:50% 100%;
+            -webkit-animation:yu3_1_Move 3s 1s linear infinite;
+        }
+        #yu3_2{
+            position:absolute;
+            width:60px;
+            left:58px;top:75px;
+            -webkit-transform-origin:50% 0%;
+            -webkit-animation:yu3_2_Move 3s 1s linear infinite;
+        }
+        #Fish_1{
+            left:200px;top:-100px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_1 27s linear infinite ;
+        }
+        #Fish_2{
+            left:50px;top:-100px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_2 14s linear infinite ;
+        }
+        #Fish_3{
+            left:-50px;top:200px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_3 14s linear infinite ;
+        }
+        #Fish_4{
+            left:-50px;top:700px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_3 19s linear infinite ;
+        }
+        #Fish_5{
+            left:-50px;top:810px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_4 17s linear infinite ;
+        }
+        #Fish_6{
+            left:300px;top:810px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_5 15s linear infinite ;
+        }
+        #Fish_7{
+            left:460px;top:810px;
+            -webkit-transform-origin:50% 50%;
+            -webkit-animation:FishMove_5 15s 5s linear infinite ;
+        }
+        @-webkit-keyframes WeiRoll{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            25%{
+                -webkit-transform:translate(3px,-2px) rotate(10deg);
+            }
+            50%{
+                -webkit-transform:rotate(0deg);
+            }
+            75%{
+                -webkit-transform:translate(0px,1px) rotate(-20deg) ;
+            }
+            100%{
+                -webkit-transform:rotate(0deg);
+            }
+        }
+        @-webkit-keyframes yu2_1_Move{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            50%{
+                -webkit-transform:translate(0px,10px) rotate(30deg);
+            }
+            100%{
+                -webkit-transform:translate(0px,0px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes yu2_2_Move{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            50%{
+                -webkit-transform:translate(0px,-6px) rotate(-40deg);
+            }
+            100%{
+                -webkit-transform:translate(0px,0px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes yu3_1_Move{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            50%{
+                -webkit-transform:translate(0px,5px) rotate(25deg);
+            }
+            100%{
+                -webkit-transform:translate(0px,0px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes yu3_2_Move{
+            0%{
+                -webkit-transform:rotate(0deg);
+            }
+            50%{
+                -webkit-transform:translate(0px,-25px) rotate(-55deg);
+            }
+            100%{
+                -webkit-transform:translate(0px,0px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes FishMove_1{
+            0%{
+                -webkit-transform:translate(0px,0px) rotate(0deg) scale(0.8);
+            }
+            25%{
+                -webkit-transform:translate(-30px,280px) rotate(-90deg) scale(0.8);
+            }
+            50%{
+                -webkit-transform:translate(30px,470px) rotate(-90deg) scale(0.8);
+            }
+            75%{
+                -webkit-transform:translate(80px,750px) rotate(-70deg) scale(0.8);
+            }
+            100%{
+                -webkit-transform:translate(100px,940px) rotate(-70deg) scale(0.8);
+            }
+        }
+        @-webkit-keyframes FishMove_2{
+            0%{
+                -webkit-transform:translate(0px,0px) rotate(-30deg) scale(0.5);
+            }
+            25%{
+                -webkit-transform:translate(50px,260px) rotate(-60deg) scale(0.5);
+            }
+            50%{
+                -webkit-transform:translate(0px,470px) rotate(-50deg) scale(0.5);
+            }
+            75%{
+                -webkit-transform:translate(80px,750px) rotate(-90deg) scale(0.5);
+            }
+            100%{
+                -webkit-transform:translate(110px,930px) rotate(-60deg) scale(0.5);
+            }
+        }
+        @-webkit-keyframes FishMove_3{
+            0%{
+                -webkit-transform:translate(0px,0px) rotate(180deg) scale(0.7);
+            }
+            25%{
+                -webkit-transform:translate(170px,0px) rotate(190deg) scale(0.7);
+            }
+            50%{
+                -webkit-transform:translate(270px,0px) rotate(210deg) scale(0.7);
+            }
+            75%{
+                -webkit-transform:translate(440px,0px) rotate(200deg) scale(0.7);
+            }
+            100%{
+                -webkit-transform:translate(650px,0px) rotate(180deg) scale(0.7);
+            }
+        }
+        @-webkit-keyframes FishMove_4{
+            0%{
+                -webkit-transform:translate(0px,0px) rotate(110deg) scale(0.6);
+            }
+            25%{
+                -webkit-transform:translate(170px,-50px) rotate(120deg) scale(0.6);
+            }
+            50%{
+                -webkit-transform:translate(270px,-100px) rotate(160deg) scale(0.6);
+            }
+            75%{
+                -webkit-transform:translate(440px,-190px) rotate(170deg) scale(0.6);
+            }
+            100%{
+                -webkit-transform:translate(650px,-240px) rotate(190deg) scale(0.6);
+            }
+        }
+        @-webkit-keyframes FishMove_5{
+            0%{
+                -webkit-transform:translate(0px,0px) rotate(110deg) scale(0.4);
+            }
+            25%{
+                -webkit-transform:translate(0px,-200px) rotate(110deg) scale(0.4);
+            }
+            50%{
+                -webkit-transform:translate(0px,-400px) rotate(110deg) scale(0.4);
+            }
+            75%{
+                -webkit-transform:translate(0px,-600px) rotate(110deg) scale(0.4);
+            }
+            100%{
+                -webkit-transform:translate(0px,-840px) rotate(110deg) scale(0.4);
+            }
+        }
+        @-webkit-keyframes WaterMove{
+            0%{
+                opacity:1;
+                -webkit-transform:scale(0.5);
+            }
+            70%{
+                opacity:0;
+                -webkit-transform:scale(1.4);
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:scale(1.4);
+            }
+        }
+        @-webkit-keyframes YeziMove_1{
+            0%{
+                -webkit-transform:translate(200px,300px);
+            }
+            25%{
+                -webkit-transform:translate(170px,290px);
+            }
+            50%{
+                -webkit-transform:translate(196px,295px);
+            }
+            75%{
+                -webkit-transform:translate(210px,315px);
+            }
+            100%{
+                -webkit-transform:translate(200px,300px);
+            }
+        }
+        @-webkit-keyframes YeziMove_2{
+            0%{
+                -webkit-transform:translate(-170px,0px) rotate(0deg);
+            }
+            25%{
+                -webkit-transform:translate(-170px,0px) rotate(90deg);
+            }
+            50%{
+                -webkit-transform:translate(-170px,0px) rotate(0deg);
+            }
+            75%{
+                -webkit-transform:translate(-170px,0px) rotate(-90deg);
+            }
+            100%{
+                -webkit-transform:translate(-170px,0px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes YeziMove_3{
+            0%{
+                -webkit-transform:translate(-250px,150px);
+            }
+            25%{
+                -webkit-transform:translate(-254px,150px);
+            }
+            50%{
+                -webkit-transform:translate(-254px,145px);
+            }
+            75%{
+                -webkit-transform:translate(-250px,145px);
+            }
+            100%{
+                -webkit-transform:translate(-250px,150px);
+            }
+        }
+        @-webkit-keyframes YeziMove_4{
+            0%{
+                -webkit-transform:translate(220px,70px) rotate(0deg);
+            }
+            25%{
+                -webkit-transform:translate(220px,70px) rotate(30deg);
+            }
+            50%{
+                -webkit-transform:translate(220px,70px) rotate(0deg);
+            }
+            75%{
+                -webkit-transform:translate(220px,70px) rotate(-30deg);
+            }
+            100%{
+                -webkit-transform:translate(220px,70px) rotate(0deg);
+            }
+        }
+        @-webkit-keyframes YeziMove_5{
+            0%{
+                -webkit-transform:translate(210px,200px);
+            }
+            25%{
+                -webkit-transform:translate(220px,210px);
+            }
+            50%{
+                -webkit-transform:translate(240px,200px);
+            }
+            75%{
+                -webkit-transform:translate(210px,190px);
+            }
+            100%{
+                -webkit-transform:translate(200px,170px);
+            }
+        }
+        @-webkit-keyframes YeziMove_6{
+            0%{
+                -webkit-transform:translate(-300px,0px);
+            }
+            25%{
+                -webkit-transform:translate(-304px,0px);
+            }
+            50%{
+                -webkit-transform:translate(-304px,-5px);
+            }
+            75%{
+                -webkit-transform:translate(-300px,-5px);
+            }
+            100%{
+                -webkit-transform:translate(-300px,0px);
+            }
+        }
+        @-webkit-keyframes YeziMove_13{
+            0%{
+                -webkit-transform:translate(120px,300px);
+            }
+            25%{
+                -webkit-transform:translate(116px,300px);
+            }
+            50%{
+                -webkit-transform:translate(116px,295px);
+            }
+            75%{
+                -webkit-transform:translate(120px,295px);
+            }
+            100%{
+                -webkit-transform:translate(120px,300px);
+            }
+        }
+        @-webkit-keyframes YeziMove_10{
+            0%{
+                -webkit-transform:translate(0px,200px) rotate(0deg);
+            }
+            25%{
+                -webkit-transform:translate(0px,200px) rotate(90deg);
+            }
+            50%{
+                -webkit-transform:translate(0px,200px) rotate(0deg);
+            }
+            75%{
+                -webkit-transform:translate(0px,200px) rotate(-90deg);
+            }
+            100%{
+                -webkit-transform:translate(0px,200px) rotate(0deg);
+            }
+        }
+        </style>
+        <script>
+        function rand(min,max)
+        {
+            return min+Math.floor(Math.random()*(max-min));
+        }
+        function water_location()
+        {
+            for(i=1;i<4;i++)
+            {
+                var word = "water_"+i;
+                objid(word).style.left = rand(150,400)+'px';
+                objid(word).style.top = rand(150,750)+'px';
+            }
+            objid('water_1').style.webkitAnimation = 'WaterMove 6s linear infinite';
+            setTimeout("objid('water_2').style.webkitAnimation = 'WaterMove 5s linear infinite';",500);
+            setTimeout("objid('water_3').style.webkitAnimation = 'WaterMove 6s linear infinite';",1000);
+        }
+        function CreateFish(Num)
+        {
+            var fish = document.createElement('div'); 
+            fish.style.position = 'absolute';
+            //fish.style.top = TopNum;
+            //fish.style.left = LeftNum;
+            fish.id = 'Fish_'+Num;
+            objid('container').appendChild(fish);
+
+            var Fish_yu2_1_Img = document.createElement('img');
+            Fish_yu2_1_Img.src = 'tpl/Wap/default/common/kawahk/30003/2000.png';
+            Fish_yu2_1_Img.style.position = 'absolute';
+            Fish_yu2_1_Img.style.left= '10px';
+            Fish_yu2_1_Img.style.top = '45px';
+            Fish_yu2_1_Img.style.width= '50px';
+            Fish_yu2_1_Img.id = 'yu2_1';
+            fish.appendChild(Fish_yu2_1_Img);
+
+            var Fish_yu2_2_Img = document.createElement('img');
+            Fish_yu2_2_Img.src = 'tpl/Wap/default/common/kawahk/30003/2000 (1).png';
+            Fish_yu2_2_Img.style.position = 'absolute';
+            Fish_yu2_2_Img.style.left= '25px';
+            Fish_yu2_2_Img.style.top = '90px';
+            Fish_yu2_2_Img.style.width= '55px';
+            Fish_yu2_2_Img.id = 'yu2_2';
+            fish.appendChild(Fish_yu2_2_Img);
+                        
+            var Fish_yu3_1_Img = document.createElement('img');
+            Fish_yu3_1_Img.src = 'tpl/Wap/default/common/kawahk/30003/2000 (2).png';
+            Fish_yu3_1_Img.style.position = 'absolute';
+            Fish_yu3_1_Img.style.left= '60px';
+            Fish_yu3_1_Img.style.top = '33px';
+            Fish_yu3_1_Img.style.width= '50px';
+            Fish_yu3_1_Img.id = 'yu3_1';
+            fish.appendChild(Fish_yu3_1_Img);
+                        
+            var Fish_yu3_2_Img = document.createElement('img');
+            Fish_yu3_2_Img.src = 'tpl/Wap/default/common/kawahk/30003/2000 (3).png';
+            Fish_yu3_2_Img.style.position = 'absolute';
+            Fish_yu3_2_Img.style.left= '58px';
+            Fish_yu3_2_Img.style.top = '75px';
+            Fish_yu3_2_Img.style.width= '60px';
+            Fish_yu3_2_Img.id = 'yu3_2';
+            fish.appendChild(Fish_yu3_2_Img);
+
+            var Fish_weiImg = document.createElement('img');
+            Fish_weiImg.src = 'tpl/Wap/default/common/kawahk/30003/2000 (4).png';
+            Fish_weiImg.style.position = 'absolute';
+            Fish_weiImg.style.left= '80px';
+            Fish_weiImg.style.top = '11px';
+            Fish_weiImg.style.width= '100px';
+            Fish_weiImg.id = 'wei';
+            fish.appendChild(Fish_weiImg);
+
+            var Fish_yu1_Img = document.createElement('img');
+            Fish_yu1_Img.src = 'tpl/Wap/default/common/kawahk/30003/2000 (5).png';
+            Fish_yu1_Img.style.position = 'absolute';
+            Fish_yu1_Img.style.left= '0px';
+            Fish_yu1_Img.style.top = '50px';
+            Fish_yu1_Img.style.width= '100px';
+            Fish_yu1_Img.id = 'yu1';
+            fish.appendChild(Fish_yu1_Img);
+        }
+        function CreateYezi()
+        {
+            objid('yezi_1').style.webkitTransform = 'translate(200px,300px)';
+            // objid('hua_1').style.webkitTransform = 'translate(300px,300px)';
+            setTimeout("objid('yezi_2').style.webkitTransform = 'translate(-170px,0px)';",800);
+            objid('yezi_3').style.webkitTransform = 'translate(-250px,150px)';
+            objid('yezi_4').style.webkitTransform = 'translate(220px,70px)';
+            objid('yezi_5').style.webkitTransform = 'translate(210px,200px)';
+            objid('yezi_6').style.webkitTransform = 'translate(-300px,0px) ';
+            objid('yezi_7').style.webkitTransform = 'translate(-100px,-100px) ';
+            setTimeout("objid('yezi_8').style.webkitTransform = 'translate(-250px,0px)';",500);
+            objid('yezi_9').style.webkitTransform = 'translate(-200px,0px) ';
+            objid('yezi_10').style.webkitTransform = 'translate(0px,200px) ';
+            objid('yezi_11').style.webkitTransform = 'translate(0px,150px) ';
+            objid('yezi_12').style.webkitTransform = 'translate(-100px,50px) ';
+            objid('yezi_13').style.webkitTransform = 'translate(120px,300px) ';
+            setTimeout(function()
+            {
+                objid('yezi_1').style.webkitAnimation = 'YeziMove_1 9s 0.5s linear infinite alternate';
+                objid('yezi_2').style.webkitAnimation = 'YeziMove_2 22s 0.7s linear infinite ';
+                objid('yezi_3').style.webkitAnimation = 'YeziMove_3 2.5s 1s linear infinite ';
+                objid('yezi_4').style.webkitAnimation = 'YeziMove_4 18s linear infinite ';
+                objid('yezi_5').style.webkitAnimation = 'YeziMove_5 10s 1.5s linear infinite alternate';
+                //objid('yezi_13').style.webkitAnimation = 'YeziMove_13 3.5s 0.5s linear infinite ';
+                objid('yezi_10').style.webkitAnimation = 'YeziMove_10 28s 0.5s linear infinite ';
+                objid('yezi_6').style.webkitAnimation = 'YeziMove_6 3s 1s linear infinite ';
+            },3500);
+        }
+        function run()
+        {
+            create_base();
+            read_base();
+            setTimeout(create_textdiv,4000);
+            add_kawa_icon();
+            create_music();
+            create_modify();
+            setTimeout(function()
+            {
+                var waterMove = setInterval("water_location()",6000);
+            },0);
+            setTimeout(function()
+            {
+                for(var i=1;i<8;i++)
+                {
+                    CreateFish(i);
+                }
+            },2000);
+            setTimeout(CreateYezi(),2000);
+
+        }
+        </script>
+    </head>
+
+    <body style='margin:0px' onload='run()'>
+        <script>
+            words = '人的一生，既不是想象中的那么好，也不是想象中的那么坏。每个人的背后都会有心酸，都会有无法言说的艰难。每个人都会有自己的泪要擦，都会有自己的路要走。只要记得，冷了给自己加件外衣；饿了给自己买个面包，痛了给自己一份坚强，失败了给自己一个目标，跌倒了在伤痛中爬起，给自己一个宽容的微笑继续往前走，做最真实的自己。';
+            
+            kawa_data = {
+                words              : words,
+                 <if condition=" $words eq ''">
+				replace_words      : '人的一生，既不是想象中的那么好，也不是想象中的那么坏。每个人的背后都会有心酸，都会有无法言说的艰难。每个人都会有自己的泪要擦，都会有自己的路要走。只要记得，冷了给自己加件外衣；饿了给自己买个面包，痛了给自己一份坚强，失败了给自己一个目标，跌倒了在伤痛中爬起，给自己一个宽容的微笑继续往前走，做最真实的自己。',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '30 320 450 250', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 30,     // 每秒移动的像素
+                text_color         : '#000000', // rgb(1,2,3) 'black'
+                font_size          : '20pt',
+                line_height        : '36pt',
+                music              : 'http://kawaweika.qiniudn.com/sound/hetangyuese_banzou.mp3',     // url
+              <if condition=" $music eq ''">
+				replace_music      : 'http://kawaweika.qiniudn.com/sound/hetangyuese_banzou.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m30003.jpg',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '30003',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '121.42.24.240:8000',
+                font_family        : '',
+                modify_optfile     : '',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes',
+            };
+        </script>
+        <div id='container' style='position:absolute;width:500px;height:815px;overflow:hidden'>
+            <img id='bg' src='http://kawaweika.qiniudn.com/pic/30003/2.jpg' style='position:absolute;opacity:0.4'/>
+            <div>
+                <img id='water_1' src='tpl/Wap/default/common/kawahk/30003/20001.png' style='position:absolute;width:50px;height:60px;left:100px;top:100px;opacity:0'/>
+                <img id='water_2' src='tpl/Wap/default/common/kawahk/30003/20002.png' style='position:absolute;width:70px;height:60px;left:300px;top:400px;opacity:0'/>
+                <img id='water_3' src='tpl/Wap/default/common/kawahk/30003/20003.png' style='position:absolute;width:80px;height:80px;left:0px;top:650px;opacity:0'/>
+            </div>
+<!--             <div id='yezi_1' style='position:absolute;left:-150px;top:-150px;z-index:40'>
+                <img id='hua_1'  src='/pic/30003/hehua.png' style='position:absolute;left:120px;top:-85px;z-index:40'/>
+                <img src='/pic/30003/heye.png' style='position:absolute;left:0px;top:0px;z-index:40'/>
+            </div> -->
+            <img id='yezi_1' src='tpl/Wap/default/common/kawahk/30003/20004.png' style="position:absolute;width:120px;left:-110px;top:-50px;z-index:40"/>
+            <img id='yezi_2' src='tpl/Wap/default/common/kawahk/30003/20005.png' style="position:absolute;width:90px;height:90px;left:500px;top:550px;z-index:40"/>
+            <img id='yezi_3' src='tpl/Wap/default/common/kawahk/30003/20005.png' style="position:absolute;width:105px;left:500px;top:200px;z-index:40"/>
+            <img id='yezi_4' src='tpl/Wap/default/common/kawahk/30003/20005.png' style='position:absolute;width:120px;height:120px;left:-250px;top:600px;z-index:40'/>
+            <img id='yezi_5' src='tpl/Wap/default/common/kawahk/30003/20004.png' style='position:absolute;width:100px;left:-160px;top:300px;z-index:40'/>
+            <img id='yezi_6' src='tpl/Wap/default/common/kawahk/30003/20005.png' style="position:absolute;width:90px;left:500px;top:400px;z-index:40"/>
+            <img id='yezi_7' src='tpl/Wap/default/common/kawahk/30003/20004.png' style="position:absolute;width:180px;left:500px;top:750px;z-index:40"/>
+            <img id='yezi_8' src='tpl/Wap/default/common/kawahk/30003/20005.png' style='position:absolute;width:190px;left:500px;top:-30px;z-index:40'/>
+            <img id='yezi_9' src='tpl/Wap/default/common/kawahk/30003/20004.png' style='position:absolute;width:150px;left:600px;top:300px;z-index:40'/>
+            <img id='yezi_10' src='tpl/Wap/default/common/kawahk/30003/20004.png' style='position:absolute;width:90px;height:90px;left:300px;top:-100px;z-index:40'/>
+            <img id='yezi_11' src='tpl/Wap/default/common/kawahk/30003/20004.png' style='position:absolute;width:170px;left:50px;top:-80px;z-index:40'/>
+            <img id='yezi_12' src='tpl/Wap/default/common/kawahk/30003/20004.png' style='position:absolute;width:120px;left:600px;top:100px;z-index:40'/>
+            <img id='yezi_13' src='tpl/Wap/default/common/kawahk/30003/20006.png' style='position:absolute;width:250px;left:100px;top:-160px;z-index:40'/>
+<!--             <div id='yezi_2' style="position:absolute;width:170px;height:90px;left:500px;top:550px;background: url('/pic/30003/heye.png') no-repeat scroll -155px -75px transparent;z-index:40"></div>
+            <div id='yezi_3' style="position:absolute;width:70px;height:40px;left:500px;top:200px;background: url('/pic/30003/heye.png') no-repeat scroll 0px 0px transparent;z-index:40"></div>
+            <img id='yezi_4' src='/pic/30003/heye.png' style='position:absolute;width:250px;left:-250px;top:600px;z-index:40'/>
+            <img id='yezi_5' src='/pic/30003/heye2.png' style='position:absolute;left:-160px;top:300px;z-index:40'/>
+            <div id='yezi_6' style="position:absolute;width:70px;height:40px;left:500px;top:400px;background: url('/pic/30003/heye.png') no-repeat scroll 0px 0px transparent;z-index:40"></div>
+            <div id='yezi_7' style="position:absolute;width:220px;height:200px;left:500px;top:750px;background: url('/pic/30003/heye.png') no-repeat scroll -155px -75px transparent;z-index:40"></div>
+            <img id='yezi_8' src='/pic/30003/heye.png' style='position:absolute;left:500px;top:0px;z-index:40'/>
+            <img id='yezi_9' src='/pic/30003/heye2.png' style='position:absolute;left:600px;top:300px;z-index:40'/> -->
+
+        </div>
+
+        </body>
+          <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script>
+</html>

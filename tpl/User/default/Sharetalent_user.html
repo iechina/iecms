@@ -1,0 +1,56 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
+<div class="content">
+	<div class="cLineB">
+<h4>用户管理</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a>
+ 
+    </div>
+    <!--tab start-->
+<div class="tab">
+<ul>
+<li class="<pigcmsif where="$tabid eq 1">current</pigcmsif> tabli" id="tab0"><a href="{pigcms::U('Sharetalent/index',array('token'=>$token))}">分享管理</a></li>
+<li class="<pigcmsif where="$tabid eq 3">current</pigcmsif> tabli" id="tab2"><a href="{pigcms::U('Sharetalent/sm',array('token'=>$token))}">分享说明</a></li>
+<li class="current tabli" id="tab1"><a href="{pigcms::U('Sharetalent/user',array('token'=>$token))}">用户管理</a></li>
+<li class="<pigcmsif where="$tabid eq 4">current</pigcmsif> tabli" id="tab3"><a href="{pigcms::U('Sharetalent/reply',array('token'=>$token))}">分享配置</a></li> 
+</ul>
+</div>    
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					
+					<th  width="25%" class="time"> 用户名称</th>
+					<th width="25%">联系方式</th>
+					
+					<th width="25%">注册时间</th>
+                    
+					
+					<th width="25%" class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="list" name="info">
+                <tr>
+                  <td>{pigcms:$list.name}</td>
+                  <td>{pigcms:$list.tel}</td>
+                   <td>{pigcms:$list.date}</td>
+                
+                
+                  
+                  <td class="norightborder"> <a class="btnGreen" href="javascript:drop_confirm('您确定要删除吗？', '{pigcms::U('Sharetalent/userdel',array('id'=>$list['id'],'token'=>$list['token'],'wecha_id'=>$list['wecha_id']))}');">删除</a> 
+                   
+				   <a  class="btnGreen" href="{pigcms::U('Sharetalent/userhd',array('id'=>$list['id'],'token'=>$list['token'],'wecha_id'=>$list['wecha_id']))}">参与的活动</a> 
+                   </td>
+          
+                </tr>
+                  </volist>
+      			                
+                  
+              </tbody>
+            </table>
+            
+   </div> 
+          
+  </div>
+<include file="Public:footer"/>

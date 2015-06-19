@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)http://faycheng.com/vipstyle/mobile/client/profile/v2/html/growup.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta  charset="utf-8">
+<meta  name="author"  content="ISUX">
+<meta  name="format-detection"  content="telephone=no">
+<meta  name="viewport"  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta  name="apple-mobile-web-app-capable"  content="yes">
+<meta  name="apple-mobile-web-app-status-bar-style"  content="black-translucent">
+<title>公众号数据分析</title>
+<link  rel="stylesheet"  type="text/css"  href="tpl/Wap/default/common/kawahk/shuju/frozen.css">
+<link  rel="stylesheet"  href="tpl/Wap/default/common/kawahk/shuju/growup.css">
+</head>
+<body  ontouchstart="">
+<section class="mod-action">公众号数据分析<a class="ui-btn ui-btn-primary"  href="index.php?g=Wap&m=Kawahk&a=index&token={pigcms:$token}" style=" float:right" >进入贺卡首页</a></section>
+	<section  class="mod-total">
+
+		<div  class="circle-out animated bounceIn"  id="total-circle">
+			<div  class="circle-out-left">
+				<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+					<div  class="dot"></div>
+				</div>
+			</div>
+			<div  class="circle-out-right">
+				<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(60deg);">
+					<div  class="dot"  style="display: block;"></div>
+				</div>
+			</div>
+			<div  class="circle-inner-out">
+				<div  class="circle-inner-center">
+					<div  class="ui-center">
+						<p><span  class="num"><span  style="font-size:150%;font-weight:800px" id="integer-num"><strong>{pigcms:$yt_cumulate_user}</strong></span><span  id="decimal-num"></span></span>人</p>
+						<p>截止昨日总粉丝量</p>
+					</div>
+				</div>
+			</div>
+			<div  class="dot circle-out-dot"  style="display: block;"></div>
+		</div>
+
+		<div  class="mod-title mod-title-link">
+           <span  class="title"> 微乾隆精准数据分析</span>
+            <span  class="action" onclick="location='index.php?g=Wap&m=Kawahk&a=shuju&token={pigcms:$token}'" style="cursor: pointer;">查看贺卡数据</span>
+        </div>
+		<div>
+        </div>
+		<div></div>
+	</section>
+	<div style="height: 40px;
+background-color: rgb(235, 232, 232); line-height:40px;padding-left:4%;">截止昨日数据分析({pigcms:$yesterday})</div>
+	<section  class="mod-privilege-list">
+		<ul>
+
+			<li  class="circle-s">
+				
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-mobile"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>昨日新增加粉丝：{pigcms:$allnew_user}</p>
+			</li>
+			<li  class="circle-s">
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-pc"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>昨日取消关注粉丝：{pigcms:$allcancel_user}</p>
+			</li>
+			<li  class="circle-s">
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-checkin"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>昨天净增加粉丝：{pigcms:$jinzj}</p>
+			</li>
+			
+			
+		</ul>
+	</section>
+	<div style="height: 40px;
+background-color: rgb(235, 232, 232); line-height:40px;padding-left:4%;">7天内数据分析({pigcms:$severday}至{pigcms:$yesterday})</div>
+	<section  class="mod-privilege-list">
+		<ul>
+
+			<li  class="circle-s">
+				
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-mobile"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>7天内新增加粉丝：{pigcms:$sever_allnew_user}</p>
+			</li>
+			<li  class="circle-s">
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-pc"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>7天内取消关注粉丝：{pigcms:$sever_allcancel_user}</p>
+			</li>
+			<li  class="circle-s">
+				<div  class="circle-out done">
+					<div  class="circle-out-left">
+						<div  class="circle-range-left"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-out-right">
+						<div  class="circle-range-right"  style="opacity: 1; -webkit-transform: rotate(180deg);">
+						</div>
+					</div>
+					<div  class="circle-inner-out">
+						<div  class="circle-inner-center">
+							<div  class="ui-center">
+								<i  class="icon-checkin"></i>
+							</div>
+						</div>
+					</div>
+					<i  class="icon-ok animated bounceInUp"  style="display: inline;"></i>
+				</div>
+				<p>7天内净增加粉丝：{pigcms:$sever_jinzj}</p>
+			</li>
+			
+			
+		</ul>
+	</section>
+	
+	<div style="height: 40px;
+background-color: rgb(235, 232, 232); line-height:40px;padding-left:4%;text-align:center">@由微乾隆技术团队提供</div>
+	<script  src="tpl/Wap/default/common/kawahk/shuju/sea-with-plugin-2.2.1.js"  id="seajsnode"></script>
+	<script  type="text/javascript">
+    seajs.config({
+        base: 'http://imgcache.gtimg.cn/club/platform/opencenter/',
+        charset: 'utf-8',
+        localcache: {maxAge: 1},
+        debug: 0,
+        alias: {
+        	'zepto': 'lib/zepto/zepto'
+        },
+        paths: {'lib': 'http://imgcache.gtimg.cn/club/platform/lib'},
+        manifest: {"lib\/zepto\/zepto":"1.1.3","lib\/util\/util":"1-2","lib\/pay\/smartpay.simplify":"1-1","lib\/pay\/smartpayv2":"1-3","lib\/pay\/smartpay":"1-3","lib\/login\/login":"1","lib\/report\/adtag":"1","lib\/msgbox\/msgbox":"2","lib\/slip\/slip.page":"1-2","lib\/swipe\/swipe":"1-7","card\/mycard":"1-12","card\/othercard":"1-3","qqwallet\/index":"1-5","vipcenter\/vipcenter":"1-15","debug":"0","card\/mynewcard":"1-1","lib\/zero\/zero":"m.4.6.1"}
+    });
+    </script>
+    <script  type="text/javascript">
+     
+    seajs.use("../js/circle",function(Circle) {
+        //需要传的数据
+        Circle.init(3.0,4.5);
+    });
+    </script>
+
+
+
+  </body></html>

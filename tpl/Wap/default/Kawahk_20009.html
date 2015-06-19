@@ -1,0 +1,192 @@
+<html>
+<head>
+
+<title>送给你</title>
+
+<script type="text/javascript">
+            initViewport();
+        </script>
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+<meta name="format-detection" content="telephone=no">
+<style type="text/css">
+@-webkit-keyframes shuyemove {
+ from {
+-webkit-transform:rotate(-5deg);
+}
+ to {
+-webkit-transform:rotate(5deg);
+}
+}
+ @-webkit-keyframes changeletter {
+ from {
+-webkit-transform:rotateY(0deg);
+}
+ to {
+-webkit-transform:rotateY(90deg);
+}
+}
+ @-webkit-keyframes changeletter1 {
+ from {
+-webkit-transform:rotateY(90deg);
+}
+ to {
+-webkit-transform:rotateY(180deg);
+}
+}
+ @-webkit-keyframes changeletter2 {
+ from {
+-webkit-transform:rotateZ(-10deg);
+}
+ to {
+-webkit-transform:rotateZ(0deg);
+}
+}
+ @-webkit-keyframes fankai {
+ from {
+-webkit-transform:rotateX(0deg);
+}
+ to {
+-webkit-transform:rotateX(90deg);
+}
+}
+ @-webkit-keyframes fankai1 {
+ 0% {
+-webkit-transform:rotateX(90deg)
+}
+ 100% {
+-webkit-transform:rotateX(180deg)
+}
+}
+ @-webkit-keyframes zhimove {
+ from {
+-webkit-transform:translate(0px, 0px);
+}
+ to {
+-webkit-transform:translate(0px, -418px);
+}
+}
+ @-webkit-keyframes downletter {
+ from {
+-webkit-transform:rotateY(180deg) translate(0px, 0px);
+}
+ to {
+-webkit-transform:rotateY(180deg) translate(0px, 80px);
+}
+}
+ @-webkit-keyframes downgai {
+ from {
+-webkit-transform:rotateX(180deg) translate(0px, 0px);
+}
+ to {
+-webkit-transform:rotateX(180deg) translate(0px, -80px);
+}
+}
+</style>
+</head>
+<!--  -->
+<body style="margin:0; height: 100%;background-color:black;" onload="Init()">
+<script>
+        	words = '当所有人关心你飞的高不高时，只有少数人关心你飞的累不累。人在最感动的时候，期于被朋友想起，最美妙的时候，缘于想起朋友。没有约定  没有默契，无论多少年  无论在哪里，抹不掉的是朋友间的彼此惦记！';
+
+            kawa_data = {
+                words 			   : words,
+                <if condition=" $words eq ''">
+				replace_words      : '当所有人关心你飞的高不高时，只有少数人关心你飞的累不累。人在最感动的时候，期于被朋友想起，最美妙的时候，缘于想起朋友。没有约定  没有默契，无论多少年  无论在哪里，抹不掉的是朋友间的彼此惦记！',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '50 78 400 370', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'static',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#000000', // rgb(1,2,3) 'black'
+                font_size          : '30pt',
+                line_height        : '40pt',
+                music              : 'http://kawaweika.qiniudn.com/sound/ganren.mp3',     // url
+                <if condition=" $music eq ''">
+				replace_music      : 'http://kawaweika.qiniudn.com/sound/ganren.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m20009.jpg',
+                title              : '送给你',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '20009',
+                share_url          :  window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '114.215.157.155:8000',
+                font_weight        : 'bold',
+                font_family        : 'mnjgl',
+                modify_optfile     : 'xinqing',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes'
+            };
+        </script> 
+<script type="text/javascript">
+		haveclick=false;
+		function Init()
+		{
+			kawa_init();
+			tt=setInterval(function()
+			{
+				if(id('textdiv'))
+					{
+						id('textdiv').style.opacity=0;
+						clearInterval(tt);
+					}
+			},200)
+		}
+		function showletter()
+		{
+			if(haveclick)
+				return;
+			// alert();
+			setTimeout(
+				function()
+				{
+					id('xinfenggai').style.zIndex=5;
+					// alert();
+					id('xinfenggai1').style.webkitAnimation='downgai 1s linear forwards';
+					id('xinfeng1').style.webkitAnimation='downletter 1s linear forwards';
+				},2800)
+			id('font').style.display='none';
+			id('xinfeng').style.webkitAnimation='changeletter 1s linear forwards'
+			id('xinfeng1').style.webkitAnimation='changeletter1 1s linear 1s forwards';
+			id('letter1').style.webkitAnimation='changeletter2 1s linear 1s forwards';
+			id('xinfenggai').style.webkitAnimation='fankai 0.5s linear 2s forwards';
+			id('xinfenggai1').style.webkitAnimation='fankai1 0.5s linear 2.5s forwards';
+			id('zhi').style.webkitAnimation='zhimove 2s linear 3s forwards';
+			id('textdiv').style.webkitTransition='opacity 1s linear 5s';
+			id('textdiv').style.opacity=1;
+			haveclick=true;
+			setTimeout(
+				function()
+				{
+					id('xinfenggai').style.opacity=0;
+				},4000)
+		}
+		function id(name)
+		{
+			return document.getElementById(name);
+		}
+
+		</script>
+<div id='contaner' style='position:absolute;width:500px;left:0px;top:0px;height:788px;overflow:hidden'> <img id='xinfenggai1' src='tpl/Wap/default/common/kawahk/20009/xinfenggai.png' style='position:absolute;-webkit-transform-origin:50% 4.5%;-webkit-transform:rotateX(90deg);top:360px;left:20px;'> <img src='tpl/Wap/default/common/kawahk/20009/background.jpg'> <img id='shuye' src='tpl/Wap/default/common/kawahk/20009/yinying.png' style='position:absolute;top:-59px;left:-60px;-webkit-transform-origin: 32.29% 15.67%;-webkit-animation:shuyemove 2s linear infinite alternate;z-index:20'>
+  <div id='xinfeng' style='position:absolute;width:500px;height:750px;top:0px;left:0px;'>
+    <div id='letter' style='position:absolute;left:20px;top:357px;width:463px;height:238px;-webkit-transform-origin:50% 50%;-webkit-transform:rotateZ(-10deg);' onclick='showletter()'> <img src='tpl/Wap/default/common/kawahk/20009/letter.png' style='position:absolute;'> </div>
+  </div>
+  <div id='xinfeng1' style='position:absolute;width:500px;height:750px;top:0px;left:0px;-webkit-transform:rotateX(90deg)'>
+    <div id='letter1' style='position:absolute;left:20px;top:357px;width:463px;height:238px;-webkit-transform-origin:50% 50%;-webkit-transform:rotateZ(-10deg);' onclick='showletter()'> <img src='tpl/Wap/default/common/kawahk/20009/xinfengdi.png' style='position:absolute;top:2px;'>
+      <div style='position:absolute;height:600px;width:430px;top:-405px;right:20px;overflow:hidden;z-index:10'> <img id='zhi' src='tpl/Wap/default/common/kawahk/20009/xinzhi1.png' style='position:absolute;right:-10px;top:405px;'> </div>
+      <img src='tpl/Wap/default/common/kawahk/20009/letterdi.png' style='position:absolute;z-index:11'> <img id='xinfenggai' src='tpl/Wap/default/common/kawahk/20009/xinfenggai.png' style='position:absolute;-webkit-transform-origin:50% 4.5%;z-index:12'> </div>
+  </div>
+  <img id='font' src='tpl/Wap/default/common/kawahk/20009/font.png' style='position:absolute;top:440px;left:160px;' onclick='showletter()'> </div>
+</body>
+   <include file="Kawahk:js"/><script type="text/javascript">
+            initViewport();
+    </script>
+</html>

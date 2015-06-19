@@ -1,0 +1,84 @@
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*//////////////////// HiDPI Framework CSS Rules Start                                                                    */
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2) {
+body {
+	background-image: url(img/bgPat-1-x2.png);
+	background-size: 4px 4px;
+}
+.mainMenuButton {
+	background-image: url(img/mainMenuButtonBg-x2.png);
+	background-size: 24px 18px;
+}
+.mainMenuWrapper > li > a {
+	background-image: url(img/mainMenuItemBg-x2.png);
+	background-size: 20px 72px;
+}
+.recentProjectsTitle {
+	background-image: url(img/recentProjectsTitleBg.png);
+	background-size: 16px 16px;
+}
+.backToTopButton {
+	background-image: url(img/backToTopButtonBg-x2.png);
+	background-size: 12px 8px;
+}
+.portfolioMenuWrapper li {
+	background-image: url(img/portfolioFilterableMenuDecoBg-x2.png);
+	background-size: 6px 18px;
+}
+.portfolioOneExpandButton, .portfolioFilterableExpandButton, .singleProjectExpandButton {
+	background-image: url(img/portfolioExpandButtonBg-x2.png);
+	background-size: 28px 16px;
+}
+.portfolioOneDetailsButton, .portfolioFilterableDetailsButton, .singleProjectDetailsButton {
+	background-image: url(img/portfolioDetailsButtonBg-x2.png);
+	background-size: 28px 16px;
+}
+.smallPostMoreButton {
+	background-image: url(img/smallPostReadMoreButtonBg-x2.png);
+	background-size: 28px 16px;
+}
+.smallPostQuote {
+	background-image: url(img/quoteBg-x2.png);
+	background-size: 16px 16px;
+}
+#cboxClose, #cboxPrevious, #cboxNext {
+	background-image: url(img/controlsBg-x2.png);
+	background-size: 98px 130px;
+}
+.formSuccessMessageWrapper > h4 {
+	background-image: url(img/iconCheckmarkBg32.png);
+	background-size: 16px 16px;
+}
+.quoteWrapper > blockquote {
+	background: none;
+}
+blockquote {
+	background: url(img/quoteBg-x2.png) 0 0 no-repeat;
+	background-size: 16px 16px;
+}
+.alertBoxWarning {
+	background-image: url(img/alertBoxWarningBg-x2.png);
+	background-size: 16px 16px;
+}
+.alertBoxStop {
+	background-image: url(img/alertBoxStopBg-x2.png);
+	background-size: 16px 16px;
+}
+.alertBoxGo {
+	background-image: url(img/alertBoxGoBg-x2.png);
+	background-size: 16px 16px;
+}
+.alertBoxInfo {
+	background-image: url(img/alertBoxInfoBg-x2.png);
+	background-size: 16px 16px;
+}
+.alertBoxButton {
+	background-image: url(img/alertBoxButtonBg-x2.png);
+	background-size: 16px 16px;
+}
+.accordionButton .accordionButtonIcon {
+	background-image: url(img/accordionButtonBg-x2.png);
+	background-size: 32px 32px;
+}
+

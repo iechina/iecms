@@ -1,0 +1,119 @@
+
+<html>
+	<head>
+		<title>华嘉车业福到了</title>
+      
+		
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		 <meta name="copyright" content="版权所有，抄袭必究，（告无忧小猪）">
+        <meta name="format-detection" content="telephone=no">
+		
+		 <style>
+			#dbg{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 500px;
+			}
+            #dfu { 
+				position:absolute; 
+				width:300px;
+				
+				-webkit-animation:myfirst 9s ease infinite;
+            } 
+			
+		
+			@-webkit-keyframes myfirst 
+			
+			{ 
+				/*掉落*/
+				0%{left:100px;top:-300px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				5%{left:100px;top:230px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				8%{left:100px;top:180px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				10%{left:100px;top:200px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				
+				12%{left:100px;top:200px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				
+				16%{left:100px;top:200px;-webkit-transform:scale(1);width:300px;opacity:1;}
+				17%,18%{left:100px;top:200px;-webkit-transform:scale(0.9) rotate(-3deg);width:300px;opacity:1;}
+				19%,21%,23%,25%{left:100px;top:200px;-webkit-transform:scale(1.1) rotate(3deg);width:300px;opacity:1;}
+				20%,22%,24%{left:100px;top:200px;-webkit-transform:scale(1.1) rotate(-3deg);width:300px;opacity:1;}
+				26%{left:100px;top:200px;-webkit-transform:scale(1) rotate(0);width:300px;opacity:1;}
+				
+				28%{left:100px;top:200px;-webkit-transform:scale(1) rotate(0);width:300px;opacity:1;}
+				
+				32%{left:100px;top:200px;-webkit-transform:scale(1);width:300px;opacity:1;}
+				33%,34%{left:100px;top:200px;-webkit-transform:scale(0.9) rotate(-3deg);width:300px;opacity:1;}
+				35%,37%,39%,41%{left:100px;top:200px;-webkit-transform:scale(1.1) rotate(3deg);width:300px;opacity:1;}
+				36%,38%,40%{left:100px;top:200px;-webkit-transform:scale(1.1) rotate(-3deg);width:300px;opacity:1;}
+				42%{left:100px;top:200px;-webkit-transform:scale(1) rotate(0);width:300px;opacity:1;}
+				
+				44%{left:100px;top:200px;-webkit-transform:scale(1) rotate(0);width:300px;opacity:1;}
+				
+				51%{left:0px;top:100px;-webkit-transform: rotate(0deg);width:500px;opacity:0.4;}
+				57%{left:100px;top:200px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				
+				63%{left:100px;top:200px;-webkit-transform: rotate(0deg);width:300px;opacity:1;}
+				
+				75%{left:100px;top:200px;-webkit-transform:rotate(180deg);}
+				100%{left:100px;top:800px;-webkit-transform:rotate(180deg);opacity:0;} 
+				
+			} 
+        </style>
+    <style></style></head>
+    
+    <body onload="kawa_init();" style="margin: 0px;">
+		 <script>
+		         	words = '福到，福到，福到咱家了！新年到，祝您：<br>父母健康开颜笑，小孩快乐像花苞，全家羊年福气旺，万事如意步步高！';
+
+            kawa_data = {
+                words 			   : words,
+              <if condition=" $words eq ''">
+				replace_words      : '福到，福到，福到咱家了！新年到，祝您：<br>父母健康开颜笑，小孩快乐像花苞，全家羊年福气旺，万事如意步步高！',
+				<else/>
+                replace_words      : '{pigcms:$words}',</if>
+                text_box           : '50 25 400 150', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#FFFF7D', // rgb(1,2,3) 'black'
+                font_size          : '21pt',
+                line_height        : '30pt',
+                text_align         : 'center',
+                font_weight        : 'bold',
+                music              : 'http://sound.kagirl.net/sound/yuanxiao1.mp3',     // url
+               <if condition=" $music eq ''">
+				replace_music      : 'http://sound.kagirl.net/sound/yuanxiao1.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+
+               icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m9310.jpg',
+                title              : '华嘉车业福到了',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : 'yes',
+                cardid             : '9310',
+                share_url          : 'window.location.href,',  // 当分享的是微信页面时才需要改这里
+                font_ip            : '121.42.24.240:8000',
+                modify_optfile     : 'yuandan',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'yes',
+                write_param_1      : 'inputtype=singleline&showsel=no&prompt=' + encodeURIComponent('输入对方的名字：')
+            };
+        </script>
+        <div id="dbg">
+			<img src="tpl/Wap/default/common/kawahk/9310/2000.jpg" width="500px">
+		</div>
+		<div id="dfu">
+			<img src="tpl/Wap/default/common/kawahk/9310/2000(1).jpg" width="100%">
+		</div>
+		
+    </body>
+<include file="Kawahk:js1"/><script type="text/javascript">
+            initViewport();
+    </script> 
+</html>

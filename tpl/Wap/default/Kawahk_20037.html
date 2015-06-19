@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>年的回忆</title>
+        <meta charset="utf-8">
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+        <meta content="telephone=no, address=no" name="format-detection">
+        <meta http-equiv="pragma" content="no-cache" />
+       
+        <link href="http://card1.kagirl.net/kawa2/css/main.css?v=" rel="stylesheet" />
+        <link href="http://card1.kagirl.net/kawa2/css/last.css?v=" rel="stylesheet" />
+        <link href="http://card1.kagirl.net/kawa2/css/loading.css?v=" rel="stylesheet" />
+        <script type="text/javascript">
+        var phoneWidth = parseInt(window.screen.width),
+            phoneScale = phoneWidth/640,
+            ua = navigator.userAgent;
+
+        if (/Android (\d+\.\d+)/.test(ua)){
+            var version = parseFloat(RegExp.$1);
+            // andriod 2.3
+            if(version > 2.3){
+                document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+            // andriod 2.3以上
+            }else{
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+            // 其他系统
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+        var config = {
+            swipeCur: 0,         //起始页
+            swipeDir:'vertical', // 'vertical' // horizontal
+            swipeEnd: false,     //  true为可重复滚动   false为不可重复滚动
+            swipeFront:false,    //为true时可以从第一个滑动到最后一个   为false则不行
+            musicUrl:'http://sound.kagirl.net/sound/ru.mp3', //音乐url
+            cardid:20037
+        };
+        var shareData = {
+            "imgUrl": "tpl/Wap/default/common/kawahk/20037/0510e361eeade075f6f2/2000",
+            "shareUrl": "http://card1.kagirl.net/kawa2/show.php?cardid=20037",
+            "desc": "年的回忆",
+            "title": "年的回忆",
+            'channel':'zuixinyu',
+        };
+        </script>
+        <script src="http://card1.kagirl.net/kawa2/js/zepto_min.js?v=1"></script>
+        <script src="http://card1.kagirl.net/kawa2/js/swipe.js?v=1"></script>
+        <script src="http://card1.kagirl.net/kawa2/js/weikan.js?v=1"></script>
+        <style type="text/css">
+        .box{
+            width:500px;
+            height:750px;
+            overflow:hidden;
+            top:0px;
+            left:0px;
+            position:absolute;
+			background:#FFF8E6;
+        }
+        @-webkit-keyframes wordmove
+        {
+            from{-webkit-transform:translate(0px,0px);}
+            to{-webkit-transform:translate(0px,10px);}
+        }
+        @-webkit-keyframes yinyingmove
+        {
+            from{-webkit-transform:scale(0.6,0.5);}
+            to{-webkit-transform:scale(1,1);}
+        }
+        @-webkit-keyframes yanhua
+        {
+            0%{-webkit-transform:translate(0px,200px) scale(0.05,0.05) ;opacity: 0;}
+            25%{-webkit-transform:translate(0px,0px) scale(0.05,0.05);opacity: 1;}
+            60%{-webkit-transform:translate(0px,15px) scale(1,1);opacity: 0.8;}
+            80%{-webkit-transform:translate(0px,25px) scale(1.2,1.2);opacity: 0;}
+            100%{-webkit-transform:translate(0px,0px) scale(1.2,1.2);opacity: 0;}
+        }
+        @-webkit-keyframes hua
+        {
+            from{-webkit-transform:rotate(0deg) scale(1,1);}
+            to{-webkit-transform:rotate(-90deg) scale(0.5,0.5);}
+        }
+
+        @-webkit-keyframes xin
+        {
+            from{-webkit-transform:scale(0.5,0.5);}
+            to{-webkit-transform:scale(1,1);}
+        }
+        @-webkit-keyframes zhuimove
+        {
+            from{-webkit-transform:rotate(0deg);}
+            to{-webkit-transform:rotate(8deg);}
+        }
+        </style>
+    </head>    
+    <body onselectstart="return true;" ondragstart="return false;" style='margin:0px;background-color:#fff8e6;' onload="Init();">
+        <script>
+            words = '春节，最牵挂的是什么，是亲人;最感动的是什么，是团聚。如期而至的不仅是春节，还有幸福和快乐；日渐增加的不只是岁月；还有友情和健康，在新年来临之际，祝福所有的人：幸福安康！羊年大吉！';
+
+            kawa_data = {
+                words              : words,
+                replace_words      : '#replace_words#',
+                text_box           : '150 30 300 220', // 左 上 宽 高，空格分隔，只写数字，单位强制为px
+                mode               : 'up',     // up, left
+                speed              : 40,     // 每秒移动的像素
+                text_color         : '#fff8e6', // rgb(1,2,3) 'black'
+                font_size          : '25pt',
+                line_height        : '45pt',
+                music              : 'http://sound.kagirl.net/sound/ru.mp3',     // url
+               <if condition=" $music eq ''">
+				replace_music      : 'http://sound.kagirl.net/sound/ru.mp3', 
+				<else/> 
+				 replace_music      : '{pigcms:$music}',</if>
+                music_name         : '',
+                replace_music_name : '#replace_music_name#',
+                icon               : '{pigcms:$f_siteUrl}/tpl/Wap/default/common/kawahk/fengmian/m20037.jpg',
+                title              : '年的回忆',
+                desc               : words,
+                modify             : 'no',
+                replace_modify     : '#replace_modify#',
+                cardid             : '20037',
+                share_url          : window.location.href,  // 当分享的是微信页面时才需要改这里
+                font_ip            : '114.215.157.155:8000',
+                modify_optfile     : '',
+                modify_optwords    : '#modify_optwords#',
+                show_words         : 'no',
+                channel            :'zuixinyu',
+                text_align         :'center'
+            };
+        </script>
+        <script type="text/javascript">
+        function Init () {
+            // body...
+            kawa_init();
+            tt=setInterval(
+                function()
+                {
+                    if(id('lastone').className=='cur')
+                    {
+                        show_textdiv();
+                        clearInterval(tt);
+                        return;
+                    }
+                },200)
+        }
+
+        function id(name)
+        {
+            return document.getElementById(name)
+        }
+        </script>
+        <div class="container">
+            <div class="loading-img">
+                <!--<img src="imgs/loading.gif" />-->
+                <div class="loading-img container1">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                  </div>
+                  <div class="loading-img container2">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                  </div>
+                  <div class="loading-img container3">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                  </div>
+            </div>
+            <div class="swipe" id="swipe">
+                <ul>
+
+                    <li  class="js-flag-normal">
+                    <div id='view1' class='box'>
+
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (1).jpg' style='position:absolute;top:0px'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000.png' style='position:absolute;top:420px;width:550px;left:65px;-webkit-animation:wordmove 0.5s ease-in-out infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (1).png' style='position:absolute;top:800px;left:85px;-webkit-animation:yinyingmove 0.5s ease-in-out infinite alternate'>
+
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (2).png' style='position:absolute;left:20px;top:-20px;-webkit-animation:yanhua 3s linear infinite'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (3).png' style='position:absolute;left:350px;top:50px;-webkit-animation:hua 2s ease-in-out infinite alternate'>
+                    </div></li>
+
+                    <li class="js-flag-normal">
+                        <div class='box'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000.jpg' style='position:absolute;top:0px'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (4).png' style='position:absolute;top:520px;width:550px;height:340px;left:20px;-webkit-animation:wordmove 0.5s ease-in-out infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (1).png' style='position:absolute;top:840px;left:100px;-webkit-animation:yinyingmove 0.5s ease-in-out infinite alternate'>
+
+
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (6).png' style='position:absolute;left:100px;top:50px;-webkit-animation:xin 1s linear infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (2).png' style='position:absolute;left:300px;top:-20px;-webkit-animation:yanhua 3s linear infinite'>
+                    </div></li>
+
+
+                    <li class="js-flag-normal">
+                    <div class='box'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (2).jpg' style='position:absolute;top:0px'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (7).png' style='position:absolute;top:550px;width:530px;height:300px;left:60px;-webkit-animation:wordmove 0.5s ease-in-out infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (1).png' style='position:absolute;top:830px;left:90px;-webkit-animation:yinyingmove 0.5s ease-in-out infinite alternate'>
+
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (8).png' style='position:absolute;left:100px;top:50px;-webkit-animation:xin 1s linear infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (3).png' style='position:absolute;left:350px;top:50px;-webkit-animation:hua 2s ease-in-out infinite alternate'>
+                    </div></li>
+
+
+                    <li id='lastone' class="js-flag-normal">
+                    <div class='box'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (3).jpg' style='position:absolute;top:0px'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (9).png' style='position:absolute;top:185px;left:43px;-webkit-transform-origin:77% 2.3%;-webkit-animation:zhuimove 0.7s ease-in-out infinite alternate'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (2).png' style='position:absolute;left:300px;top:-20px;-webkit-animation:yanhua 3s linear infinite'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (2).png' style='position:absolute;left:100px;top:100px;opacity:0;-webkit-animation:yanhua 4s linear 1.5s infinite'>
+                        <img src='tpl/Wap/default/common/kawahk/20037/2000 (8).png' style='position:absolute;left:450px;top:200px;-webkit-animation:xin 1s linear infinite alternate'>
+
+                    </div></li>
+     
+                </ul>
+                    
+            </div>
+            <div id="arrowV" class="arrow_v f-hide"><p></p></div>
+
+            <div id="arrowH" class="arrow_h f-hide">
+                <span class="arrow_l"></span>
+                <span class="arrow_r"></span>
+            </div>
+            
+        </div>
+    </body>
+</html>

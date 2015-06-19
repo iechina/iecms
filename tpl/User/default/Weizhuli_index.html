@@ -1,0 +1,50 @@
+<include file="Public:head"/>
+<div class="content">
+<div class="cLineB">
+  <h4>微助力</h4>
+ </div>
+          <div class="cLine">
+            <div class="pageNavigator left">
+            <a href="{pigcms::U('Weizhuli/add',array('token'=>$token))}" title="添加微助力活动" class="btnGrayS vm bigbtn"><img src="{pigcms::RES}/images/pic.png" class="vm">添加微助力活动</a>
+            </div>
+          
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap">
+            <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+              <thead>
+                <tr>
+					
+					<th  width="25%" class="time">关键词</th>
+					<th width="25%">标题</th>
+					
+					<th width="25%">结束时间</th>
+					
+					<th width="25%" class="norightborder">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr></tr>
+                  <volist id="list" name="list">
+                <tr>
+                  <td>{pigcms:$list.keyword}</td>
+                  <td>{pigcms:$list.title}</td>
+                
+                  <td>{pigcms:$list.statdate|date='Y-m-d',###}</td>
+                  
+                  <td class="norightborder"><a class="btnGreen" href="{pigcms::U('Weizhuli/edit',array('id'=>$list['id']))}" title="编辑">编辑</a> <a class="btnGreen" href="javascript:drop_confirm('您确定要删除吗?删除会把活动数据全部一起删除！', '{pigcms::U('Weizhuli/del',array('id'=>$list['id']))}');">删除</a> 
+                   
+				   <a  class="btnGreen" href="{pigcms::U('Weizhuli/item',array('id'=>$list['id']))}">参与者信息</a> 
+                   </td>
+          
+                </tr>
+                  </volist>
+      			                
+                  
+              </tbody>
+            </table>
+            
+   </div> 
+          
+  </div>
+<include file="Public:footer"/>
