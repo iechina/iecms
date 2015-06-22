@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{pigcms:$tpl.wxname}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/tpl/User/default/common/js/select/js/jquery.js"></script>
+    <link href="/tpl/static/wall/css/zAlert.css" rel="stylesheet" type="text/css">
+    <script src="/tpl/static/wall/js/zAlert.js"></script>
+    <link href="{pigcms::RES}/css/yl/news.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+       .deploy_ctype_tip{z-index:1001;width:100%;text-align:center;position:fixed;top:50%;margin-top:-23px;left:0;}.deploy_ctype_tip p{display:inline-block;padding:13px 24px;border:solid #d6d482 1px;background:#f5f4c5;font-size:16px;color:#8f772f;line-height:18px;border-radius:3px;}
+   </style>
+</head>
+<script>
+    window.onload = function ()
+    {
+        var oWin = document.getElementById("win");
+        var oLay = document.getElementById("overlay");
+        var oClose = document.getElementById("close");
+
+        oLay.onclick = function ()
+        {
+            oLay.style.display = "none";
+            oWin.style.display = "none"
+        }
+    };
+</script>
+<body id="listhome1">
+<div id="ui-header">
+    <div class="fixed" style="text-align:center">
+
+        <a class="ui-btn-left_pre" href="javascript:history.go(-1)"></a>
+        在线客服
+        <a class="ui-btn-right" href="javascript:window.location.reload()"></a>
+    </div>
+</div>
+<div id="overlay">当前有以下客服在线，请点击开始咨询</div>
+
+<div class="Listpage">
+    <div class="top46"></div>
+    <div id="todayList">
+        <ul  class="todayList">
+       <volist name="online" id="vo">
+               <li><a href="#" class="a">
+                <div class="img"><img src="{pigcms:$vo.kf_headimgurl}" /></div>
+                <h2>{pigcms:$vo.kf_nick}</h2>
+                <p>{pigcms:$vo.onlinestatus}</p><span style="display: none">{pigcms:$vo.kf_account}</span>
+                <div class="commentNum"></div>
+            </a>
+            </li>
+       </volist>
+        </ul>
+    </div>
+
+</div>
+<script>
+    function dourl(url){
+        location.href= url;
+    }
+    function showTip(tipTxt,url) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div class="deploy_ctype_tip"><p>' + tipTxt + '</p></div>';
+        var tipNode = div.firstChild;
+        $("#listhome1").after(tipNode);
+        setTimeout(function () {
+            $(tipNode).remove();
+            if(url){
+                window.location.href=url;
+            }
+        }, 2000);
+    }
+
+    $(".a").bind("click",function(){
+     var KfAccount=$(this).children('span').text();
+     var nicname=$(this).children('h2').text();
+     var url= 'index.php?g=Wap&m=Online&a=set&token={pigcms:$token}&wecha_id={pigcms:$wecha_id}&KfAccount='+KfAccount+'&nicname='+nicname;
+        $.getJSON(url,function(res) {
+                    if(res.err == 0 ){
+                        showTip('您已经选择'+res.nicname+'，请关闭窗口返回微信输入框开始对话','');
+                    }
+                },
+                "json")
+
+    })
+</script>
+<div style="display:none"> </div>
+<div style="display:none">{pigcms:$tpl.tongji|htmlspecialchars_decode}</div>
+
+<div class="copyright">
+    <if condition="$iscopyright eq 1">
+        {pigcms:$homeInfo.copyright}
+        <else/>
+        {pigcms:$siteCopyright}
+    </if>
+</div>
+<include file="Index:styleInclude"/><include file="$cateMenuFileName"/>
+<!-- share -->
+<include file="Index:share" />
+</body>
+</html>

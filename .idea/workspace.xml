@@ -1,96 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9eacab5b-058a-481d-a916-76d00a516b8c" name="Default" comment="添加管理后台">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PigCms/Lib/Action/Wap/OnlineAction.class.php" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Chat\05871d7032198c3f91ce2cbe1beb8665.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Chat\7108d37eb8d0548c10f8f544ac8a2b7a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Chat\b7f5b487d9ebd103b48e647cf07ac02a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Chat\c76f7423727bf1afee161d5b6c62e469.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\0e1276c93a29566266e927c9e5db1334.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\26c3c1c9e0bfd747004fee7dc9a32882.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\7108d37eb8d0548c10f8f544ac8a2b7a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\767738387552b9f5bb687f89f645c406.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\7bd452533dfdb57f7764926335aee7e7.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Home\e7d61e041e9387b0e1a6f735393bd64f.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\07aab95463350ed1aa61d733b5df25b1.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\0ac5617eb2d3cba46a940e61fff06d9f.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\126437a6c1c0292bce630674672e7570.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\290787b61e1d188e50b8f6a79194f6f3.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\2dfb60bd2ba9fc5131da92a8108bea21.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\454dd88510cd15a6da9e49a17edb4134.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\483971c17922e8e1c1e3235e47c01942.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\4b9630ccec5eb8b4280c7753fd7520a7.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\6d42f15109526ab3a09b0ed22d9cf95e.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\70671f3fb4cc556d45e03bff5207b695.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\7108d37eb8d0548c10f8f544ac8a2b7a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\79615060fa4752be7ea8b85138687132.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\8b1c3759371091711969cec00ac6476d.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\8f6c57454ea25aa16c4571fcdd77c3c5.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\98a661c5113f1a7908ac7ea41219f79c.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\9ad7e403e8f92bc81602ed75025c637e.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\9d3eedade51a150386c14cb51c706f48.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\b81454eb26260e3d7f6f170dcced847b.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\bb14d6ec1248a5b9ccf66db8a0d707dc.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\c1e15967dfd49222b714059e815415cd.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\e8e8155cbfad9f3ad2fa3344576ac93f.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\f3cad24ef9b6fcc3bfdf30a1600fbf4b.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\System\f5269688e64fd0485cf13bd467125417.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\01ef06598d5a74bdc933e978d692fe76.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\124184b341ea8bedb06007efb74090b6.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\13ca5dca99929cb1ca2dbe28fcc6d5e6.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\15b9cf68c8bdab5406f158214f00c813.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\23876b55141758af3d64933dc1fd987f.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\301b687f5b452f5129c78c49981401e2.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\33c6c11ce37fc397213484ed972bc4af.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\37640d1f390be4b6cf58270fae1dba29.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\43975ab89af99b444b2d9b981c3b4e21.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\4a9797327e6b2def809edf87d3670afa.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\52858e5695fc543ba4c03ea48eacfeda.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\6469f5f6e80df0c1ffc5fb477747ee8a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\64a499f1ca1e0d2e346817bb48ea8251.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\684941e45e47c195680889faee976a11.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\68a816af31eb887d07753e9340c59bf3.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\6a943083c764a902942dc8bf6640b356.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\7108d37eb8d0548c10f8f544ac8a2b7a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\7211be94ef344b0124b2339a8e0ea470.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\8581da73af9f203b07ce0f09a2e004a8.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\960fa1def5a83fd859697cde92e3f33b.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\99d0c000906c947bd7029dae2e5aaf4a.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\a2e4b87f30e952417329ae79443dd206.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\c2f1273206e633c9506d94bb0e4594fc.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\cab2f9276e04265534be881b6385f9eb.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\ce07842f679ae3250c6630aa4d81e755.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\ce90ed3c89d545ab64209adaaba27b8d.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\d73566251b1d5d5ae1340d8da9ba41b0.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\f6896173864d3a83bc07b38cf661da59.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\User\f708993ad89c1c733b5f85605bacfc64.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Wap\1cb90fdf68920f022f2fc46954b6d58e.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Cache\Wap\ded10be70be951d8e123a9ce090a7498.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\0\7\07cb4d32f6fa378529774b1548d8c35d.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\1\4\145a941c89973f35af5c6f8a4e0b08fd.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\2\1\21487d190ff2f3bc6cbed202086ebe1e.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\2\2\22f2289955e24870ecfbe2d634077356.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\2\6\263df467566d2967b242cc7796e5098b.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\4\7\47eefcdf6cd278b1533a9cdb6b3ea88d.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\5\8\581120ecd9d878a2a3978483b9b3fb36.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\7\0\70bdc81d2f59e0f6f81e200e1940e32c.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\7\1\71722d5fab4520004ddea2999cb23a16.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\9\a\9ab2f400ad357ee09d9aacab59fc2287.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\a\2\a29d340766bf1fa037f1d016b4ec276d.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\a\4\a4b9ed5cd307a845cc9b54d9bf52b95c.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\d\7\d791d28abe9fe4a81e27f70890165108.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\e\3\e3051be8c37af98974eb329828fff0c6.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\Conf\logs\Temp\f\1\f1c5be429c5049203b1f7c97c8242dd9.php" afterPath="" />
-      <change type="DELETED" beforePath="E:\php\iecms\PigCms\Lib\Action\Wap\OnlineAction.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Conf/logs/Temp/1/5/15e1576abc700ddfd9438e6ad1c86100.php" afterPath="$PROJECT_DIR$/Conf/logs/Temp/1/5/15e1576abc700ddfd9438e6ad1c86100.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Conf/logs/Cache/User/8292f8fa266e5edbb92e36ac74e30aa6.php" afterPath="$PROJECT_DIR$/Conf/logs/Cache/User/8292f8fa266e5edbb92e36ac74e30aa6.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PigCms/Lib/Action/WapAction.class.php" afterPath="$PROJECT_DIR$/PigCms/Lib/Action/WapAction.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PigCms/Lib/ORG/Wechat.class.php" afterPath="$PROJECT_DIR$/PigCms/Lib/ORG/Wechat.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PigCms/Lib/Action/Home/WeixinAction.class.php" afterPath="$PROJECT_DIR$/PigCms/Lib/Action/Home/WeixinAction.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PigCms/Lib/Action/Wap/WeixinAction.class.php" afterPath="$PROJECT_DIR$/PigCms/Lib/Action/Wap/WeixinAction.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GongDan/access_token.json" afterPath="$PROJECT_DIR$/GongDan/access_token.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/info.php" afterPath="$PROJECT_DIR$/info.php" />
+    <list default="true" id="9eacab5b-058a-481d-a916-76d00a516b8c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tpl/Wap/default/Online_index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="1weiqianlong.iws" />
@@ -872,10 +784,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wechat.class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Wechat.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PigCms/Lib/ORG/Wechat.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29142857" vertical-offset="0" max-vertical-offset="2635">
+            <state vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="2635">
               <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
               <folding>
                 <element signature="n#__construct#0;n#Wechat#0;n#!!top" expanded="false" />
@@ -904,11 +816,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Online_index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Online_index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tpl/Wap/default/Online_index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9230769" vertical-offset="1020" max-vertical-offset="1870">
-              <caret line="66" column="42" selection-start-line="66" selection-start-column="42" selection-end-line="66" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.5139535" vertical-offset="1020" max-vertical-offset="1870">
+              <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#volist#0;n#ul#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1207,7 +1119,19 @@
       <option name="project" value="LOCAL" />
       <updated>1434866813450</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加管理后台">
+      <created>1434943759276</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1434943759276</updated>
+    </task>
+    <task id="LOCAL-00006" summary="可以选择客服">
+      <created>1434943898920</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1434943898920</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -1234,24 +1158,24 @@
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32884097" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.351752" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962963" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43665767" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43665767" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962963" sideWeight="0.50108933" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4126285" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" x="8" y="243" width="1350" height="281" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32599118" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24670571" sideWeight="0.49891067" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32599118" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32479784" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24670571" sideWeight="0.49891067" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24148148" sideWeight="0.4992658" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32599118" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24963397" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1298,7 +1222,8 @@
     </option>
     <MESSAGE value="性能优化" />
     <MESSAGE value="添加管理后台" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加管理后台" />
+    <MESSAGE value="可以选择客服" />
+    <option name="LAST_COMMIT_MESSAGE" value="可以选择客服" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2134,6 +2059,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="170">
           <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3755,6 +3681,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="170">
           <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3903,6 +3830,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49068323" vertical-offset="3883" max-vertical-offset="19312">
           <caret line="247" column="52" selection-start-line="247" selection-start-column="52" selection-end-line="247" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3959,19 +3887,6 @@
         <state vertical-scroll-proportion="-5.4615383" vertical-offset="980" max-vertical-offset="1343">
           <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tpl/Wap/default/Online_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9230769" vertical-offset="1020" max-vertical-offset="1870">
-          <caret line="66" column="42" selection-start-line="66" selection-start-column="42" selection-end-line="66" selection-end-column="42" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#volist#0;n#ul#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4721,10 +4636,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PigCms/Lib/ORG/Wechat.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29142857" vertical-offset="0" max-vertical-offset="2635">
+        <state vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="2635">
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="n#__construct#0;n#Wechat#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tpl/Wap/default/Online_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5139535" vertical-offset="1020" max-vertical-offset="1870">
+          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#li#0;n#volist#0;n#ul#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
