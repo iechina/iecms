@@ -1,7 +1,7 @@
 <?php
 class WapAction extends BaseAction{
 	public $token;
-	public $wecha_id;
+    public $wecha_id;
 	public $fans;
 	public $homeInfo;
 	public $bottomeMenus;
@@ -10,7 +10,7 @@ class WapAction extends BaseAction{
 	public $group;
 	public $company;
 	public $shareScript;
-        public $shareScripts;
+    public $shareScripts;
 	public $shareScriptss;
 	public $knwxScripts;
 	public $sign;
@@ -23,15 +23,12 @@ class WapAction extends BaseAction{
 		parent::_initialize();
 
 		//应用唯一标识
-		$this->_appid = C('site_appId'); ;
-		
-		//应用密钥AppSecret，在微信开放平台提交应用审核通过后获得
+		$this->_appid = C('site_appId');
 		$this->_secret = C('site_appSecret') ;
 		
 		//
 		$this->time = 0 ;
-		
-		
+
 		$this->token=$this->_get('token');
 		if (strlen($this->token)){
 			$_SESSION['token']=$this->token;
@@ -891,11 +888,10 @@ EOM;
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$temp = curl_exec($ch);
 		return $temp;}
@@ -931,7 +927,7 @@ EOM;
 	
     return $ticket;
   }
-  private function getAccessToken() {
+  protected function getAccessToken() {
     // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
     $data = json_decode(file_get_contents("share/access_token.json"));
     if ($data->expire_time < time()) {

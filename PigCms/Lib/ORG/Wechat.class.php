@@ -90,6 +90,9 @@ class Wechat {
         /* 添加状态 */
 		$this->data['FuncFlag'] = $flag;
         /* 转换数据为XML */
+        if(strstr($content,'@')&&$type=='transfer_customer_service'){
+            $this->data['ransInfo']=$content;
+        }
 		$xml = new SimpleXMLElement('<xml></xml>');
 		$this->data2xml($xml, $this->data);
 		if (isset($_GET['encrypt_type']) && $_GET['encrypt_type'] == 'aes') {
