@@ -12,16 +12,17 @@ class OnlineAction extends WapAction {
     public function index(){
         $online=$this->online();
         $this->assign('online',$online);
+
         $this->display();
     }
 
     //获得在线人员的数组
-    private  function online(){
+    public  function online(){
         $weixin=A('Home/Weixin');
         $accessToken=$weixin::getAccessToken();
         $url='https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token='.$accessToken;
-        $res=curlGet($url);
-        if(strstr($res,'kf_account')){
+         $res=curlGet($url);
+         if(strstr($res,'kf_account')){
             //说明设置过客服了
             $allserver=json_decode($res,true);
             $allserver=$allserver['kf_list'];

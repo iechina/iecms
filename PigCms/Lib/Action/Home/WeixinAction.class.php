@@ -2985,10 +2985,9 @@ class WeixinAction extends Action
     $data = json_decode(file_get_contents("GongDan/access_token.json"));
     if ($data->expire_time < time()) {
       $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.C('site_appId').'&secret='.C('site_appSecret').'';
-       $res =curlGet($url);
+        $res =curlGet($url);
 	    $arr = json_decode($res, true);
      $access_token = $arr['access_token'];
-		//dump($access_token );exit;
       if ($access_token) {
         $data->expire_time = time() + 7000;
         $data->access_token = $access_token;
