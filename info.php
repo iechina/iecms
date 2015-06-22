@@ -1,4 +1,5 @@
 <?php
-$a= json_decode('{"kf_online_list":[{"kf_account":"wm@tjgkyygkzx","status":2,"kf_id":"1016","auto_accept":0,"accepted_case":0}]}',true);
-var_dump($a['kf_online_list']);
+$a= json_decode('
+{"status":"1","data":{"id":"1381324","SiteName":"iechina.cn","Owner":"","Organization":"","Email":"","UpdatedDate":"","CreationDate":"","ExpirationDate":"","Details":"Domain Name: iechina.cn<br \/>\nROID: 20120527s10001s65092997-cn<br \/>\nDomain Status: clientDeleteProhibited<br \/>\nDomain Status: clientTransferProhibited<br \/>\nRegistrant ID: ename_e3ejlnt5gi<br \/>\nRegistrant: \u767d\u632f\u534e<br \/>\nRegistrant Contact Email: lionkingv8@gmail.com<br \/>\nSponsoring Registrar: \u798f\u5dde\u4e2d\u65ed\u7f51\u7edc\u6280\u672f\u6709\u9650\u516c\u53f8<br \/>\nName Server: dns1.iidns.com<br \/>\nName Server: dns2.iidns.com<br \/>\nName Server: dns3.iidns.com<br \/>\nName Server: dns4.iidns.com<br \/>\nName Server: dns5.iidns.com<br \/>\nName Server: dns6.iidns.com<br \/>\nRegistration Time: 2012-05-27 04:02:58<br \/>\nExpiration Time: 2016-05-27 04:02:58<br \/>\nDNSSEC: unsigned","LastDate":"","WhoisServer":""},"time":1021}',1);
+var_dump($a);
 ?>

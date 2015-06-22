@@ -349,7 +349,7 @@ e.checked = form.elements['chkall'].checked;
 </div>
 <div id="copyright" style="color:white;">
 	<?php echo ($f_siteName); ?>(c)版权所有 <a href="http://www.miibeian.gov.cn" target="_blank" style="color:white"><?php echo C('ipc');?></a><br/>
-	技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo ($f_qq); ?>&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo ($f_qq); ?>:51" alt="联系我吧" title="联系我吧"/></a>
+	技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo ($f_qq); ?>&site=qq&menu=yes">联系我们</a>
 
 </div>
     </div>
@@ -395,10 +395,10 @@ if ($upgradeNews){ ?>
 } ?>
 <!-- upgrade end-->
 <?php $data_g=GROUP_NAME; $textHelp=1; if (C('server_topdomain')=='pigcms.cn'){ $textHelp=0; }else{ $users=M('Users')->where(array('id'=>$_SESSION['uid']))->find(); if($users['sysuser']){ $textHelp=0; }else{ if(C('close_help')){ $data_g='notingh'; } } } $data = array( 'key' => C('server_key'), 'domain' => C('server_topdomain'), 'is_text' => $textHelp, 'data_g' => $data_g, 'data_m' => MODULE_NAME, 'data_a' => ACTION_NAME ); if(function_exists('curl_init')){ $ch = curl_init(); curl_setopt($ch, CURLOPT_URL, 'http://up.pigcms.cn/oa/admin.php?m=help&c=view&a=get_list&'.http_build_query($data)); curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); curl_setopt($ch, CURLOPT_HEADER, 0); $content = curl_exec($ch);curl_close($ch); }else{ $content = file_get_contents('http://up.pigcms.cn/oa/admin.php?m=help&c=view&a=get_list&'.http_build_query($data)); } $content = json_decode($content,true); ?>
-<?php if(!empty($content)): ?><link href="<?php echo ($staticPath); ?>/tpl/static/help_xuanfu/css/zuoce.css" type="text/css" rel="stylesheet"/>
+<?php if(!empty($content)): ?><!--<link href="<?php echo ($staticPath); ?>/tpl/static/help_xuanfu/css/zuoce.css" type="text/css" rel="stylesheet"/>-->
 	<div class="zuoce zuoce_clear">
 		<div id="Layer1">
-			<a href="javascript:"><img src="<?php echo ($staticPath); ?>/tpl/static/help_xuanfu/images/ou_03.png"/></a>
+			<a href="javascript:"></a>
 		</div>
 		<div id="Layer2" style="display:none;">
 			<p class="xiangGuan zuoce_clear">相关帮助</p>
@@ -411,7 +411,7 @@ if ($upgradeNews){ ?>
 		window.onload = function(){
 			var oDiv1 = document.getElementById('Layer1');
 			var oDiv2 = document.getElementById('Layer2');
-			oDiv1.onclick = function(){
+			oDiv1.onClick = function(){
 				oDiv2.style.display = oDiv2.style.display == 'block' ? 'none' : 'block';
 			}
 		}
