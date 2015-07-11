@@ -16,50 +16,40 @@ class CustomAction extends UserAction{
 		$set_id 		= $this->_get('set_id','intval');
 		$this->assign('set_id',$set_id);
 	}
-
 	public function index(){
 		$where 	= array('token'=>$this->token);
 		
 		if($this->_post('search','trim')){
 			$where['title|keyword']	= array('like','%'.$this->_post('search','trim').'%');
 		}
-
 		$count		= $this->set_db->where($where)->count();
 		$Page       = new Page($count,15);
 		$list 		= $this->set_db->where($where)->order('set_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 		
-
 		foreach($list as $key=>$value){
 			$list[$key]['count']	= $this->info_db->where(array('token'=>$this->token,'set_id'=>$value['set_id']))->count();
-
 		}
-
 		$this->assign('count',$count);
 		$this->assign('page',$Page->show());
 		$this->assign('list',$list);
 		$this->display();
 	}
-
 	public function set(){
-
 		$keyword_db	= M('keyword'); //关键词
 		$where 		= array('token'=>$this->token,'set_id'=>$this->_get('set_id','intval'));
 		$set_info	= $this->set_db->where($where)->find();
-
 		if(IS_POST){
 			//设置表数据
 			$_POST['token']		= $this->token;	
 			$_POST['enddate']	= strtotime($this->_post('enddate','trim'));
 			$_POST['succ_info'] = empty($_POST['succ_info'])?'提交成功':$this->_post('succ_info','trim');
 			$_POST['err_info']	= empty($_POST['succ_info'])?'提交失败':$this->_post('err_info','trim');	
-
 			//限制表数据
 			if($_POST['endtime']){
 				$limit['enddate']		=	strtotime($this->_post('end_value','trim').' 23:59:59');		
 			}else{
 				$limit['enddate']		= '';
 			}
-
 			if($_POST['today_total']){
 				$limit['today_total']	=	$this->_post('today_value','intval');		
 			}else{
@@ -70,14 +60,12 @@ class CustomAction extends UserAction{
 			}else{
 				$limit['sub_total']		= 0;
 			}
-
 			/*修改添加判断*/
 			if($set_info){
 				if($this->set_db->create()){
 					$_POST['detail']	= $this->_post('detail','trim');
 					$this->set_db->where($where)->save($_POST);//更新设置表
 					$this->limit_db->where(array('limit_id'=>$set_info['limit_id']))->save($limit);//更新限制表
-
 /*					$keyword['pid']		= $this->_get('set_id','intval');
                 	$keyword['module']	= 'Custom';
                		$keyword['token']	= $this->token;
@@ -90,13 +78,9 @@ class CustomAction extends UserAction{
 				}
             
 			}else{//添加
-
-
 				$limit_id = $this->limit_db->add($limit);
-
 				$_POST['addtime']		= time(); //表单创建时间
 				$_POST['limit_id']		= $limit_id;
-
 				if($this->set_db->create()){
 					$_POST['detail']	= $this->_post('detail','trim');	
 					$id 				= $this->set_db->add($_POST);
@@ -108,13 +92,10 @@ class CustomAction extends UserAction{
                 	$this->handleKeyword($id,'Custom',$this->_post('keyword','trim'));
                 	$this->success('添加成功',U('Custom/index',array('token'=>$this->token)));
 				}else{
-
 					$this->error($this->set_db->getError());
 				}
 			}
-
 		}else{
-
 			if(!empty($set_info)){	//限制信息
 				$limit_info	= $this->limit_db->where(array('limit_id'=>$set_info['limit_id']))->find();	
 			}
@@ -127,7 +108,6 @@ class CustomAction extends UserAction{
 		}
 	
 	}
-
 	public function info(){
 		$set_id		= $this->_get('set_id','intval');
 		$name		= $this->_post('name','trim');
@@ -136,7 +116,6 @@ class CustomAction extends UserAction{
 		if($name){
 			$where['user_name|sub_info'] = array('like','%'.$name.'%');
 		}
-
 		$count		= $this->info_db->where($where)->count();
 		$Page       = new Page($count,15);
 		$list		= $this->info_db->where($where)->order('add_time desc')->limit($Page->firstRow.','.$Page->listRows)->select();
@@ -144,9 +123,7 @@ class CustomAction extends UserAction{
 		foreach($list as $key=>$value){
 			$list[$key]['ex_info'] = unserialize($value['sub_info']);
 		}
-
 		$field = $this->field_db->where(array('token'=>$this->token,'set_id'=>$set_id))->order('sort desc')->limit('6')->field('field_name')->select();
-
 		//dump($list[0]['ex_info']);
 		$this->assign('field',$field);
 		$this->assign('page',$Page->show());
@@ -154,7 +131,6 @@ class CustomAction extends UserAction{
 		$this->assign('list',$list);
 		$this->display();
 	}
-
 	public function detail(){
 		$where 		= array('token'=>$this->token,'info_id'=>$this->_get('info_id','intval'));
 		$info		= $this->info_db->where($where)->find();
@@ -163,7 +139,6 @@ class CustomAction extends UserAction{
 		$this->assign('info',$info);
 		$this->display();
 	}
-
 	/*删除信息*/
 	public function infoDel(){
 		$info_id	= $this->_get('info_id','intval');
@@ -179,7 +154,6 @@ class CustomAction extends UserAction{
 		$set_id		= $this->_get('set_id','intval');
 		$where		= array('token'=>$this->token,'set_id'=>$set_id);
 		$limit_id 	= $this->set_db->where($where)->getField('limit_id');  //限制表id
-
 		if($this->set_db->where($where)->delete()){	
 			M('keyword')->where(array('pid'=>$set_id))->delete();				//清除关键词表数据
 			$this->limit_db->where(array('limit_id'=>$limit_id))->delete();  	//清除限制表数据
@@ -187,36 +161,28 @@ class CustomAction extends UserAction{
 			$this->field_db->where(array('token'=>$this->token,'set_id'=>$set_id))->delete();	//清除自定义表单数据
 			$this->success('删除配置成功',U('Custom/index',array('token'=>$this->token)));
 		}	
-
 	}
-
 	/*导出excel*/
 	public function exportForms(){
 		$set_id		= $this->_get('set_id','intval');
 		$where 	= array('token'=>$this->token,'set_id'=>$set_id);
 		$list 	= $this->info_db->where($where)->order('add_time desc')->select();
-
 		$data 	= array();
 		$title	= array('用户名','提交时间');
 		$fields = $this->field_db->where($where)->order('sort desc')->getField('field_name',true);
 		$title 	= array_merge($title,$fields);
-
 		foreach($list as $key=>$value){	
 			$data[$key][] = $value['user_name'];
 			$data[$key][]  = date('Y-m-d H:i:s',$value['add_time']);
 			$sub_info 	= unserialize($value['sub_info']);
-
 			foreach($sub_info as $keys=>$values){
 				$data[$key][] = $values['value'];
 			}
 		}
-
 		//dump($data);
 		$exname	= $this->set_db->where($where)->getField('title');
 		$this->exportexcel($data,$title,$exname);
 	}
-
-
     /**
         * 导出数据为excel表格
         *@param $data    一个二维数组,结构如同从数据库查出来的数组
@@ -227,7 +193,6 @@ class CustomAction extends UserAction{
         *$arr = $stu -> select();
         *exportexcel($arr,array('id','账户','密码','昵称'),'文件名!');
     */
-
     function exportexcel($data=array(),$title=array(),$filename='report'){
         header("Content-type:application/octet-stream");
         header("Accept-Ranges:bytes");
@@ -254,34 +219,26 @@ class CustomAction extends UserAction{
             echo implode("\n",$data);
         }
     }
-
-
 /*--------------------------------------------表单管理项-------------------------------------------*/
-
 	public function forms(){
 		$set_id		= $this->_get('set_id','intval');
 		$list 	= $this->field_db->where(array('set_id'=>$set_id,'token'=>$this->token))->order('sort desc')->select();
 		$list	= $this->_createInput($list);
-
 		$this->assign('list',$list);
 		$this->display();
 	}
-
 	/*生成预览表单*/
 	public function _createInput($list){
-
 		foreach($list as $key=>$value){
 			$list[$key]['input']	= $this->_getInput($value['field_type']);
 		}
 		return $list;
 	}
-
 	/*设置表单*/
 	public function forms_set(){
 		$set_id		= $this->_get('set_id','intval');
 		$field_id	= $this->_get('field_id','intval');
 		$field_info	= $this->field_db->where(array('field_id'=>$field_id,'token'=>$this->token))->find();
-
 		/*POST提交*/
 		if(IS_POST){
 			if (get_magic_quotes_gpc()){		
@@ -305,39 +262,29 @@ class CustomAction extends UserAction{
 			}else{
 				$this->error($this->field_db->getError());
 			}
-
 		}else{//设置页
-
 			$this->assign('set',$field_info);
 			$this->assign('field_type',$this->_formConf('field_type',$field_info['field_type']));
 			$this->assign('field_match',$this->_formConf('field_match',$field_info['field_match']));
 			$this->display();
 		}
-
-
 	}
-
 	/*删除字段项*/
-
 	public function forms_del(){
 		$where = array('token'=>$this->token,'field_id'=>$this->_get('field_id','intval'));
-
 		if($this->field_db->where($where)->delete()){
 			$this->success('删除成功');
 		}
 	}
 	/*获取表单name唯一值*/
 	public function _getItemName($set_id,$length=5){
-
 		$str 		= 'abcdefghijklmnopqrstuvwxyz0123456789';
 		$str_length = strlen($str);
 		$item 		= '';
 		for($i=0;$i<=$length;$i++){
 			$rand  	= mt_rand(0,$str_length);
-
 			$item 	.= $str[$rand];
 		}
-
 		$item 		= $item.'_'.$set_id;
 		//如果字段名称重复 重新获取
 		if($this->field_db->where(array('set_id'=>$set_id,'item_name'=>$tiem))->find()){
@@ -393,9 +340,7 @@ class CustomAction extends UserAction{
 				array('value'=>'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*','text'=>'邮箱'),
 				array('value'=>'^13[0-9]{9}$|^15[0-9]{9}$|^18[0-9]{9}$','text'=>'手机'),
 			)
-
 		);
-
 		$str  		= '';
 		foreach($conf[$type] as $key=>$value){
 			if($select == $value['value']){
@@ -403,15 +348,11 @@ class CustomAction extends UserAction{
 			}else{
 				$selected	= '';
 			}
-
 			$str 	.='<option value="'.$value['value'].'" '.$selected.'>'.$value['text'].'</option>';
 		}
-
 		return $str;
 	}
-
 /*----------------------------------------------提交统计----------------------------------------------------*/
-
 	public function record(){
 		$set_id		= $this->_get('set_id','intval');
 		if($set_id){
@@ -431,7 +372,6 @@ class CustomAction extends UserAction{
 		}
 		$this->assign('month',$month);
 		$this->assign('year',$year);
-
 		$lastyear=$thisYear-1;
 		if ($year == $lastyear){
 			$yearOption='<option value="'.$lastyear.'" selected>'.$lastyear.'</option><option value="'.$thisYear.'">'.$thisYear.'</option>';
@@ -442,7 +382,6 @@ class CustomAction extends UserAction{
 		$where		= array('token'=>$this->token);
 		$times 		= $this->_mFristAndLast($month,$year);
 		$where['add_time'] = array(array('gt',$times['firstday']),array('lt',$times['lastday']),'and');
-
 		
 		if($month == date('m')){
 			$day_total = date('d')+2;
@@ -459,19 +398,15 @@ class CustomAction extends UserAction{
 		}
 		$categoryStr.='</categories>';
 		$dataStr1	.='</dataset>';
-
 		$dataStr2	= '<dataset seriesName="分享用户" color="E9CB50" plotBorderColor="E9CB50">';
 		for($i=1;$i<=$day_total;$i++){
 			$dataStr2	 .='<set value="'.$this->_getSub(2,$month,$i,$year,$set_id).'"/>';  //匿名
 		}
-
 		$dataStr2	.='</dataset>';
 		$xml		.= $categoryStr.$dataStr1.$dataStr2.'</chart>';
-
 		$count 				= $this->_getSub(3,'','','',$set_id);
 		$today_count 		= $this->_getSub(0,date('m'),date('d'),date('Y'),$set_id);
 		$yesterday_count 	= $this->_getSub(0,date('m'),date('d')-1,date('Y'),$set_id);
-
 		$this->assign('count',$count);
 		$this->assign('today_count',$today_count);
 		$this->assign('yesterday_count',$yesterday_count);
@@ -479,7 +414,6 @@ class CustomAction extends UserAction{
 		$this->assign('xml',$xml);
 		$this->display();
 	}
-
 	//获取当天真实用户和匿名用户提交表单数量 flag  0 所有  1 微信用户 3 分享用户 3无时间限制
 	public function _getSub($flag=0,$m=0,$d=0,$y=0,$set_id=0){
 		
@@ -498,17 +432,13 @@ class CustomAction extends UserAction{
 			$end_time   = mktime( 23, 59, 59, $m, $d, $y ); 
 			$where['add_time'] = array(array('gt',$start_time),array('lt',$end_time),'and');
 		}
-
 		$subNum 	= $this->info_db->where($where)->count();
 		
 		if(empty($subNum)){
 			$subNum = 0;
 		}
-
 		return $subNum;
 	}
-
-
 	    /*获取指定月份起始结束时间戳*/
     public function _mFristAndLast($m = "" ,$y = "") {
 		if ($y == "")
@@ -523,8 +453,5 @@ class CustomAction extends UserAction{
 		$lastday = strtotime ( date ( 'Y-m-d 23:59:59', strtotime ( "$firstdaystr +1 month -1 day" ) ) );
 		return array ("firstday" => $firstday, "lastday" => $lastday );
 	}
-
 }
-
-
 ?>

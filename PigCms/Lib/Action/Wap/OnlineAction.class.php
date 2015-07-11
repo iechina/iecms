@@ -66,6 +66,7 @@ class OnlineAction extends WapAction {
 
     }
 
+    //接收ajax请求 请求指定客服服务接收信息者的
     public function set(){
         $KfAccount=$this->_get('KfAccount');
         $nicname=$this->_get('nicname');

@@ -1080,10 +1080,10 @@ if ($obj = M('Product_setting')->where(array('token' => $this->token, 'cid' => $
 			}
 		} else {
 			$showGroup = C('zhongshuai') ? 1 : 0;
-			
+            $tpl= $contTpl=array();
 			include('./PigCms/Lib/ORG/index.Tpl.php');
 			include('./PigCms/Lib/ORG/cont.Tpl.php');
-			
+
 			$this->assign('showgroup', $showGroup);
 			$this->assign('tpl', $tpl);
 			$this->assign('contTpl', $contTpl);

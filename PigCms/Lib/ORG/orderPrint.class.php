@@ -6,7 +6,7 @@ class orderPrint {
 	public $topdomain;
 	public $token;
 	public function __construct($token){
-		$this->serverUrl='http://up.pigcms.cn/';
+		$this->serverUrl='http://up.iechina.cn/';
 		$this->key=trim(C('server_key'));
 		$this->topdomain=trim(C('server_topdomain'));
 		if (!$this->topdomain){

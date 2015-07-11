@@ -85,6 +85,69 @@ class MedicalAction extends UserAction{
         $this->display();
     }
 
+   public function expert(){
+       $expert=M('expert');
+       $where=array('token'=>$this->token);
+       $reslist=$expert->where($where)->select();
+
+       $this->assign('reslist',$reslist);
+       $this->display();
+
+   }
+
+   public function expertadd(){
+       $expert=M('expert');
+       if(IS_POST) {
+          $data=$expert->create();
+          if($data){
+              $data['token']=$this->token;
+              if($expert->data($data)->add()){
+                  $this->success('添加成功',U('Medical/expert',array('token'=>session('token'))));
+                  exit;
+              }else{
+                  $this->error($expert->getError());exit;
+              }
+
+         }else{
+             $this->error($expert->getError());exit;
+         }
+      }
+      $this->display();
+    }
+
+   public function expertedit(){
+       $expert=M('expert');
+       $e=$cur=array();
+       if($this->_get('id')) {
+           $where = array('token' => $this->token, 'id' => $this->_get('id'));
+           $e = $expert->where($where)->find();
+           $cur = array($e['gender'], 'checked="checked"');
+           $this->assign('expert', $e);
+           if (IS_POST) {
+               if ($expert->create() != false && $expert->save($_POST)) {
+                   $this->success('修改成功', U('Medical/expert', array('token' => session('token'))));
+                   exit;
+               } else {
+                   $this->error($expert->getError());
+                   exit;
+               }
+           }
+       }
+       $this->assign('cur',$cur);
+       $this->display('expertadd');
+   }
+
+   public function expertdel(){
+       $expert=M('expert');
+       $where=array('id'=>$this->_get(id),'token'=>$this->token);
+       if($expert->where($where)->delete()){
+           $this->success('删除成功',U('Medical/expert',array('token'=>session('token'))));
+           exit;
+       }else{
+           $this->error($expert->getError());exit;
+       }
+   }
+
     public function setIndex(){
         $Photo = M("Photo");
         $photo = $Photo->where(array('token'=>session('token')))->order('id desc')->select();

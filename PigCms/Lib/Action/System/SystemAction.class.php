@@ -127,7 +127,6 @@ class SystemAction extends BackAction{
 		}
 		$content = json_decode($content,true);
 		$this->assign('content',$content);
-
 		$this->display();
 	}
 	public function closeAD(){

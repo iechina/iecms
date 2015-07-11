@@ -5,7 +5,7 @@ return array (
   'site_appId' => 'wx4c3cc1e5a796097c',
   'site_appSecret' => 'b64491c4254859652879967712663895',
   'site_logo' => 'http://www.iechina.cn/ielogo.png',
-  'site_url' => 'dabaiv.gicp.net',
+  'site_url' => 'http://dabaiv.gicp.net',
   'eqxsiteurl' => '',
   'eqxname' => '',
   'eqxuser' => '',

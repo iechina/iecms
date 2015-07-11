@@ -929,7 +929,7 @@ EOM;
   }
   protected function getAccessToken() {
     // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = json_decode(file_get_contents("share/access_token.json"));
+    $data = json_decode(file_get_contents("GongDan/access_token.json"));
     if ($data->expire_time < time()) {
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->_appid&secret=$this->_secret";
 	  

@@ -1,7 +1,6 @@
 <?php
 class ResearchAction extends LotteryBaseAction 
 {
-
 	public function _initialize()
 	{
 		parent::_initialize();
@@ -10,7 +9,8 @@ class ResearchAction extends LotteryBaseAction
 		}
 		$this->canUseFunction('Research');
 	}
-	
+
+    //列出所有调研
 	public function index()
 	{
 		$data = M('Research')->where(array('token' => $this->token))->order('id desc')->select();
@@ -43,6 +43,7 @@ class ResearchAction extends LotteryBaseAction
 				}
 			}
 		}
+        //当有数据提交时候保存数据
 		if (IS_POST) {
 			$research = array();
 			$research['title'] = isset($_REQUEST['title']) ? htmlspecialchars($_REQUEST['title']) : '';
@@ -106,7 +107,6 @@ class ResearchAction extends LotteryBaseAction
 				} else {
 					exit(json_encode(array('error_code' => true, 'msg' => '数据有误')));
 				}
-
 			} else {
 				$research['dateline'] = time();
 				if ($dataBase->create() !== false) {

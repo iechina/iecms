@@ -5,12 +5,9 @@ class Member_cardAction extends UserAction{
 	public function _initialize() {
 		parent::_initialize();
 		$this->assign('token',$this->token);
-		//
+
 		$this->canUseFunction('huiyuanka');
 		//权限
-		if ($this->token!=$_GET['token']){
-			//$this->error('非法操作');
-		}
 		$this->wxuser_db=M("Wxuser");
 		//获取所在组的开卡数量
 		$thisWxUser=$this->wxuser_db->where(array('token'=>$this->token))->find();
@@ -62,6 +59,8 @@ class Member_cardAction extends UserAction{
 		$type 	= $this->_get('type','intval');
 		$this->assign('type',$type?$type:1);
 	}
+
+
 	public function index(){
 		$cards=$this->member_card_set_db->where(array('token'=>$this->token))->order('id ASC')->select();
 		if ($cards){
@@ -129,6 +128,7 @@ class Member_cardAction extends UserAction{
 			$this->display();
 		}
 	}
+
 	//会员卡配置
 	public function design(){
 		$data=$this->thisCard;
@@ -167,6 +167,7 @@ class Member_cardAction extends UserAction{
 			$this->display();
 		}
 	}
+
 	//生成会员卡列表
 	public function create(){
 		$data=M('Member_card_create');
@@ -750,11 +751,11 @@ class Member_cardAction extends UserAction{
 			$this->error('请先删除该信息下的所有使用记录，然后再删除本信息');
 		}
 	}
+
 	public function members(){
 		$card_create_db=M('Member_card_create');
 		$where=array();
 		$where['cardid']= intval($_GET['id']);
-		$itemid 		= intval($_GET['itemid']);
 		$itemid 		= intval($_GET['itemid']);
 		if($itemid){
 			$where['id']	= $itemid;
@@ -787,8 +788,7 @@ class Member_cardAction extends UserAction{
 				}
 			}
 			//
-			$i=0;
-			foreach ($members as $member){
+			foreach ($members as $i=>$member){
 				$thisUser=$usersArr[$member['wecha_id']];
 				$members[$i]['uid']=$thisUser['id'];
 				$members[$i]['truename']=$thisUser['truename'];
@@ -804,7 +804,6 @@ class Member_cardAction extends UserAction{
 				$members[$i]['expensetotal']=$thisUser['expensetotal'];
 				$members[$i]['total_score']=$thisUser['total_score'];
 				$members[$i]['balance']=$thisUser['balance'];
-				$i++;
 			}
 			
 			$this->assign('members',$members);
@@ -1407,10 +1406,9 @@ class Member_cardAction extends UserAction{
 		$this->assign('conf',$conf);
 		$this->display();
 	}
-	
+
+    //保存客户信息
 	public function customSave(){
-
-
 		$db = M('Member_card_custom');
 		if($db->create() === false){
 			$this->error('请稍后再试~');
@@ -1437,7 +1435,7 @@ class Member_cardAction extends UserAction{
 		}
 	}
 	
-
+    //会员信息总览
 	public function center(){
 		$where 		= array('token'=>$this->token,'wecha_id'=>array('neq',''));
 		$cardid 	= $this->_post('cardid','intval');

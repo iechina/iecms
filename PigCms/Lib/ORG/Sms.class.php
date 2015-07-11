@@ -32,7 +32,7 @@ final class Sms {
 	 * @param string $charset 短信字符类型 gbk / utf-8
 	 * @param string $id_code 唯一值 、可用于验证码
 	 */
-	public function sendSms($token, $content='',$mobile='', $send_time='', $charset='utf-8',$id_code = '') {
+	public  function sendSms($token, $content='',$mobile='', $send_time='', $charset='utf-8',$id_code = '') {
 		$companyid=0;
 		if(!(strpos($token,'_') === FALSE)){
 			$sarr=explode('_',$token);

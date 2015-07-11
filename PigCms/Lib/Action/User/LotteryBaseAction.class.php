@@ -202,6 +202,8 @@ class LotteryBaseAction extends UserAction{
 			$this->success('删除成功');
 		}
 	}
+
+    //SN码管理
 	public function sn($type){
 		$Lottery_record_db=M('Lottery_record');
 		$id=intval($this->_get('id'));
@@ -274,6 +276,8 @@ class LotteryBaseAction extends UserAction{
 		}
 		$this->assign('record',$record);
 	}
+
+
 	public function sendnull(){
 		$id=intval($this->_get('id'));
 		$where=array('id'=>$id,'token'=>$this->token);

@@ -23,7 +23,7 @@ class UpyunAction extends UserAction{
 		if (!isset($_SESSION['username'])&&!isset($_SESSION['uid'])){
 			//exit('非法操作');
 		}
-		if ($this->upload_type=='upyun'){
+ 		if ($this->upload_type=='upyun'){
 
 			if (C('site_url')!='http://'.$_SERVER['HTTP_HOST']){
 				//exit('您的访问地址(http://'.$_SERVER['HTTP_HOST'].')和总后台配置地址('.C('site_url').')不一致，请修改总后台配置');
@@ -59,7 +59,6 @@ class UpyunAction extends UserAction{
 				exit('php不支持gd库，请配置后再使用');
 			}
 			if (IS_POST){
-			
 				$return=$this->localUpload();
 				echo '<script>location.href="/index.php?g=User&m=Upyun&a=upload&error='.$return['error'].'&msg='.$return['msg'].'";</script>';
 			}else {

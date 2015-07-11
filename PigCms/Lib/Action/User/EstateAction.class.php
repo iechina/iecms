@@ -76,10 +76,9 @@ class EstateAction extends UserAction{
             $this->assign('es_data',$es_data);
             $this->display();
         }
+    }
 
 
-
-	}
     public function del(){
         $id = $this->_get('id','intval');
         $up = M('Estate')->where(array('token'=>$this->token,'id'=>$id))->delete();
@@ -206,6 +205,10 @@ class EstateAction extends UserAction{
         $this->display();
     }
 
+
+    /**
+     *子楼盘添加
+     */
     public function son_add(){
         $t_son  = M('Estate_son');
         $id     = (int)$this->_get("id");
@@ -246,6 +249,9 @@ class EstateAction extends UserAction{
 
     }
 
+    /**
+     *子楼盘删除
+     */
     public function son_del(){
         $t_son = M('Estate_son');
         $id    = (int)$this->_get('id');
@@ -268,6 +274,9 @@ class EstateAction extends UserAction{
     }
 
 
+    /**
+     *户型
+     */
     public function housetype(){
         $pid            = $this->_get('pid','intval');
         $t_housetype    = M('Estate_housetype');
@@ -698,6 +707,9 @@ class EstateAction extends UserAction{
         }
     }
 
+    /**
+     *关于我们
+     */
     public function aboutus(){
         $t_company = M('Company');
         $token = session('token');

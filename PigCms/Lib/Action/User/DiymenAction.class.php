@@ -138,32 +138,24 @@ class DiymenAction extends UserAction{
 
 	public function  class_send(){
 		if(IS_GET){
-			//dump($api);
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
-			$json=json_decode($this->curlGet($url_get));
-			if (!$json->errmsg){
-				//return array('rt'=>true,'errorno'=>0);
-			}else {
-				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
-			}
-
+			$weixin=A('Home/Weixin');
+            $accessToken=$weixin::getAccessToken();
 
 			$data = '{"button":[';
-
 			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort desc')->select();//dump($class);
 			$kcount=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort desc')->count();
 			$k=1;
-
 			foreach($class as $key=>$vo){
 				//主菜单
 				$data.='{"name":"'.$vo['title'].'",';
 				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort desc')->select();
-				$count=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort desc')->count();
 				//子菜单
 				$vo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$vo['url']);
-				if($c!=false){
+				//如果有子菜单的情况
+                if($c!=false){
 					$data.='"sub_button":[';
 				}else{
+                    //如果没有子菜单的情况
 					if($vo['keyword']){
 						$data.='"type":"click","key":"'.$vo['keyword'].'"';
 					}else if($vo['url']){
@@ -176,15 +168,6 @@ class DiymenAction extends UserAction{
 				$i=1;
 				foreach($c as $voo){
 					$voo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$voo['url']);
-					if($i==$count){
-						if($voo['keyword']){
-							$data.='{"type":"click","name":"'.$voo['title'].'","key":"'.$voo['keyword'].'"}';
-						}else if($voo['url']){
-							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$voo['url'].'"}';
-						}else if($voo['wxsys']){
-							$data.='{"type":"'.$this->_get_sys('send',$voo['wxsys']).'","name":"'.$voo['title'].'","key":"'.$voo['wxsys'].'"}';
-						}
-					}else{
 						if($voo['keyword']){
 							$data.='{"type":"click","name":"'.$voo['title'].'","key":"'.$voo['keyword'].'"},';
 						}else if($voo['url']){
@@ -192,24 +175,25 @@ class DiymenAction extends UserAction{
 						}else if($voo['wxsys']){
 							$data.='{"type":"'.$this->_get_sys('send',$voo['wxsys']).'","name":"'.$voo['title'].'","key":"'.$voo['wxsys'].'"},';
 						}
-					}
-					$i++;
 				}
+                $data=trim($data,",");
 				if($c!=false){
 					$data.=']';
 				}
 
-				if($k==$kcount){
+                $data.='},';
+
+                if($k==$kcount){
 					$data.='}';
 				}else{
-					$data.='},';
+
 				}
 				$k++;
 			}
 			$data.=']}';
 
-			file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$json->access_token);
-			$url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$json->access_token;
+			file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$accessToken);
+			$url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$accessToken;
 
 			$rt=$this->api_notice_increment($url,$data);
 
@@ -233,7 +217,7 @@ class DiymenAction extends UserAction{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 		curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
@@ -261,11 +245,10 @@ class DiymenAction extends UserAction{
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 		curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$temp = curl_exec($ch);
 		return $temp;

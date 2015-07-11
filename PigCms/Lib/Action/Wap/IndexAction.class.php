@@ -410,7 +410,8 @@ class IndexAction extends WapAction{
 		$this->assign('flashbgcount',count($flashbg));
 		$this->assign('tpl',$this->tpl);
 		$this->assign('copyright',$this->copyright);
-		$this->display($this->tpl['tpltypename']);
+        //dump($this->tpl);
+		$this->display($tpldata['tpltypename']);
 	}
 	
 	public function lists(){
@@ -433,10 +434,8 @@ class IndexAction extends WapAction{
 					$tplinfo = $v;					
 				}
 			}
-
 			$tpldata['tpltypeid'] = $tplinfo['tpltypeid'];
 			$tpldata['tpltypename'] = $tplinfo['tpltypename'];
-	
 
 		$imgdata = M('Img')->field('id')->where("classid = $classid")->find();
 		$allflash=M('Flash')->where($where)->order('id DESC')->select();
@@ -612,7 +611,9 @@ class IndexAction extends WapAction{
 			$classid = $res['classid'];
 		}
 
-		
+        $allClasses=$class->where(array('token'=>$this->_get('token'),'status'=>1,'fid'=>0))->order('sorts desc')->select();
+        $allClasses=$this->convertLinks($allClasses);//加外链等信息
+        $this->assign('allclass',$allClasses);
 		//增加浏览量
 		
 		$img->where("token = '$token' AND id = ".intval($id))->setInc('click');
@@ -620,6 +621,7 @@ class IndexAction extends WapAction{
 		$classinfo = $class->where("id = ".intval($classid)." AND token = '$token'")->field('conttpid')->find();
 		$tplinfo = D('Wxuser')->where("token = '$token'")->find();
 		//获取模板
+        $contTpl=array();
 			include('./PigCms/Lib/ORG/cont.Tpl.php');
 			foreach($contTpl as $k=>$v){
 				if($v['tpltypeid'] == $classinfo['conttpid']){

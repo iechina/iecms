@@ -8,13 +8,7 @@ class DishOutAction extends UserAction
 	{
 		parent::_initialize();
 		$this->canUseFunction('DishOut');
-//		$checkFunc = new checkFunc();
 
-//		if (!function_exists('fdsrejsie3qklwewerzdagf4ds')) {
-//			exit('error-4');
-//		}
-
-//		$checkFunc->cfdwdgfds3skgfds3szsd3idsj();
 		$this->_cid = 0 < session('companyid') ? session('companyid') : intval($_GET['cid']);
 		$this->_cid = 0 < $this->_cid ? $this->_cid : 0;
 

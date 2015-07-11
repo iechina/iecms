@@ -104,9 +104,7 @@ class WeixinAction extends Action
     private function reply($data)
     {
         ////判断账号是否到期
-        if ($this->user['viptime'] < time()) {
-            return array('您的账号已经过期，请联系' . $this->siteUrl . '开通', 'text');
-        }
+        if ($this->user['viptime'] < time()) { return array('您的账号已经过期，请联系' . $this->siteUrl . '开通', 'text'); }
 
         //卡妞微秀
         $this->knwxs = S('knwxs_' . $this->token . '_' . $this->data['FromUserName']);
@@ -126,7 +124,6 @@ class WeixinAction extends Action
         if (isset($data['MsgType'])&&('voice' == $data['MsgType'])) {
                     $data['Content'] = $data['Recognition'];
                 $this->data['Content'] = $data['Recognition'];
-
         }
 
         //爱美丽打印
@@ -210,7 +207,7 @@ class WeixinAction extends Action
             return $this->nokeywordApi();
         }
 
-			//微乾隆信息传送
+			//信息传送
 			$senmessage= M('queue')->where(array('token' => $this->token,'wecha_id'=>$this->data['FromUserName'],'statue'=>1))->find();
 			$info= M('queue')->where(array('token' => $this->token,'wecha_id'=>$this->data['FromUserName'],))->find();
 			            if($senmessage ) {
@@ -295,16 +292,12 @@ class WeixinAction extends Action
             }
         }
 
-        /***微秀**/
+        /***微秀 制作完成后返回图文 链接**/
 
         if (strtolower($data['Content']) == 'over') {
-
             $ress = M('Knwxmy')->where(array('token' => $this->token, 'wecha_id' => $this->data['FromUserName'], 'knwxopen' => 1))->select();
-
             if (!$ress) {
-
                 return array('您还没开始做微秀！请回复“ok”开始制作。', 'text');
-
             }
 
             M('Knwxmy')->where(array('token' => $this->token, 'wecha_id' => $this->data['FromUserName'], 'knwxopen' => 1))->save(array('knwxopen' => 0));
@@ -315,9 +308,10 @@ class WeixinAction extends Action
             }
 
             S('knwxs_' . $this->token . '_' . $this->data['FromUserName'], NULL);
-            return array(array(array($Knwxreplay['title'], $this->handleIntro($Knwxreplay['jianjie']), $Kndata['pic'], C('site_url') . '/index.php?g=Wap&m=Knwx&a=indexhi&token=' . $this->token . '&wecha_id=' . $this->data['FromUserName'] . '&catgroy=' . $Kndata['catgroy'] . '&id=' . $kndata['id'] . '&sgssz=mp.weixin.qq.com')), 'news');
+            return array(array(array($Knwxreplay['title'], $this->handleIntro($Knwxreplay['jianjie']), $Kndata['pic'], C('site_url') . '/index.php?g=Wap&m=Knwx&a=indexhi&token=' . $this->token . '&wecha_id=' . $this->data['FromUserName'] . '&catgroy=' . $Kndata['catgroy'] . '&id=' . $Kndata['id'] . '&sgssz=mp.weixin.qq.com')), 'news');
         }
 
+        /*如果微信在制作过程中则每回复一个新增一行*/
         if ($this->knwxs['knwxopen']) {
             $thisItem = M('Knwxreplay')->where(array('token' => $this->token, 'isopen' => 1))->find();
             if (!$thisItem) {
@@ -345,7 +339,6 @@ class WeixinAction extends Action
                         $rows['catgroy'] = $thisknwx['catgroy'];
                         $res = M('Knwxmy')->add($rows);
                     }
-
                     if ($res) {
                         return array('继续回复微秀的内容，可使用文字、图片或照片，或者输入“over”完成制作', 'text');
                     } else {
@@ -442,9 +435,18 @@ class WeixinAction extends Action
                     return array($apidata, 'text');
                 } else {
                     $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+                    if($data['Content']){
+                        $data['MsgType']='text';
+                        unset($data['Event']);
+                        unset($data['EventKey']);
+                        $xml = new SimpleXMLElement('<xml></xml>');
+                        $this->data2xml($xml, $data);
+                        $xml=$xml->asXML();
+                    }
                     if (intval($api['is_colation'])) {
                         $xml = str_replace(array($api['keyword'], $api['keyword'] . ' '), '', $xml);
                     }
+
                     $apidata = $this->api_notice_increment($api['url'], $xml, 0);
                     if ($apidata == false) {
                         return array('第三方接口返回错误', 'text');
@@ -456,17 +458,6 @@ class WeixinAction extends Action
             }
         }
 
-        if (!(strpos($data['Content'], '审核') === FALSE) && $this->token == 'gzydaf1428974196') {
-			$name=$data['Content'];
-            return array($this->shenhe(str_replace('审核', '', $name)), 'text');
-        }
-
-		//授权查询
-
-		 if (!(strpos($data['Content'], '查询授权') === FALSE) && $this->token == 'gzydaf1428974196') {
-			$name=$data['Content'];
-            return array($this->shouquan(str_replace('查询授权', '', $name)), 'text');
-        }
 
         if (strtolower($data['Content']) == 'wx#open') {
             M('Userinfo')->where(array('token' => $this->token, 'wecha_id' => $this->data['FromUserName']))->save(array('wallopen' => 1));
@@ -504,7 +495,33 @@ class WeixinAction extends Action
                     } else {
                         $message = '';
                         $row['picture'] = $data['PicUrl'];
+
+                        $sub_dir = date('Ymd');
+                        if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '/uploads') || !is_dir($_SERVER['DOCUMENT_ROOT'] . '/uploads')) {
+                            mkdir($_SERVER['DOCUMENT_ROOT'] . '/uploads', 511);
+                        }
+
+                        $firstLetterDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/wall';
+                        if (!file_exists($firstLetterDir) || !is_dir($firstLetterDir)) {
+                            mkdir($firstLetterDir, 511);
+                        }
+
+                        $firstLetterDir = $_SERVER['DOCUMENT_ROOT'] . '/uploads/wall/' . $sub_dir;
+                        if (!file_exists($firstLetterDir) || !is_dir($firstLetterDir)) {
+                            mkdir($firstLetterDir, 511);
+                        }
+
+                        $file_name = date('YmdHis') . '_' . rand(10000, 99999) . '.jpg';
+                        $pic_wall_save_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/wall/' . $sub_dir . '/' . $file_name;
+                        $file_web_path = C('site_url') . '/uploads/wall/' . $sub_dir . '/' . $file_name;
+                        $PicUrl = $data['PicUrl'];
+                        $imgdata = $this->curlGet($PicUrl);
+                        $fp = fopen($pic_wall_save_path, 'w');
+                        fwrite($fp, $imgdata);
+                        fclose($fp);
+                        $row['picture']=$file_web_path;
                     }
+
                     $row['uid'] = $memberRecord['id'];
                     $row['wecha_id'] = $this->data['FromUserName'];
                     $row['token'] = $this->token;
@@ -1996,7 +2013,7 @@ class WeixinAction extends Action
                             $actid = $data['pid'];
                             $memberRecord = M('Wall_member')->where(array('act_id' => $actid, 'act_type' => $acttype, 'wecha_id' => $this->data['FromUserName']))->find();
                             if (!$memberRecord) {
-                                return array(array(array($thisItem['title'], '请点击这里完善信息后再参加此活动', $picLogo, $this->siteUrl . U('Wap/Scene_member/index', array('token' => $this->token, 'wecha_id' => $this->data['FromUserName'], 'act_type' => $acttype, 'id' => $actid, 'name' => 'wall')))), 'news');
+                                    return array(array(array($thisItem['title'], '请点击这里完善信息后再参加此活动', $picLogo, $this->siteUrl . U('Wap/Scene_member/index', array('token' => $this->token, 'wecha_id' => $this->data['FromUserName'], 'act_type' => $acttype, 'id' => $actid, 'name' => 'wall')))), 'news');
                             } else {
                                 M('Userinfo')->where(array('token' => $this->token, 'wecha_id' => $this->data['FromUserName']))->save(array('wallopen' => 1));
                                 S('fans_' . $this->token . '_' . $this->data['FromUserName'], NULL);
@@ -2080,9 +2097,11 @@ class WeixinAction extends Action
             if ($this->wxuser['transfer_customer_service']) {
                return array('turn on transfer_customer_service', 'transfer_customer_service');//转移到多客服处理
             }
-            if(S('service_'.$this->data['FromUserName'])){
-                return array(S('service_'.$this->data['FromUserName']), 'transfer_customer_service');
-            }
+            S('service_'.$this->data['FromUserName'],NULL);
+
+//            if(S('service_'.$this->data['FromUserName'])){
+//                return array(S('service_'.$this->data['FromUserName']), 'transfer_customer_service');
+//            }
 
             //----------------------有奖拉票开始-------------------------------------//
 
@@ -2981,9 +3000,10 @@ class WeixinAction extends Action
 	//获取access_token
 
 	 public static function getAccessToken() {
-    // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+    // access_token 应该全局存储与更新，获取本地存储的到服务器上进行验证，如果出现错误不管时间是否大于7000秒都强制刷新
     $data = json_decode(file_get_contents("GongDan/access_token.json"));
-    if ($data->expire_time < time()) {
+    $test=curlGet('https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token='.$data->access_token);
+    if ($data->expire_time < time()||strstr($test,'errcode')) {
       $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.C('site_appId').'&secret='.C('site_appSecret').'';
         $res =curlGet($url);
 	    $arr = json_decode($res, true);
@@ -3117,22 +3137,7 @@ class WeixinAction extends Action
 
                 } else {
 
-                    //检测客服是否在线
-
-                    /*
-
-                    $endtime=30*60;
-
-                    $now=time()-$serviceJoinDate['joinUpDate'];
-
-                    if($now<$endtime){
-
-                    exit();
-
-                    }
-
-                    */
-                    die;
+                     die;
                 }
             }
         }
@@ -3184,7 +3189,7 @@ class WeixinAction extends Action
 
     }
 
-    //关键词触发第三方接口
+    //第三方接口
     private function api_notice_increment($url, $data, $converturl = 1, $xmlmode = 1)
 
     {
@@ -3349,4 +3354,28 @@ class WeixinAction extends Action
             }
         }
     }
+
+    private function data2xml($xml, $data, $item = 'item') {
+        foreach ($data as $key => $value) {
+            /* 指定默认的数字key */
+            is_numeric($key) && $key = $item;
+            /* 添加子元素 */
+            if (is_array($value) || is_object($value)) {
+                $child = $xml->addChild($key);
+                $this->data2xml($child, $value, $item);
+            }else {
+                if (is_numeric($value)) {
+                    $child = $xml->addChild($key, $value);
+                }else {
+                    $child = $xml->addChild($key);
+                    $node = dom_import_simplexml($child);
+                    $node->appendChild($node->ownerDocument->createCDATASection($value));
+                }
+            }
+        }
+    }
+
+    public function getaccess(){
+        echo $this->getAccessToken();
+            }
 }

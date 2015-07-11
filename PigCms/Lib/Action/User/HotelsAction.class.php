@@ -347,13 +347,13 @@ class HotelsAction extends UserAction
 					$sort = M('Hotels_house_sort')->where(array('id' => $thisOrder['sid'], 'token' => $this->token))->find();
 					$days = (strtotime($thisOrder['enddate']) - strtotime($thisOrder['startdate'])) / 86400;
 					$price = $this->fans['getcardtime'] > 0 ? ($sort['vprice'] ? $sort['vprice'] : $sort['price']) : $sort['price'];
-					$op = new orderPrint();
+					$op = new orderPrint($this->token);
 					$msg = array('companyname' => $company['name'], 'companytel' => $company['tel'], 'truename' => $thisOrder['name'], 'tel' => $thisOrder['tel'], 'address' => '', 'buytime' => $thisOrder['time'], 'orderid' => $thisOrder['orderid'], 'sendtime' => '', 'price' => $thisOrder['price'], 'total' => $thisOrder['nums'], 'list' => array(array('name' => $sort['name'], 'day' => $days, 'price' => $price, 'num' => $thisOrder['nums'], 'startdate' => $thisOrder['startdate'], 'enddate' => $thisOrder['enddate'])));
 					$msg = ArrayToStr::array_to_str($msg, 1);
 					$op->printit($this->token, $this->_cid, 'Hotel', $msg, 1);
 				}
-				
-				Sms::sendSms($this->token, "{$company['name']}欢迎您，本店对您的订单号为：{$thisOrder['orderid']}的订单状态进行了修改，如有任何疑意，请您及时联系本店！", $thisOrder['tel']);
+				$sms=new Sms();
+                $sms->sendSms($this->token, "{$company['name']}欢迎您，本店对您的订单号为：{$thisOrder['orderid']}的订单状态进行了修改，如有任何疑意，请您及时联系本店！", $thisOrder['tel']);
 				$this->success('修改成功',U('Hotels/orderInfo',array('token'=>session('token'),'id'=>$thisOrder['id'])));
 			} else {
 				$sort = M('Hotels_house_sort')->where(array('cid' => $this->_cid, 'token' => $this->token, 'id' => $thisOrder['sid']))->find();

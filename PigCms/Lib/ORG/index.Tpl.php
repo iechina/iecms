@@ -2697,6 +2697,14 @@
 			'attr'=>'mix thumb focu bg filt slip',
 			'sort'=>331,
 		),
+        array(
+            'tpltypeid'=>350,
+            'tplview'=>'cate1218.png',
+            'tpltypename'=>'1131',
+            'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
+            'attr'=>'bgs thumb focu slip beauty',
+            'sort'=>350,
+        )
 		
 	);
 

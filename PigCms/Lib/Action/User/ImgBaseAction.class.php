@@ -22,35 +22,17 @@ class ImgBaseAction extends UserAction{
 	public function add(){
 		$classify_db=M('Classify');
 		$class=$classify_db->field("fid,id,name,concat(path,'-',id) as bpath")->order('bpath ASC')->where(array('token'=>session('token')))->select();
-		foreach($class as $k=>$v){
-			$total=(count(explode('-',$v['bpath']))-2)*10;
-				for($i=0;$i<$total;$i++){
-
-					$class[$k]['fg'].='-';
-				}
-
-			$id = $v['id'];
-			$fidArr[] = $classify_db->field('distinct(fid)')->where(array('token'=>session('token'),"fid"=>$id))->select();
-			if(!$fidArr[$k][0]['fid'] == NULL){
-				$fid[] = $fidArr[$k][0]['fid'];
-			}
-		}
-
-		
-		if($class==false){$this->error('请先添加3G网站分类',U('Classify/index',array('token'=>session('token'))));}
-		$this->assign('info',$class);
-		$this->assign('fid',$fid);
+        if($class==false){$this->error('请先添加3G网站分类',U('Classify/index',array('token'=>session('token'))));}
+ 		$this->assign('info',$class);
 	}
 	
 	
 	public function edit(){
 		$db=M('Classify');
 		$where['token']=session('token');
-
 		$where['id']=$this->_get('id','intval');
 		$where['uid']=session('uid');
 		$res=D('Img')->where($where)->find();
-		
 		$thisClass=M('Classify')->field('id,path')->where(array('id'=>$res['classid']))->find();
 
 		$path = $thisClass['path'].'-'.$thisClass['id'];
@@ -86,7 +68,6 @@ class ImgBaseAction extends UserAction{
 		$list=M('Img')->where($where)->find();
 		if(D('Img')->where($where)->delete()){
 			$this->handleKeyword(intval($_GET['id']),'Img','','',1);
-
 			$this->success('操作成功',U('Img'.'/index'));
 		}else{
 			$this->error('操作失败',U('Img'.'/index'));
@@ -177,13 +158,30 @@ class ImgBaseAction extends UserAction{
 			$list = $multi->where($where)->limit($page->firstRow.','.$page->listRows)->order('id DESC')->select();
 			$p = $page->show();
 			
-			foreach($list as $k=>$v){
-				$id = explode(',',$v['imgs']);
-					foreach($id as $key=>$val){
-						$title[$k][$val] = $img->where(array('token'=>$this->token,'id'=>$val))->getField('title');
-					}
-				$list[$k]['title'] = $title[$k]; 
-			}
+            //把所有多图文里的id连起来
+            $imgIds='';
+            foreach($list as $k=>$v){$imgIds.=','.$v['imgs'];}
+            $imgIds=trim($imgIds,',');
+
+            //一次性取出所有文章
+            $muti=array();
+            $imgs=$img->where('token="'.$this->token.'" and id in ('.$imgIds.')')->field('title,id,pic')->select();
+
+            //让id和title、pic形成数据字典
+            foreach($imgs as $key=>$value){
+                $muti[$value['id']]['title']=$value['title'];
+                $muti[$value['id']]['pic']=$value['pic'];
+            }
+
+            //通过id得到相应的图文标题
+            foreach($list as $key=>$value){
+                  $id=explode(',',$value['imgs']);
+                foreach($id as $k=>$v){
+                    $sub[$key][$v]=array('id'=>$v,'title'=>$muti[$v]['title'],'pic'=>$muti[$v]['pic']);
+                }
+                $list[$key]['sub']=$sub[$key];
+                }
+
 			$this->assign('list',$list);
 			$this->assign('page',$p);
 		}
@@ -220,10 +218,6 @@ class ImgBaseAction extends UserAction{
 			}else{
 				$this->error('保存失败，请稍后再试~');
 			}
-		
-		//}else{
-			//$this->error($multi->getError());
-		//}
 	}
 	
 	

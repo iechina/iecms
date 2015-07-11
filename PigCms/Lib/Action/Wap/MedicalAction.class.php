@@ -27,7 +27,12 @@ class MedicalAction extends WapAction{
         $this->assign('cominfo',$cominfo);
 		$where['token']=$this->token;
 		$kefu=M('Kefu')->where($where)->find();
-		
+
+        //全部的分类信息
+        $allClasses=M('Classify')->where(array('token'=>$this->_get('token'),'status'=>1,'fid'=>0))->order('sorts desc')->select();
+        $allClasses=$this->convertLinks($allClasses);//加外链等信息
+
+        $this->assign('allclass',$allClasses);
 		$this->assign('kefu',$kefu);
         $tpl=$this->wxuser;
         $this->tpl=$tpl;
@@ -43,7 +48,7 @@ class MedicalAction extends WapAction{
         $bxslider = M('Photo_list')->where(array('pid'=>$setIndex['album_id'],'token'=>$this->_get('token')))->order('sort DESC')->select();
         $this->assign('bxslider',$bxslider);
         $this->assign('setIndex',$setIndex);
-
+        $tpl=array();
         include('./PigCms/Lib/ORG/index.Tpl.php');
         foreach($tpl as $k=>$v){
               if($v['tpltypeid'] == $setIndex['tpid']){
@@ -461,6 +466,38 @@ public function sms(){
             $this->error('非法操作！');
              exit;
          }
+    }
+
+    public function expertlist(){
+        $token    = filter_var($this->_get('token'),FILTER_SANITIZE_STRING);
+        $data=M('expert');
+        $where = array('token'=>$token);
+        $ex = $data->where($where)->select();
+
+
+        $this->assign('expert',$ex);
+        $this->display();
+    }
+
+    public function expert(){
+       $token = filter_var($this->_get('token'),FILTER_SANITIZE_STRING);
+        $data=M('expert');
+        $where = array('token'=>$token,'id'=>$this->_get('id'));
+        $res=$data->where($where)->find();
+        $res['gender']=1?'男':'女';
+        $this->assign('expert',$res);
+        $this->display();
+    }
+
+    public function convertLinks($arr){
+        $i=0;
+        foreach ($arr as $a){
+            if ($a['url']){
+                $arr[$i]['url']=$this->getLink($a['url']);
+            }
+            $i++;
+        }
+        return $arr;
     }
 
 

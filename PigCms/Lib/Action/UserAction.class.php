@@ -54,14 +54,11 @@ class UserAction extends BaseAction{
 			$function_db = M('Agent_function');
 		}else{
 			$user_group_where = array('id'=>session('gid'));
-			
 			$func_where = array('status' => 1);
 			$function_db = M('Function');
 		}
 		$group_func = M('User_group')->where($user_group_where)->getField('func');
 		$Afunc = $function_db->where($func_where)->field('id,funname')->select();
-
-		
 		$group_func = explode(',', $group_func);
 //		foreach ($Afunc as $tk => $tv){
 //
@@ -77,7 +74,6 @@ class UserAction extends BaseAction{
 
 		$this->assign('not_exist','');
 		$this->assign('Allfunc',$group_func);
-				
 		$wecha=M('Wxuser')->where(array('token'=>session('token'),'uid'=>session('uid')))->find();
 		$this->assign('wxuser',$wecha);
 		$this->wxuser=$wecha;

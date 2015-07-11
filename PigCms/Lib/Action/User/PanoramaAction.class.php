@@ -74,7 +74,7 @@ class PanoramaAction extends UserAction{
             $check=$this->panorama_model->where($where)->find();
             if($check==false)   $this->error('非法操作');
 
-            $back=$this->panorama_model->where($wehre)->delete();
+            $back=$this->panorama_model->where($where)->delete();
             if($back==true){
             	$keyword_model=M('Keyword');
             	$keyword_model->where(array('token'=>$this->token,'pid'=>$id,'module'=>'Panorama'))->delete();
