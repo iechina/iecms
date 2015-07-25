@@ -2697,15 +2697,239 @@
 			'attr'=>'mix thumb focu bg filt slip',
 			'sort'=>331,
 		),
-        array(
-            'tpltypeid'=>350,
-            'tplview'=>'cate1218.png',
-            'tpltypename'=>'1131',
-            'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
-            'attr'=>'bgs thumb focu slip beauty',
-            'sort'=>350,
-        )
 		
+		array(
+			'tpltypeid'=>332,
+			'tplview'=>'cate1332.png',
+			'tpltypename'=>'1332_index_78yus',
+			'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'sub bg focu bgs thumb other filt slip other',
+			'sort'=>332,
+		),
+		array(
+			'tpltypeid'=>333,
+			'tplview'=>'cate1333.png',
+			'tpltypename'=>'1333_index_cvee',
+			'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'sub focu bgs thumb other other filt',
+			'sort'=>333,
+		),
+		
+		array(
+			'tpltypeid'=>334,
+			'tplview'=>'cate1334.png',
+			'tpltypename'=>'1334_index_cvee',
+			'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other thumb bgs focu',
+			'sort'=>334,
+		),
+		
+		array(
+			'tpltypeid'=>335,
+			'tplview'=>'cate1335.png',
+			'tpltypename'=>'1335_index_cvee',
+			'tpldesinfo'=>'小图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs focu other',
+			'sort'=>335,
+		),
+		array(
+			'tpltypeid'=>336,
+			'tplview'=>'cate1336.png',
+			'tpltypename'=>'1336_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs focu other',
+			'sort'=>336,
+		),
+		array(
+			'tpltypeid'=>337,
+			'tplview'=>'cate1337.png',
+			'tpltypename'=>'1337_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格，此模版只显示8个分类',
+			'attr'=>'bg thumb filt bgs other',
+			'sort'=>337,
+		),
+		array(
+			'tpltypeid'=>338,
+			'tplview'=>'cate1338.png',
+			'tpltypename'=>'1338_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'bg focu thumb bgs other',
+			'sort'=>338,
+		),
+		
+		array(
+			'tpltypeid'=>339,
+			'tplview'=>'cate1339.png',
+			'tpltypename'=>'1339_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other bg thumb filt bgs slip',
+			'sort'=>339,
+		),
+		
+		array(
+			'tpltypeid'=>340,
+			'tplview'=>'cate1340.png',
+			'tpltypename'=>'1340_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。建议分类不要太多',
+			'attr'=>'other focu thumb ',
+			'sort'=>340,
+		),
+		
+		array(
+			'tpltypeid'=>341,
+			'tplview'=>'cate1341.png',
+			'tpltypename'=>'1341_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other thumb bgs bg focu',
+			'sort'=>341,
+		),
+		
+		array(
+			'tpltypeid'=>342,
+			'tplview'=>'cate1342.png',
+			'tpltypename'=>'1342_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other thumb bgs bg focu',
+			'sort'=>342,
+		),
+		array(
+			'tpltypeid'=>343,
+			'tplview'=>'cate1343.png',
+			'tpltypename'=>'1343_index_cvee',
+			'tpldesinfo'=>'图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other thumb bgs bg focu',
+			'sort'=>343,
+		),
+		
+		array(
+			'tpltypeid'=>344,
+			'tplview'=>'cate1344.png',
+			'tpltypename'=>'1344_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'other bgs thumb bg slip filt',
+			'sort'=>344,
+		),
+		
+		array(
+			'tpltypeid'=>345,
+			'tplview'=>'cate1345.png',
+			'tpltypename'=>'1345_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs wedding focu',
+			'sort'=>345,
+		),
+		array(
+			'tpltypeid'=>346,
+			'tplview'=>'cate1346.png',
+			'tpltypename'=>'1346_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs beauty focu',
+			'sort'=>346,
+		),
+		array(
+			'tpltypeid'=>347,
+			'tplview'=>'cate1347.png',
+			'tpltypename'=>'1347_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs restaurant focu',
+			'sort'=>347,
+		),
+		
+		array(
+			'tpltypeid'=>348,
+			'tplview'=>'cate1348.png',
+			'tpltypename'=>'1348_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs other focu',
+			'sort'=>348,
+		),
+		
+		array(
+			'tpltypeid'=>349,
+			'tplview'=>'cate1349.png',
+			'tpltypename'=>'1349_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs other focu',
+			'sort'=>349,
+		),
+		
+		array(
+			'tpltypeid'=>350,
+			'tplview'=>'cate1350.png',
+			'tpltypename'=>'1350_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs other focu',
+			'sort'=>350,
+		),
+		array(
+			'tpltypeid'=>351,
+			'tplview'=>'cate1351.png',
+			'tpltypename'=>'1351_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格。不支持3D幻灯片效果',
+			'attr'=>'thumb bgs other focu',
+			'sort'=>351,
+		),
+		array(
+			'tpltypeid'=>352,
+			'tplview'=>'cate1352.png',
+			'tpltypename'=>'1352_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb other focu',
+			'sort'=>352,
+		),
+		
+		array(
+			'tpltypeid'=>353,
+			'tplview'=>'cate1353.png',
+			'tpltypename'=>'1353_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb other focu',
+			'sort'=>353,
+		),
+		
+		array(
+			'tpltypeid'=>354,
+			'tplview'=>'cate1354.png',
+			'tpltypename'=>'1354_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb other focu',
+			'sort'=>354,
+		),
+		
+		array(
+			'tpltypeid'=>355,
+			'tplview'=>'cate1355.png',
+			'tpltypename'=>'1355_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs wedding focu',
+			'sort'=>355,
+		),
+		
+		array(
+			'tpltypeid'=>356,
+			'tplview'=>'cate1356.png',
+			'tpltypename'=>'1356_index_78yus',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb other focu',
+			'sort'=>356,
+		),
+		array(
+			'tpltypeid'=>357,
+			'tplview'=>'cate1357.png',
+			'tpltypename'=>'1357_index_xcve',
+			'tpldesinfo'=>'分类图标为正方形300x300px。不支持更换颜色风格',
+			'attr'=>'thumb bgs wedding focu',
+			'sort'=>357,
+		),
+		array(
+			'tpltypeid'=>358,
+			'tplview'=>'cate1358.png',
+			'tpltypename'=>'1358_index_xcve',
+			'tpldesinfo'=>'分类图标为长方形480x130px。最多显示30个分类，背景图随机选取，需滑动屏幕拉出菜单。',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>358,
+		),
+
 	);
 
 	
