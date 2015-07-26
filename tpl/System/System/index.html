@@ -13,6 +13,48 @@
 	<script src="{pigcms::RES}/js/frame.js" type="text/javascript"></script>
 	<script type="text/javascript" src="{pigcms::STATICS}/artDialog/jquery.artDialog.js?skin=default"></script>
 	<script type="text/javascript" src="{pigcms::STATICS}/artDialog/plugins/iframeTools.js"></script>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="tpl/static/layer/layer.js"></script>
+<script src="tpl/static/layer/layer.css"></script>
+
+<if condition="$chanageinfo neq ''">
+<script>
+;!function(){
+
+//加载扩展模块
+layer.config({
+    extend: 'extend/layer.ext.js'
+});
+
+//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
+layer.ready(function(){ 
+    //官网欢迎页
+   layer.open({
+    type: 1,
+	 title: '微乾隆CMS更新提醒  版本：({pigcms:$lastver})',
+	shade: 0.9, //遮罩透明度
+    shift: 1, //0-6的动画形式，-1不开启
+	area: ['500px', '300px'],
+    skin: 'layui-layer-molv', //样式类名
+    closeBtn:false, //不显示关闭按钮
+    shift: 2,
+    shadeClose: true, //开启遮罩关闭
+    content: '<div style="padding:10px;line-height: 2.5;">{pigcms:$chanageinfo}</div>'
+});
+
+    
+    //layer.msg('欢迎使用layer');
+    
+    //使用相册
+   
+});
+
+//关于
+
+
+}();
+</script>
+</if>
 	<script type="text/javascript">
 		$(function(){
 			$('.body_nbsp').height($(window).height()-$('#header').height()-30);
@@ -53,9 +95,7 @@
 			</div>
 		</div>
 	</div>
-        <div style="visibility:hidden">
-<script src="http://s11.cnzz.com/z_stat.php?id=1254592827&web_id=1254592827" language="JavaScript"></script>
-</div>
+
 
 </body>
 </html>

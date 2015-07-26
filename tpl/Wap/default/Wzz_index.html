@@ -131,10 +131,10 @@ margin-left: 5%;"><a id="musicm" class="super button yellow" onClick="openMusic(
 		
 				<if condition="$music eq ''">
 				<section class="u-audio f-hide" data-src="">
-				<audio id="bgsound" loop="loop" src="tpl/Wap/default/common/knwx/music/ileave.mp3" autoplay="autoplay"></audio>
+				<audio id="bgsound" loop src="tpl/Wap/default/common/knwx/music/ileave.mp3" autoplay="autoplay"></audio>
 	<else/>
 	<section class="u-audio f-hide" data-src="">
-	<audio id="bgsound" loop="loop" src="{pigcms:$music}" autoplay="autoplay">
+	<audio id="bgsound" loop src="{pigcms:$music}" autoplay="autoplay">
 	</if>
 		<p id="coffee_flow" class="btn_audio">
 			<strong class="txt_audio z-hide">关闭</strong>
@@ -243,7 +243,33 @@ background: rgba(255,255,255,0.7);"><div class="bigTxt-title j-title"><p>{pigcms
 
 	
 	<!-- 资源传递 end-->
+<script type="text/javascript">
 
+			window.shareData = {  
+
+					"moduleName":"Wzz",
+
+					"moduleID": '0',
+
+					"imgUrl": "{pigcms:$title.sharepic}", 
+
+					"timeLineLink": "window.location.href",
+
+					"sendFriendLink": "window.location.href",
+
+					"weiboLink": "window.location.href",
+
+					"tTitle": "{pigcms:$title.title}",
+
+					"tContent": "{pigcms:$title.sharenr}"
+
+				};
+
+		</script>
+
+        	
+
+        {pigcms:$shareScript}
 
 <!--脚本加载-->
 <script src="./tpl/static/live/js/init_mobile.js" type="text/javascript" charset="utf-8"></script>
@@ -256,19 +282,7 @@ background: rgba(255,255,255,0.7);"><div class="bigTxt-title j-title"><p>{pigcms
 
 
 		<if condition="$title.title eq ''">
-	  <input id="wx-share-title" type="hidden" value="我的生活微杂志" /><else/>
-	  <input id="wx-share-title" type="hidden" value="{pigcms:$title.title}" /></if>
-		<if condition="$title.sharepic eq ''">  
-<input id="wx-share-img" type="hidden" value="{pigcms:$f_siteUrl}\tpl\Wap\default\common\wzz\wzz.jpg" /><else/>
-<input id="wx-share-img" type="hidden" value="{pigcms:$title.sharepic}" /></if>
-<if condition="$title.title eq ''">
-<input id="wx-share-desc" type="hidden" value="我的生活微杂志做好了，快来看看我的微杂志吧，太炫丽了！." />
-				<else/>
-<input id="wx-share-desc" type="hidden" value="{pigcms:$title.sharenr}" /></if>
-
-<input id="wx-share-link" type="hidden" value="{pigcms::C('site_url')}{pigcms::U(Wzz/index,array('token'=>$token,'wecha_id'=>$wecha_id,'action'=>'save','catgroy'=>$_GET['catgroy'],'id'=>$id,'music'=>$music))}" />
-<input id="sharebackurl" type="hidden" value=""/> 
-<script src="tpl/static/sharewx.js" type="text/javascript"></script>
+	  
 <include file="Wzz:footer"/> 
 </body>
 </html>

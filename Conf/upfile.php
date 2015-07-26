@@ -6,8 +6,8 @@ return array (
   'up_username' => 'admin',
   'up_password' => 'admin',
   'up_domainname' => '',
-  'up_exts' => 'jpg,png,gif',
-  'up_size' => '8000',
+  'up_exts' => 'jpg,png,gif,mp3,mp4',
+  'up_size' => '2000',
   'up_path' => './data/upload',
   'connectnum' => '系统维护中',
 );

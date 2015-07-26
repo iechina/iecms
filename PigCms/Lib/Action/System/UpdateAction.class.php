@@ -49,6 +49,11 @@ class UpdateAction extends BackAction{
                         @mysql_query($v);
                     }
                 }
+				
+				$dir = './PigData/logs/Temp/update';
+		         $r = $this->deldir($dir);
+				$date['updatetime']=time();
+				M('user')->where(array('id'=>1))->save($date);
                 $updatenowinfo = "<font color=red>升级完成 {$sqlinfo}</font><span><a href=./index.php?g=System&m=Update>点击这里 查看是否还有升级包</a></span>";
             }
         }
@@ -56,5 +61,23 @@ class UpdateAction extends BackAction{
         $this -> assign('updatenowinfo', $updatenowinfo);
         $this -> display();
     }
+	protected function deldir($dir){
+		$result = true;
+		$dh = opendir($dir);
+		while($file=readdir($dh)){
+			if($file!="." && $file!=".."){
+				$fullpath=$dir."/".$file;
+				if(!is_dir($fullpath)){
+					$result = unlink($fullpath);					
+				}else{
+					$this->deldir($fullpath);
+				}
+			}
+			rmdir($fullpath);
+		}
+		closedir($dh);
+		return $result;
+	}
+	
 }
 ?>

@@ -67,6 +67,9 @@ function next(){
 	<div class="top">
 		<div id="ILike"><a><span class="icon hartblckgray"></span>我喜欢</a></div>
 	</div>
+		<div class="top">
+		<div id="all_dish"><a><span></span>全部菜</a></div>
+	</div>
 	<div class="content">
 	<ul id="typeList"><!--class="on"-->
 		<if condition="!empty($fenleiarr)">
@@ -99,7 +102,7 @@ function next(){
 			</div>
 			<div class="menudesc showPop">
 				<h3>{pigcms:$dditem['name']}</h3>
-				<p class="salenum">月售<span class="sale_num"> {pigcms:$dditem['m_sale']} </span><if condition="!empty($dditem['unit'])">{pigcms:$dditem['unit']}<else/>份</if>
+				<p class="salenum">月售<span class="sale_num"> {pigcms:$dditem['m_sale']} </span><span class="theunit"><if condition="!empty($dditem['unit'])">{pigcms:$dditem['unit']}<else/>份</if></span>
 				<if condition="$kconoff eq 1">库存：{pigcms:$dditem['instock']}</if>
 				<!--<span class="sales"><strong class="sale_8"></strong></span>--></p>
 				<p class="mylovedish"> <span class="icon hart"><input autocomplete="off" class="thisdid" type="hidden" value="{pigcms:$dditem['id']}"></span></p>

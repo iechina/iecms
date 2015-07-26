@@ -14,7 +14,7 @@ class HelpingReply
 	}
 	public function index(){
 		$thisItem=$this->item;
-		return array(array(array($thisItem['title'],'',$thisItem['reply_pic'],$this->siteUrl.U('Wap/Helping/index',array('id'=>$thisItem['id'],'token'=>$this->token,'wecha_id'=>$this->wechat_id)))),'news');
+		return array(array(array($thisItem['title'],$thisItem['intro'],$thisItem['reply_pic'],$this->siteUrl.U('Wap/Helping/index',array('id'=>$thisItem['id'],'token'=>$this->token,'wecha_id'=>$this->wechat_id)))),'news');
 	}
 }
 

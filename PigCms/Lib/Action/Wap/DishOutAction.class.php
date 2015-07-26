@@ -10,13 +10,6 @@ class DishOutAction extends WapAction
 	public function _initialize()
 	{
 		parent::_initialize();
-//		$checkFunc = new checkFunc();
-
-//		if (!function_exists('fdsrejsie3qklwewerzdagf4ds')) {
-//			exit('error-4');
-//		}
-
-//		$checkFunc->cfdwdgfds3skgfds3szsd3idsj();
 		$agent = $_SERVER['HTTP_USER_AGENT'];
 
 		if (stripos($agent, 'MicroMessenger')) {
@@ -29,8 +22,6 @@ class DishOutAction extends WapAction
 		$this->_cid = $_SESSION['session_shop_' . $this->token];
 		$this->_cid = 0 < $this->_cid ? $this->_cid : 0;
 		$this->assign('cid', $this->_cid);
-		$this->company = $_SESSION['session_shop' . $this->_cid . '_' . $this->token];
-		$this->company = !empty($this->company) ? unserialize($this->company) : false;
 		$this->shopmanage = $_SESSION['manage_shop' . $this->_cid . '_' . $this->token];
 		$this->shopmanage = !empty($this->shopmanage) ? unserialize($this->shopmanage) : false;
 		$this->session_dish_info = 'session_dish_' . $this->_cid . '_info_' . $this->token;
@@ -97,6 +88,12 @@ class DishOutAction extends WapAction
 			$outset = $this->outManage($cid);
 			$company = $this->getCompany($cid);
 			$imgarr = (!empty($outset['shopimg']) ? unserialize($outset['shopimg']) : array());
+			if (!empty($imgarr) && !empty($imgarr['tourl'])) {
+				foreach ($imgarr['tourl'] as $ukk => $uvv) {
+					$imgarr['tourl'][$ukk] = $this->getLink(htmlspecialchars_decode($uvv, ENT_QUOTES));
+				}
+			}
+
 			$outinfo = array();
 			$outinfo['id'] = $cid;
 			$timestr = '';
@@ -141,6 +138,52 @@ class DishOutAction extends WapAction
 		}
 	}
 
+	private function getDishMainCompany($cache = true)
+	{
+		$mDishC = $_SESSION['session_Maindish_' . $this->token];
+		$mDishC = (!empty($mDishC) ? unserialize($mDishC) : false);
+		if ($cache && !empty($mDishC)) {
+			return $DishC;
+		}
+		else {
+			$MainC = M('Company')->where(array('token' => $this->token, 'isbranch' => 0))->find();
+			$m_cid = $MainC['id'];
+			unset($MainC);
+			$mDishC = M('Dish_company')->where(array('cid' => $m_cid))->find();
+			unset($m_cid);
+
+			if ($cache) {
+				$_SESSION['session_Maindish_' . $this->token] = !empty($mDishC) ? serialize($mDishC) : '';
+			}
+			else {
+				$_SESSION['session_Maindish_' . $this->token] = '';
+			}
+
+			return $mDishC;
+		}
+	}
+
+	private function getPrinter_set($cid, $cache = true)
+	{
+		$PsetC = $_SESSION['PrinterSet_' . $this->token . '_' . $cid];
+		$PsetC = (!empty($PsetC) ? unserialize($PsetC) : false);
+		if ($cache && !empty($PsetC)) {
+			return $PsetC;
+		}
+		else {
+			$PsetC = M('Orderprinter')->where(array('token' => $this->token, 'companyid' => $cid))->find();
+
+			if ($cache) {
+				$_SESSION['PrinterSet_' . $this->token . '_' . $cid] = !empty($PsetC) ? serialize($PsetC) : '';
+			}
+			else {
+				$_SESSION['PrinterSet_' . $this->token . '_' . $cid] = '';
+			}
+
+			return $PsetC;
+		}
+	}
+
 	public function dishMenu()
 	{
 		$cid = ($this->_get('cid') ? intval($this->_get('cid', 'trim')) : 0);
@@ -170,8 +213,17 @@ class DishOutAction extends WapAction
 			$_SESSION['session_shop_' . $this->token] = $cid;
 		}
 
-		$dish_sort = M('Dish_sort')->where(array('cid' => $cid))->order('`sort` ASC')->select();
-		$dish = M('Dish')->where(array('cid' => $cid, 'isopen' => 1, 'istakeout' => 1))->order('`sort` ASC')->select();
+		$DishC = $this->getDishCompany($cid);
+		$kconoff = $DishC['kconoff'];
+		$Mcompany = $this->getDishMainCompany(false);
+		$dishofcid = $cid;
+		if (($Mcompany['cid'] != $cid) && ($Mcompany['dishsame'] == 1)) {
+			$dishofcid = $Mcompany['cid'];
+			$kconoff = $Mcompany['kconoff'];
+		}
+
+		$dish_sort = M('Dish_sort')->where(array('cid' => $dishofcid))->order('`sort` ASC')->select();
+		$dish = M('Dish')->where(array('cid' => $dishofcid, 'isopen' => 1, 'istakeout' => 1))->order('`sort` ASC')->select();
 		$starttime = strtotime(date('Y-m') . '-01 00:00:00');
 		$t = date('t');
 		$endtime = strtotime(date('Y-m') . '-' . $t . ' 23:59:59');
@@ -238,9 +290,15 @@ class DishOutAction extends WapAction
 			}
 		}
 
-		$DishC = $this->getDishCompany($cid);
+		$newtmpdisharr = array();
+
+		foreach ($fenleiarr as $ssk => $ssv) {
+			$newtmpdisharr[$ssk] = $disharr[$ssk];
+		}
+
+		$disharr = $newtmpdisharr;
 		$disharr['dztj'] = !empty($dztjtmp) ? $dztjtmp : array();
-		$this->assign('kconoff', $DishC['kconoff']);
+		$this->assign('kconoff', $kconoff);
 		$this->assign('dz_tj', $dztj);
 		$this->assign('stype', $outset['stype']);
 		$this->assign('pricing', $outset['pricing']);
@@ -285,6 +343,15 @@ class DishOutAction extends WapAction
 				$this->exitdisplay('您尚未点菜！');
 			}
 
+			$DishC = $this->getDishCompany($tmpcid);
+			$kconoff = $DishC['kconoff'];
+			$Mcompany = $this->getDishMainCompany(false);
+			$dishofcid = $tmpcid;
+			if (($Mcompany['cid'] != $tmpcid) && ($Mcompany['dishsame'] == 1)) {
+				$dishofcid = $Mcompany['cid'];
+				$kconoff = $Mcompany['kconoff'];
+			}
+
 			$_SESSION[$this->session_dish_info] = serialize(array('pt' => $tmpdisharr, 'tj' => $dzdisharr));
 			unset($tmpdisharr);
 			unset($dzdisharr);
@@ -292,7 +359,7 @@ class DishOutAction extends WapAction
 			sort($idarr);
 			$idstr = implode(',', $idarr);
 			$db_dish = M('Dish');
-			$dish = $db_dish->where('id in(' . $idstr . ') and cid="' . $tmpcid . '" and isopen="1" and istakeout="1"')->order('`sort` ASC')->select();
+			$dish = $db_dish->where('id in(' . $idstr . ') and cid="' . $dishofcid . '" and isopen="1" and istakeout="1"')->order('`sort` ASC')->select();
 			$totl = $ornum = 0;
 
 			foreach ($dish as $val) {
@@ -304,15 +371,19 @@ class DishOutAction extends WapAction
 
 			$permin = (0 < $outset['permin'] ? $outset['permin'] : 15);
 			$sendtime = (0 < $outset['sendtime'] ? $outset['sendtime'] : $permin);
-			$starttime = $current = strtotime(date('Y-m-d H:i:s'));
+			$starttime = $current = time();
 			if ((0 < $outset['zc_sdate']) && ($current < $outset['zc_sdate'])) {
 				$starttime = $outset['zc_sdate'];
+				$starttime = date('Y-m-d') . ' ' . date('H:i:s', $outset['zc_sdate']);
+				$starttime = strtotime($starttime);
 			}
 
 			$endtime = strtotime(date('Y-m-d ') . '23:59:59');
 
 			if (0 < $outset['zc_edate']) {
 				$endtime = $outset['zc_edate'];
+				$endtime = date('Y-m-d') . ' ' . date('H:i:s', $outset['zc_edate']);
+				$endtime = strtotime($endtime);
 			}
 
 			$starttime = $starttime + ($sendtime * 60);
@@ -363,8 +434,7 @@ class DishOutAction extends WapAction
 				}
 			}
 
-			$DishC = $this->getDishCompany($tmpcid);
-			$this->assign('kconoff', $DishC['kconoff']);
+			$this->assign('kconoff', $kconoff);
 			$this->assign('timearr', $timearr);
 			$this->assign('contact', $contact);
 			$this->assign('stype', $outset['stype']);
@@ -408,6 +478,8 @@ class DishOutAction extends WapAction
 
 	private function getCompany($cid, $cache = true)
 	{
+		$this->company = $_SESSION['session_shop' . $cid . '_' . $this->token];
+		$this->company = !empty($this->company) ? unserialize($this->company) : false;
 		if ($cache && !empty($this->company)) {
 			return $this->company;
 		}
@@ -489,7 +561,7 @@ class DishOutAction extends WapAction
 
 		if (0 < $shopid) {
 			$jumpurl = U('DishOut/dishMenu', array('token' => $this->token, 'cid' => $shopid, 'wecha_id' => $this->wecha_id));
-			if (empty($disharr) || !0 < $totalmoney || !0 < $totalnum) {
+			if (empty($disharr) || !(0 < $totalmoney) || !(0 < $totalnum)) {
 				$this->exitdisplay('订单信息出错！', $jumpurl);
 			}
 
@@ -541,10 +613,14 @@ class DishOutAction extends WapAction
 				$_SESSION[$this->session_dish_info] = '';
 				$company = $this->getCompany($shopid);
 				Sms::sendSms($this->token, '顾客' . $ouserName . '刚刚叫了一份外卖，订单号：' . $orderid . '，请您注意查看并处理', $company['mp']);
-				$op = new orderPrint();
-				$msg = array('companyname' => $company['name'], 'des' => trim($_POST['omark']), 'companytel' => $company['tel'], 'truename' => trim($_POST['ouserName']), 'tel' => trim($_POST['ouserTel']), 'address' => trim($_POST['ouserAddres']), 'buytime' => $Orderarr['time'], 'orderid' => $Orderarr['orderid'], 'sendtime' => 0 < $oarrivalTime ? date('Y-m-d H:i', $oarrivalTime) : '尽快送达', 'price' => $Orderarr['price'], 'total' => $Orderarr['total'], 'typename' => '外卖', 'list' => $tmparr);
-				$msg = ArrayToStr::array_to_str($msg, 0);
-				$op->printit($this->token, $shopid, 'DishOut', $msg, 0);
+				$printer_set = $this->getPrinter_set($shopid);
+				if (!empty($printer_set) && ($printer_set['paid'] == 0)) {
+					$op = new orderPrint();
+					$msg = array('companyname' => $company['name'], 'des' => trim($_POST['omark']), 'companytel' => $company['tel'], 'truename' => trim($_POST['ouserName']), 'tel' => trim($_POST['ouserTel']), 'address' => trim($_POST['ouserAddres']), 'buytime' => $Orderarr['time'], 'orderid' => $Orderarr['orderid'], 'sendtime' => 0 < $oarrivalTime ? $oarrivalTime : '尽快送达', 'price' => $Orderarr['price'], 'total' => $Orderarr['total'], 'typename' => '外卖', 'list' => $tmparr);
+					$msg = ArrayToStr::array_to_str($msg, 0);
+					$op->printit($this->token, $shopid, 'DishOut', $msg, 0);
+				}
+
 				$alipayConfig = M('Alipay_config')->where(array('token' => $this->token))->find();
 
 				if ($alipayConfig['open']) {
@@ -591,7 +667,9 @@ class DishOutAction extends WapAction
 
 	public function myOrder()
 	{
-		$where = array('wecha_id' => $this->wecha_id, 'token' => $this->token, 'cid' => $this->_cid, 'comefrom' => 'dishout');
+		$this->_cid = 0 < $this->_cid ? $this->_cid : (isset($_GET['cid']) ? intval($_GET['cid']) : 0);
+		$_SESSION['session_shop_' . $this->token] = $this->_cid;
+		$where = array('wecha_id' => $this->wecha_id, 'token' => $this->token, 'cid' => $this->_cid, 'isdel' => '0', 'comefrom' => 'dishout');
 		$dish_order = M('Dish_order')->where($where)->order('id DESC')->limit(7)->select();
 		$list = array();
 		$payarr = array('alipay' => '支付宝', 'weixin' => '微信支付', 'tenpay' => '财付通[wap手机]', 'tenpaycomputer' => '财付通[即时到帐]', 'yeepay' => '易宝支付', 'allinpay' => '通联支付', 'daofu' => '货到付款', 'dianfu' => '到店付款', 'chinabank' => '网银在线');
@@ -612,7 +690,7 @@ class DishOutAction extends WapAction
 
 		$company = $this->getCompany($this->_cid);
 		$this->assign('company', $company);
-		$this->assign('cid', $row['cid']);
+		$this->assign('cid', $this->_cid);
 		$this->assign('orderList', $list);
 		$this->assign('metaTitle', '我的订单');
 		$this->display();
@@ -620,9 +698,21 @@ class DishOutAction extends WapAction
 
 	public function payReturn()
 	{
+		
 		$orderid = trim($_GET['orderid']);
 
 		if (isset($_GET['nohandle'])) {
+			$order = M('dish_order')->where(array('orderid' => $orderid, 'token' => $this->token))->find();
+			$model = new templateNews();
+			$siteurl = $_SERVER['HTTP_HOST'];
+			$siteurl = strtolower($siteurl);
+			if ((strpos($siteurl, 'http:') === false) && (strpos($siteurl, 'https:') === false)) {
+				$siteurl = 'http://' . $siteurl;
+			}
+
+			$siteurl = rtrim($siteurl, '/');
+			$model->sendTempMsg('OPENTM202521011', array('href' => $siteurl . U('DishOut/myOrder', array('token' => $order['token'], 'wecha_id' => $order['wecha_id'], 'cid' => $order['cid'])), 'wecha_id' => $order['wecha_id'], 'first' => '外卖订餐交易提醒', 'keyword1' => $orderid, 'keyword2' => date('Y年m月d日H时i分s秒'), 'remark' => '支付成功，感谢您的光临，欢迎下次再次光临！'));
+			$this->redirect(U('DishOut/myOrder', array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'cid' => $order['cid'])));
 		}
 		else {
 			ThirdPayDishOut::index($orderid);

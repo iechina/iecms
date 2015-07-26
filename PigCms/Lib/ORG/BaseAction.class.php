@@ -10,11 +10,22 @@ class BaseAction extends Action{
 	public $agentid;
 	public $adminMp;
 	public $siteUrl;
+	public $staticPath;
+	public $owndomain; //curl请求过来的手机站自定义域名
+	public $rget; //curl请求过来第三方服务器独立配置手机站标识参数 值默认为3
 	public $isQcloud = false;
 	protected function _initialize(){
 		//检测电脑PC版
 		if(GROUP_NAME == 'Home' && MODULE_NAME == 'Index' && ACTION_NAME == 'index'){
 			$this->check_company_website();
+		}
+		$own_domain=$this->_get('owndomain', 'trim');//用户手机站自定义域名或第三方服务器独立配置手机站标识参数
+		$rget=intval($this->_get('rget', 'trim'));//第三方服务器独立配置手机站标识参数
+		$this->owndomain=$own_domain && !empty($own_domain) ? $own_domain : false;
+		$this->rget=$rget>0 ? $rget : 0;
+		$nomsite=$_SESSION[$_SERVER['HTTP_HOST'].'nomsite'];
+		if(!$this->owndomain && (GROUP_NAME!="User") && !$nomsite){
+		   $this->check_mobile_website();
 		}
 
 		if($this->_get('openId') != NULL){
@@ -88,6 +99,12 @@ class BaseAction extends Action{
 			$this->reg_groupid=$thisAgent['reggid'];
 			$this->adminMp=$thisAgent['mp'];
 		}
+		if(empty($staticPath) && ($rget==3) && !empty($own_domain)){
+		   $staticPath=$f_siteUrl;  /**第三方服务器独立配置手机站时文件资源地址需要本站的**/
+		}
+		$this->staticPath=$staticPath;
+		$this->assign('staticPath',$staticPath);
+		define('STATICS',$staticPath.'/tpl/static');		//********************/
 		$this->siteUrl=$f_siteUrl;
 		$this->assign('f_logo',$f_logo);
 		$this->assign('f_siteName',$f_siteName);
@@ -276,9 +293,13 @@ class BaseAction extends Action{
 
 	//判断是否是企业版的PC网站
 	protected function check_company_website(){
-		//如果当前网址和平台网址一样，则不查询。	
+		//如果当前网址和平台网址一样，则不查询。
+		if (C('agent_version')){
+			$agent=M('Agent')->where(array('siteurl'=>'http://'.$_SERVER['HTTP_HOST']))->find();
+		}
+		if (!$agent&&C('site_url')){
 			$site_domain = parse_url(C('site_url'));
-			$now_host = $_SERVER['SERVER_NAME'];
+			$now_host = $_SERVER['HTTP_HOST'];
 			if($site_domain['host'] != $now_host){
 				$now_website = S('now_website'.$now_host);
 				if(empty($now_website)){
@@ -296,9 +317,131 @@ class BaseAction extends Action{
 				}
 			}
 		}
+	}
 
+   	//判断是否是手机自定义域名壳
+    protected function check_mobile_website() {
+        /*$mb_token = $this->_get('token', 'trim');
+        if ($mb_token && !preg_match("/^[0-9a-zA-Z]{3,42}$/", $mb_token)) {
+            exit('error token');
+        }*/
+        $db_mobilesite = M('Mobilesite');
+		$tmp =$_SESSION[$_SERVER['HTTP_HOST']];
+		if(!empty($tmp)){
+		  $tmp =unserialize($tmp);
+		}else{
+          $tmp = $db_mobilesite->where(array('owndomain' => $_SERVER['HTTP_HOST']))->find();
+		}
+		$bid = $this->_get('bid') ? intval($this->_get('bid', 'trim')) : 0;
+        if (is_array($tmp) && !empty($tmp) && !empty($tmp['token'])) {
+			    $_SESSION[$tmp['owndomain']]=serialize($tmp);
+				$_SESSION[$_SERVER['HTTP_HOST'].'nomsite']=0;
+			    if($_SERVER["QUERY_STRING"]=="" || !strpos($_SERVER["REQUEST_URI"],"g=Wap")|| !strpos($_SERVER["REQUEST_URI"],"token=".$tmp['token'])){
+				  $request_url='http://' . $tmp['admindomain']."/index.php?g=Wap&m=Index&a=index&token=".$tmp['token']. "&rget=3&owndomain=" . $tmp['owndomain'];
+				}else{
+                  $request_url = 'http://' . $tmp['admindomain'] . $_SERVER['REQUEST_URI'] . "&rget=3&owndomain=" . $tmp['owndomain'];
+				}
+				if(isset($_COOKIE['qmjjr_loginuserid'.$bid])) $request_url=$request_url."&loginuserid=".$_COOKIE['qmjjr_loginuserid'.$bid];
+                if (IS_POST) {
+                    $responsearr = $this->httpRequest($request_url, REQUEST_METHOD, $_POST);
+                } else {
+                    $responsearr = $this->httpRequest($request_url, REQUEST_METHOD, null);
+                }
+				
+                $tmpcontent = $responsearr['1'];
+                /* * ajax请求时 json封装带过来的数据 是否需要解析* */
+                /* * 格式为**{"analyze":1,"error":0,"msg":"opt_cookie","data":{"ckkey":"bfdhdfhdf","ckv":2,"expire":3600}}**这样的json* */
+                /* * analyze为数字：指明是否需要解析 大于0的值时需要解析 0不需要解析，请不要写成布尔值*** */
+                /* * error为数字：指明一个状态**msg为字符串：指明操作**data为数据库：指明要操作的数据* */
+                $jsonREG = '/^\{[\"\']analyze[\"\']\:\d\,[\"\']error[\"\']\:\d\,[\"\']msg[\"\']\:(.*)data[\"\']\:(.*)\}\}$/i';
+                if (preg_match($jsonREG, $tmpcontent, $matches)) {
+                    $jsonstr = $matches[0];
+                    $jsonarr = !empty($jsonstr) ? json_decode($jsonstr, TRUE) : false;
+                    if ($jsonarr && is_array($jsonarr)) {
+                        $is_analyze = isset($jsonarr["analyze"]) ? intval($jsonarr["analyze"]) : 0;
+                        if ($is_analyze > 0) {
+                            $tmpcontent = $jsonarr["error"];
 
+                            switch ($jsonarr["msg"]) {
+                                case "opt_cookie":
+                                    $tmpdata = $jsonarr["data"];
+                                    $expire = intval($tmpdata["expire"]);
+                                    $expire = $expire > 0 ? time() + $expire : 0;
+                                    setcookie('qmjjr_loginuserid'.$bid, $tmpdata["ckv"], $expire, "/", $_SERVER["HTTP_HOST"]);
+                                    break;
+                                default:
 
-	
+                                    break;
+                            }
+                        }
+                    }
+                }
+                $tmpcontent=str_replace($tmp['admindomain'],$_SERVER['HTTP_HOST'],$tmpcontent);
+               
+                $_SESSION['otherSource']=1;
+               echo $tmpcontent;
+                if (!IS_AJAX && !empty($tmp['tjscript'])) {
+                    $tjscript = base64_decode($tmp['tjscript']);
+                    $tjscript = urldecode(str_replace('jshtmltag', 'script', $tjscript));
+                    echo $tjscript;
+                }
+                exit();
+        }else{
+		   $_SESSION[$_SERVER['HTTP_HOST'].'nomsite']=1;
+		}
+    }
+
+   public function httpRequest($url, $method, $postfields = null, $headers = array(), $debug = false) {
+        /* $Cookiestr = "";  * cUrl COOKIE处理* 
+        if (!empty($_COOKIE)) {
+            foreach ($_COOKIE as $vk => $vv) {
+                $tmp[] = $vk . "=" . $vv;
+            }
+            $Cookiestr = implode(";", $tmp);
+        }*/
+		$method=strtoupper($method);
+        $ci = curl_init();
+        /* Curl settings */
+        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($ci, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0");
+        curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 60); /* 在发起连接前等待的时间，如果设置为0，则无限等待 */
+        curl_setopt($ci, CURLOPT_TIMEOUT, 7); /* 设置cURL允许执行的最长秒数 */
+        curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
+        switch ($method) {
+            case "POST":
+                curl_setopt($ci, CURLOPT_POST, true);
+                if (!empty($postfields)) {
+                    $tmpdatastr = is_array($postfields) ? http_build_query($postfields) : $postfields;
+                    curl_setopt($ci, CURLOPT_POSTFIELDS, $tmpdatastr);
+                }
+                break;
+            default:
+                curl_setopt($ci, CURLOPT_CUSTOMREQUEST, $method); /* //设置请求方式 */
+                break;
+        }
+		$ssl =preg_match('/^https:\/\//i',$url) ? TRUE : FALSE;
+        curl_setopt($ci, CURLOPT_URL, $url);
+		if($ssl){
+		  curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE); // https请求 不验证证书和hosts
+		  curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, FALSE); // 不从证书中检查SSL加密算法是否存在
+		}
+        curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ci, CURLINFO_HEADER_OUT, true);
+        /*curl_setopt($ci, CURLOPT_COOKIE, $Cookiestr); * *COOKIE带过去** */
+        $response = curl_exec($ci);
+        $http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+        if ($debug) {
+            echo "=====post data======\r\n";
+            var_dump($postfields);
+            echo "=====info===== \r\n";
+            print_r(curl_getinfo($ci));
+
+            echo "=====$response=====\r\n";
+            print_r($response);
+        }
+        curl_close($ci);
+        return array($http_code, $response);
+    }
+
 }
 

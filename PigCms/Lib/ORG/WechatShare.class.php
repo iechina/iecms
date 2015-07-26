@@ -1,49 +1,40 @@
 <?php 
 class WechatShare 
 {
-	private $appId		= '';
-	private $appSecret	= '';
-	public $error 		= array();
-	public $token 		= '';  
-	public $wecha_id 		= '';
-	
-	
+	public $wxuser;
+	public $wecha_id;
+	public $error 	= array();
 	//构造函数获取access_token
-	function __construct($appId,$appSecret,$token,$wecha_id){
-		$this->appId		= $appId;
-		$this->appSecret	= $appSecret;
-		$this->token		= $token;
+	function __construct($wxuser,$wecha_id){
+		$this->wxuser		= $wxuser;
 		$this->wecha_id		= $wecha_id;
 	}
 
 	public function getSgin(){
 		$now 	= time();
-
-		$share_data 	= M('Wxuser')->where(array('token'=>$this->token))->field('share_ticket,share_dated')->find();
-		
-		if( (empty($share_data['share_ticket']) || empty($share_data['share_dated']) ) || ($share_data['share_ticket']!='' && $share_data['share_dated']!='' && $share_data['share_dated'] < $now ) ){
-			$tokenData 	= $this->getToken();
-			if($tokenData['errcode']){
-				$this->error['token_error'] 	= array('errcode'=>$tokenData['errcode'],'errmsg'=>$tokenData['errmsg']);
+		//$share_data 	= M('Wxuser')->where(array('token'=>$this->token))->field('share_ticket,share_dated')->find();
+		if( (empty($this->wxuser['share_ticket']) || empty($this->wxuser['share_dated']) ) || ($this->wxuser['share_ticket']!='' && $this->wxuser['share_dated']!='' && $this->wxuser['share_dated'] < $now ) ){
+			$apiOauth 		= new apiOauth();
+			
+			$access_token  	= $apiOauth->update_authorizer_access_token($wxuser['appid'],$this->wxuser);
+			$ticketData 	= $this->getTicket($access_token);
+			
+			if($ticketData['errcode']>0){
+				$this->error['ticket_error'] 	= array('errcode'=>$ticketData['errcode'],'errmsg'=>$ticketData['errmsg']);
 			}else{
-				$access_token 	= $tokenData['access_token'];
-				$ticketData 	= $this->getTicket($access_token);
-				if($ticketData['errcode']>0){
-					$this->error['ticket_error'] 	= array('errcode'=>$ticketData['errcode'],'errmsg'=>$ticketData['errmsg']);
-				}else{
-					M('Wxuser')->where(array('token'=>$this->token))->save(array('share_ticket'=>$ticketData['ticket'],'share_dated'=>$now+$ticketData['expires_in']));
-					$ticket 	= $ticketData['ticket'];
-				}
+				M('Wxuser')->where(array('id'=>$this->wxuser['id']))->save(array('share_ticket'=>$ticketData['ticket'],'share_dated'=>$now+$ticketData['expires_in']));
+				$ticket 	= $ticketData['ticket'];
 			}
+			
 		}else{
-			$ticket 		= $share_data['share_ticket'];
+			$ticket 		= $this->wxuser['share_ticket'];
 		}
 
 		//$url 		= $this->getUrl();
 		$url 		= "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 		$sign_data 	= $this->addSign($ticket,$url);
-
+		//dump($sign_data);
 		$share_html = $this->createHtml($sign_data);
 
 		return $share_html;
@@ -62,7 +53,7 @@ class WechatShare
 			"timestamp"		=> $timestamp,
 			"url"			=> $url,
 		);
-		
+
 		ksort($array);
 		$signPars	= '';
 	
@@ -77,13 +68,13 @@ class WechatShare
 		}
 		
 		$result = array(
-			'appId' 	=> $this->appId,
+			'appId' 	=> $this->wxuser['appid'],
 			'timestamp' => $timestamp,
 			'nonceStr'  => $nonceStr,
 			'url' 		=> $url,
-			'signature'  => SHA1($signPars),
+			'signature' => SHA1($signPars),
 		);
-		
+
 		return $result;
 	}
 
@@ -116,8 +107,8 @@ class WechatShare
 	
 	//获取token
 	public function  getToken(){
-		$url 	= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$this->appId."&secret=".$this->appSecret;
-		return $this->https_request($url);
+		//$url 	= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$this->appId."&secret=".$this->appSecret;
+		//return $this->https_request($url);
 	}
 
 	public function getTicket($token){
@@ -139,13 +130,17 @@ class WechatShare
 		  nonceStr: '{$sign_data['nonceStr']}',
 		  signature: '{$sign_data['signature']}',
 		  jsApiList: [
-		    'checkJsApi',
+	    	'checkJsApi',
 		    'onMenuShareTimeline',
 		    'onMenuShareAppMessage',
 		    'onMenuShareQQ',
 		    'onMenuShareWeibo',
 			'openLocation',
-			'getLocation'
+			'getLocation',
+			'addCard',
+			'chooseCard',
+			'openCard',
+			'hideMenuItems'
 		  ]
 		});
 	</script>
@@ -163,7 +158,6 @@ class WechatShare
 	      }
 	    });
 	  };*/
-
 	  // 2. 分享接口
 	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
 	    wx.onMenuShareAppMessage({
@@ -175,7 +169,6 @@ class WechatShare
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 		    success: function () { 
 				shareHandle('frined');
-		        //alert('分享朋友成功');
 		    },
 		    cancel: function () { 
 		        //alert('分享朋友失败');
@@ -185,7 +178,7 @@ class WechatShare
 
 	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
 		wx.onMenuShareTimeline({
-			title: window.shareData.tTitle,
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
 			link: window.shareData.sendFriendLink,
 			imgUrl: window.shareData.imgUrl,
 		    success: function () { 
@@ -211,19 +204,32 @@ class WechatShare
 		        //alert('分享微博失败');
 		    }
 		});
-		
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+				wx.hideOptionMenu();
+			}else if(res.errMsg == 'config:invalid url domain'){
+				wx.hideOptionMenu();
+			}else{
+				wx.hideOptionMenu();
+				//alert(res.errMsg);
+			}*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
 	});
 		
 	function shareHandle(to) {
 		var submitData = {
 			module: window.shareData.moduleName,
 			moduleid: window.shareData.moduleID,
-			token:'{$this->token}',
+			token:'{$this->wxuser['token']}',
 			wecha_id:'{$this->wecha_id}',
 			url: window.shareData.sendFriendLink,
 			to:to
 		};
-		$.post('index.php?g=Wap&m=Share&a=shareData&token={$this->token}&wecha_id={$this->wecha_id}',submitData,function (data) {},'json')
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token={$this->wxuser['token']}&wecha_id={$this->wecha_id}',submitData,function (data) {},'json')
 	}
 </script>
 EOM;

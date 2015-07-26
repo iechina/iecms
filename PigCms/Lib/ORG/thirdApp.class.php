@@ -11,7 +11,10 @@ class thirdApp {
 		$this->token=$token;
 	}
 	public function modules(){
-		return array('music','yinle','mengjian','kuaidi','tianqi');
+		//2015年2月28日  新增 百科，火车，公交，算命，电影,飞机
+		//return array('music','yinle','mengjian','kuaidi','tianqi','baike','huoche','geci','gongjiao','suanming','dianying','feiji');
+		//火车和公交先使用旧数据
+		return array('music','yinle','mengjian','kuaidi','tianqi','baike','geci','suanming','dianying','feiji');
 	}
 	public function yinle($name){
 		return $this->music($name);
@@ -23,9 +26,143 @@ class thirdApp {
 		if (strpos($rt,'ttp')){
 			return array(array($name,$name,$rt,$rt),'music');
 		}else {
-			return array('没找到相应音乐','text');
+			return array('亲爱的，由于版权问题音乐功能暂未开放','text');
 		}
 	}
+	
+	public function feiji($data){
+		$data=array_merge($data);
+		if(count($data)<2){ return array('正确使用方法：明天北京飞拉萨的飞机','text');};
+		//return array('0'.$data[0]. '1:'.$data[1].'2:'.$data[2],'text');
+		$info = $data[2].$data[1].'飞'.$data[0].'的飞机 ';
+		$url = apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info='.$info;
+		$json=$this->curlGet($url);
+		//return array($json,'text');
+		if(empty($json))return array('哎呀，暂时没找到'.$data[1].'--'.$data[0].'的飞机','text');
+		$datas=json_decode($json,true);
+		if($datas['list']){
+			$str.="\n【Hi，以下是为您找到航班信息】";
+			foreach($datas['list'] as $lists){
+				$str.="\n『航班』{$lists['flight']}";
+				if($lists['route']){
+					$str.="\n 航班路线 {$lists['route']}";
+				}
+				if($lists['state']){
+					$str.="\n 航班状态 {$lists['state']}";
+				}
+				$str.="\n『起』{$lists['starttime']} -『达』{$lists['endtime']}";
+				//$str.="\n   <a href='{$lists['detailurl']}'>详情</a> ";
+				$str.="\n*****************************";
+			}
+		}else{
+			return array('哎呀，暂时没找到'.$data[1].'--'.$data[0].'的飞机','text');
+		}
+		return $str;
+	}
+	
+	public function dianying($name){
+		$name=implode('',$name);
+		if(empty($name)){return "温馨提醒您正确的使用方法是[电影+电影名] \n 比如：电影饥饿游戏 或者 电影现在热播";}
+		$url=apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info=电影'.$name;
+		$rt=$this->curlGet($url);
+		$data = json_decode($rt,true);
+
+		if($data['text']){
+			$stxt = $data['text']."<a href='{$data['url']}'>{$name}</a>";
+			return array($stxt,'text');
+		}else{
+			return "哇，电影库都木有你要看的片";
+		}
+		
+	}
+	
+	public function gongjiao($data){
+
+		$data=array_merge($data);
+		if(count($data)<2){ $this->error_msg() ;return false;};
+		$json=file_get_contents("http://www.twototwo.cn/bus/Service.aspx?format=json&action=QueryBusByLine&key=a3f88d7c-86b6-4815-9dae-70668fc1f0d5&zone=".$data[0]."&line=".$data[1]);
+
+		$data=json_decode($json);
+		//线路名
+		$xianlu=$data->Response->Head->XianLu;
+		//验证查询是否正确
+		$xdata=get_object_vars($xianlu->ShouMoBanShiJian);
+		$xdata=$xdata['#cdata-section'];
+		$piaojia=get_object_vars($xianlu->PiaoJia);
+		$xdata=$xdata.' -- '.$piaojia['#cdata-section'];
+		$main=$data->Response->Main->Item->FangXiang;
+		//线路-路经
+		$xianlu=$main[0]->ZhanDian;
+		$str="【本公交途经】\n";
+		for($i=0;$i<count($xianlu);$i++){
+			$str.="\n".trim($xianlu[$i]->ZhanDianMingCheng);
+		}
+		return $str;
+	}
+	
+	public function suanming($name){
+		$name=implode('',$name);
+		if(empty($name)){return '温馨提醒您正确的使用方法是[算命+姓名]';}
+		//return array($name.'0000','text');
+		$url=apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info=算命'.$name;
+		$rt=$this->curlGet($url);
+		$data = json_decode($rt,true);
+		if($data['text'])
+		return array($data['text'],'text');
+		else
+		$data=require_once(CONF_PATH.'suanming.php');
+		$num=mt_rand(0,80);
+		return $name."\n".trim($data[$num]);
+	}
+	
+	public function geci($n){
+		$name=implode('',$n);
+		$url=apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info='.$name.'的歌词';
+		$rt=$this->curlGet($url);
+		$data = json_decode($rt,true);
+		if ($data['text']){
+			return array($data['text'],'text');
+		}else {
+			return array('没找到'.$name.'相应的歌词','text');
+		}
+	}
+	 
+	
+	
+	public function baike($name){
+		$name=implode('',$name);
+		$url=apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info=百科'.$name;
+		$rt=$this->curlGet($url);
+		$data = json_decode($rt,true);
+		if ($data['text']){
+			return array($data['text'],'text');
+		}else {
+			return array('没找到'.$name.'相应百科','text');
+		}
+	}
+	
+	public function huoche($data,$time=''){
+		
+		$data=array_merge($data);
+		$info = $data[1].'到'.$data[0].'的火车';
+		$url = apiServer::getApiUrltu().'?key='.apiServer::getApiKeyID()['key'].'&info='.$info;
+		$json=$this->curlGet($url);
+		if(empty($json))return array('哎呀，暂时没找到'.$data[1].'--'.$data[0].'的火车~','text');
+		$datas=json_decode($json,true);
+		if($datas['list']){
+			$str.="\n【Hi，以下是为您找到列车信息】";
+			foreach($datas['list'] as $lists){
+				$str.="\n『车次』{$lists['trainnum']}";
+				$str.="\n『起』{$lists['start']} -『终』{$lists['terminal']}";
+				$str.="\n『开』{$lists['starttime']} -『到』{$lists['endtime']}";
+				$str.="\n*****************************";
+			}
+		}else{
+			return array('哎呀，暂时没找到'.$data[1].'--'.$data[0].'的火车~','text');
+		}
+		return $str;
+	}
+	
 	public function mengjian($name){
 		
 		if(empty($name))return array('周公睡着了哦,无法解此梦,这年头神仙也偷懒','text');

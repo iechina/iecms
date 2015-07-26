@@ -13,24 +13,18 @@ a.a_upload,a.a_choose{border:1px solid #3d810c;box-shadow:0 1px #CCCCCC;-moz-box
 }
 th,td{text-align: -webkit-left;font-size:12px;}
 </style>
-
 	<form action="" method="post" target="_parent" id="realinfo_form">
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tbody>
 		<tr bgcolor="#F1F1F1">
-			<th align="right" height="62" width="100">菜单类型：</th>
+			<th align="right" height="62" width="">菜单名称：</th>
 			<td>
 				<div class="mr15 l">
-				
-				<select name="menu_type" class="menu_type">
-					<option  value="1">关键词回复菜单</option>		
-					<option  value="2">url链接菜单</option>
-					<option  value="3">微信扩展菜单</option>
-				</select>
-					添加父级菜单只需要填写菜单名称即可。
+				<input id="menu_title" class="txt" name="title" title="主菜单名称" value="" type="text">	
 				</div>
+				<div class="system l"></div>
 			</td>
-		</tr>
+		</tr>	
 		<tr>
 			<th align="right" height="62" width="100">父级菜单：</th>
 			<td>
@@ -41,30 +35,28 @@ th,td{text-align: -webkit-left;font-size:12px;}
 						<option  value="{pigcms:$class.id}">{pigcms:$class.title}</option>
 					</volist>
 				</select>
-				设置二级菜单需要先选择父菜单
+				二级菜单需要选择父菜单
 				</div>
 			</td>
 		</tr>
 		<tr bgcolor="#F1F1F1">
-			<th align="right" height="62" width="">主菜单名称：</th>
+			<th align="right" height="62" width="100">菜单类型：</th>
 			<td>
 				<div class="mr15 l">
-				<a href="/BQ/BQ.HTML" target="_blank" title="也可百度：emoji表情代码">菜单图标码</a>
-                <input id="emoji_code" class="txt" size="8" name="emoji_code" title="主菜单前小图标" value="" type="text">				
-				<input id="menu_title" class="txt" name="title" title="主菜单名称" value="" type="text">			
+				<select name="menu_type" class="menu_type">
+					<option value="1">关键词回复菜单</option>		
+					<option value="2">url链接菜单</option>
+					<option value="3">微信扩展菜单</option>
+				</select>
 				</div>
-				
-				<div class="system l"></div>
 			</td>
-		</tr>
-					
+		</tr>			
 		<tr class="keyword">
 			<th align="right" height="62" width="">关联关键词：</th>
 			<td>
 				<div class="mr15 l">
 					<input id="menu_keyword" class="txt" name="keyword" title="关联关键词" value="" type="text"> 
 					<a href="###" onclick="addLink('menu_keyword',1)" class="a_choose">从功能库添加</a>
-					
 				</div>
 				<div class="system l"></div>
 			</td>

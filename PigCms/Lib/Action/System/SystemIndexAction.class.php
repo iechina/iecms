@@ -12,9 +12,7 @@ class SystemIndexAction extends BackAction{
 	public function _initialize() {
 		parent::_initialize();
 		$this->server_url=trim(C('server_url'));
-		if (!$this->server_url){
-			$this->server_url='http://up.pigcms.cn/';
-		}
+		
 
 		$this->key=trim(C('server_key'));
 		$this->topdomain=trim(C('server_topdomain'));

@@ -9,6 +9,7 @@
    
  <!--tab start-->
 <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
 
 <script>
 var dialog;
@@ -22,6 +23,12 @@ function showSetting(module,text){
 			$('.form').submit();
 		}
 	});
+}
+function showWxhelp(){
+	art.dialog.open('http://www.meihua.com/waphelp/wxpay.php?siteUrl={pigcms:$f_siteUrl}',{lock:true,title:'微信支付设置',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
+}
+function showWxhelpQa(){
+	art.dialog.open('http://www.meihua.com/waphelp/wxpay.php?siteUrl={pigcms:$f_siteUrl}#qa',{lock:true,title:'微信支付常见问题',width:800,height:600,yesText:'Y',background: '#000',opacity: 0.45});
 }
 $(function(){
 	if($('#pay_open').val() == 0){
@@ -52,6 +59,24 @@ $(function(){
 	.hidden{display:none;}
 	.userinfoArea th{width:225px;}
 	.userinfoArea th img{vertical-align:middle;border:1px solid #ccc;width:60px;height:30px;margin-right:10px;}
+	.a_red {	
+	background-image:none !important;
+	border:none !important;
+	text-shadow:none !important;
+	margin-left: 5px;
+	padding: 2px 8px !important;
+	cursor: pointer !important;
+	display: inline-block !important;
+	overflow: visible !important;
+	border-radius: 2px !important;
+	-moz-border-radius: 2px !important;
+	-webkit-border-radius: 2px !important;
+	background-color: #f60 !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	/*line-height: 1.5 !important;*/
+
+}
 </style>
 <!--tab end-->    
 
@@ -75,7 +100,7 @@ $(function(){
 							<div>
 								<input type="radio" name="weixin[open]" id="open_weixin_yes" value="1" <if condition="$config['weixin']['open'] eq 1">checked="checked"</if>/>&nbsp;<label for="open_weixin_yes">开启</label>&nbsp;&nbsp;&nbsp;&nbsp;
 								<input type="radio" name="weixin[open]" id="open_weixin_no" value="0" <if condition="$config['weixin']['open'] eq 0">checked="checked"</if>/>&nbsp;<label for="open_weixin_no">关闭</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="###" onclick="showSetting('weixin','微信支付');" class="a_choose">配置信息</a>
+								<a href="###" onclick="showSetting('weixin','微信支付');" class="a_choose">配置信息</a>&nbsp;&nbsp;<a href="###" onclick="showWxhelp()" class="a_red">点击查看如何设置</a>&nbsp;&nbsp;<a href="###" onclick="showWxhelpQa()" class="a_red">常见问题</a>
 							</div>
 							<div class="hidden" id="weixin_setting">
 								<div class="setting_rows">
@@ -86,10 +111,23 @@ $(function(){
 										<input type="hidden" name="weixin[is_old]" id="wx_is_old" value="{pigcms:$config.weixin.is_old|intval=###}"/>
 									</p>
 									<div id="new_wxpay_box" class="wxpay_box" <if condition="$config['weixin']['is_old']">style="display:none;"</if>>
-										<p><span>Appid：</span><input type="text" name="weixin[new_appid]" value="{pigcms:$config.weixin.new_appid}" class="px"/>&nbsp;&nbsp;公众账号ID</p>
-										<p><span>Mchid：</span><input type="text" name="weixin[mchid]" value="{pigcms:$config.weixin.mchid}" class="px" />&nbsp;&nbsp;微信支付商户号</p>
-										<p><span>Key：</span><input type="text" name="weixin[key]" value="{pigcms:$config.weixin.key}" class="px" />&nbsp;&nbsp;商户支付密钥Key</p>
-										<p><span>Appsecret：</span><input type="text" name="weixin[appsecret]" value="{pigcms:$config.weixin.appsecret}" class="px" />&nbsp;&nbsp;JSAPI接口中获取openid</p>
+									<?php if ($wxuser['appid']&&$wxuser['appsecret']){
+										?>
+										
+										<p style="display:none"><span>Appid：</span><input type="text" name="weixin[new_appid]" value="{pigcms:$wxuser.appid}" class="px"/>&nbsp;&nbsp;公众账号ID</p>
+										<p><span>微支付商户号：</span><input type="text" name="weixin[mchid]" value="{pigcms:$config.weixin.mchid}" class="px" />&nbsp;&nbsp;微信支付商户号</p>
+										<p><span>API密钥：</span><input type="text" name="weixin[key]" value="{pigcms:$config.weixin.key}" class="px" />&nbsp;&nbsp;商户支付API密钥</p>
+										<p style="display:none"><span>Appsecret：</span><input type="text" name="weixin[appsecret]" value="{pigcms:$wxuser.appsecret}" class="px" />&nbsp;&nbsp;JSAPI接口中获取openid</p>
+										<p><span></span><a href="###" onclick="showWxhelp()" class="a_red">点击查看如何设置</a></p>
+										<?php
+									}else {
+										?>
+										
+										<a href="/index.php?g=User&m=Index&a=edit&id=<?php echo $wxuser['id'];?>" class="a_red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击这里先设置您的appid和appsecret&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+										<?php
+									}
+									?>
+		
 									</div>
 									<div id="old_wxpay_box" class="wxpay_box" <if condition="empty($config['weixin']['is_old'])">style="display:none;"</if>>
 										<p><span>Appid：</span><input type="text" name="weixin[appid]" value="{pigcms:$config.weixin.appid}" class="px"/>&nbsp;&nbsp;公众账号ID</p>
@@ -197,6 +235,18 @@ $(function(){
 						</div>
 					</td>
 				</tr>
+
+				<tr>
+					<th><img src="{pigcms:$staticPath}/tpl/static/pay_icon/cardpay.jpg"/>会员卡付款：</th>
+					<td>
+						<div class="pay_setting">
+							<div style="/*margin-bottom:10px;*/">
+								<input type="radio" name="CardPay[open]" id="open_cardpay_yes" value="1" <if condition="$config['CardPay']['open'] eq 1">checked="checked"</if>/>&nbsp;<label for="open_cardpay_yes">开启</label>&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="CardPay[open]" id="open_cardpay_no" value="0" <if condition="$config['CardPay']['open'] eq 0">checked="checked"</if>/>&nbsp;<label for="open_cardpay_no">关闭</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</div>
+						</div>
+					</td>
+				</tr>
 				<tr>
 					<th><img src="{pigcms:$staticPath}/tpl/static/pay_icon/daofu.png"/>货到付款：</th>
 					<td>
@@ -231,7 +281,7 @@ $(function(){
 								</div>
 								<div class="hidden" id="platform_setting">
 									<div class="setting_rows">
-										<p><span>名称标注：</span><input type="text" name="platform[platformName]" value="{pigcms:$config.platform.platformName}" class="px" />&nbsp;&nbsp;支付时的支付名称额外的标注【如：<font color="red">支付宝(小猪)</font>】，不填写则不展示</p>
+										<p><span>名称标注：</span><input type="text" name="platform[platformName]" value="{pigcms:$config.platform.platformName}" class="px" />&nbsp;&nbsp;支付时的支付名称额外的标注【如：<font color="red">支付宝(**)</font>】，不填写则不展示</p>
 									</div>
 								</div>
 							</div>

@@ -15,6 +15,8 @@ class ThirdPayBargain
 			if($order['paid']!=1){
 				exit('该订单还未支付');
 			}
+			$save_order['state2'] = 1;
+			$update_order = $this->m_order->where($where_order)->save($save_order);
 			$where['token'] = $this->token;
 			$where['pigcms_id'] = $order['bargain_id'];
 			$bargain = $this->m_bargain->where($where)->find();

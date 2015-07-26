@@ -14,14 +14,15 @@ class subscribe {
 
 
 	public function sub(){
-		
-		if($this->thisWxUser['appid'] && $this->thisWxUser['appsecret']&&$this->thisWxUser['winxintype']==3){
+
+		if($this->thisWxUser['appid'] && $this->thisWxUser['winxintype']==3){
 			//服务号
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
+			
+			$apiOauth 		= new apiOauth();
 
-			$json=json_decode($this->curlGet($url_get));
+			$access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
 
-			$url='https://api.weixin.qq.com/cgi-bin/user/info?openid='.$this->wecha_id.'&access_token='.$json->access_token;
+			$url='https://api.weixin.qq.com/cgi-bin/user/info?openid='.$this->wecha_id.'&access_token='.$access_token;
 			$classData=json_decode($this->curlGet($url));
 			
 			if ($classData->subscribe&&$classData->subscribe==1){

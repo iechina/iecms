@@ -16,87 +16,7 @@
 <script src="{pigcms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
 
 <script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
-<script>
-
-var KE;
-
-  KindEditor.ready(function(K) {
-
-        KE = K.create("#info", {
-
-resizeType : 1,
-
-allowPreviewEmoticons : false,
-
-items : [
-
-						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-
-						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-
-						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video'],
-
-allowImageUpload : true,
-
-allowFlashUpload : true,
-
-postParams:{'PHPSESSID':"<?php echo session_id();?>"},uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
-
-allowFileManager : false,
-
-filterMode: false,//是否开启过滤模式
-
-syncType:"form",
-
-afterCreate : function() {
-
-var self = this;
-
-self.sync();
-
-},
-
-afterChange : function() {
-
-var self = this;
-
-self.sync();
-
-},
-
-afterBlur : function() {
-
-var self = this;
-
-self.sync();
-
-}
-
-        });
-
-KE.appendHtml = function(id,val) {
-
-this.html(this.html() + val);
-
-if (this.isCreated) {
-
-var cmd = this.cmd;
-
-cmd.range.selectNodeContents(cmd.doc.body).collapse(false);
-
-cmd.select();
-
-}
-
-return this;
-
-}
-
-});
-
-
-
-</script> 
+ <script src="/tpl/static/upyun.js?{pigcms::date('YmdHis',time())}"></script>
 
 
 
@@ -132,28 +52,79 @@ return this;
   <TD><input type="text" class="px" id="title1" value="{pigcms:$info.zdhf}" name="zdhf" style="width:500px" ></TD>
   
 </TR>
+
 <TR>
 <TH valign="top" align="right" style="text-align:right">处理bugOpenid：</TH>
   
-  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.openid}" name="openid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
-  
+  <TD><input type="text" class="px" id="openid1" value="{pigcms:$info.openid}" name="openid" style="width:400px" >
+   <input type="text" class="px" id="name1" value="{pigcms:$info.name1}" name="name1" style="width:100px" >
+   <a href="javascript:void(0);" class="btnGrayS" id="search1">立即获取</a>&nbsp;&nbsp;输入微信名称获取</TD>
+ 
 </TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">客服头像：</TH>
+  
+  <TD><input type="text" class="px" id="openid_headpic" value="{pigcms:$info.openid_headpic}" name="openid_headpic" style="width:400px" ><a href="###" onclick="upyunPicUpload('openid_headpic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('openid_headpic')">预览</a>
+   </TD>
+ 
+</TR>
+<TH valign="top" align="right" style="text-align:right">客服信息：</TH>
+  
+  <TD>&nbsp;&nbsp;客服账号：<input type="text" class="px" id="openid_name" value="{pigcms:$info.openid_name}" name="openid_name" style="width:100px" >
+  客服密码：<input type="text" class="px" id="openid_password" value="{pigcms:$info.openid_password}" name="openid_password" style="width:100px" >客服昵称：<input type="text" class="px" id="title1" value="{pigcms:$info.openid_nickname}" name="openid_nickname" style="width:100px" >
+   </TD>
+ 
+</TR>
+
 <TR>
 <TH valign="top" align="right" style="text-align:right">操作问题Openid：</TH>
   
-  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.czopenid}" name="czopenid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
+  <TD><input type="text" class="px" id="openid2" value="{pigcms:$info.czopenid}" name="czopenid" style="width:400px" >
+  <input type="text" class="px" id="name2" value="{pigcms:$info.name2}" name="name2" style="width:100px" >
+    <a href="javascript:void(0);" class="btnGrayS" id="search2">立即获取</a>&nbsp;&nbsp;输入微信名称获取</TD>
+
+</TR>
+<TR>
+<TH valign="top" align="right" style="text-align:right">客服头像：</TH>
   
+  <TD><input type="text" class="px" id="czopenid_headpic" value="{pigcms:$info.czopenid_headpic}" name="czopenid_headpic" style="width:400px" ><a href="###" onclick="upyunPicUpload('czopenid_headpic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('czopenid_headpic')">预览</a>
+   </TD>
+ 
+</TR>
+<TH valign="top" align="right" style="text-align:right">客服信息：</TH>
+  
+  <TD>&nbsp;&nbsp;客服账号：<input type="text" class="px" id="czopenid_name" value="{pigcms:$info.czopenid_name}" name="czopenid_name" style="width:100px" >
+  客服密码：<input type="text" class="px" id="czopenid_password" value="{pigcms:$info.czopenid_password}" name="czopenid_password" style="width:100px" >客服昵称：<input type="text" class="px" id="title1" value="{pigcms:$info.czopenid_nickname}" name="czopenid_nickname" style="width:100px" >
+   </TD>
+ 
 </TR>
 <TR>
 <TH valign="top" align="right" style="text-align:right">买前咨询Openid：</TH>
-  
-  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.mqopenid}" name="mqopenid" style="width:500px" >在微信端回复“工单”后，保存配置即可</TD>
+ 
+  <TD><input type="text" class="px" id="openid3" value="{pigcms:$info.mqopenid}" name="mqopenid" style="width:400px" > 
+ <input type="text" class="px" id="name3" value="{pigcms:$info.name3}" name="name3" style="width:100px" >
+  <a href="javascript:void(0);" class="btnGrayS" id="search3">立即获取</a>&nbsp;&nbsp;输入微信名称获取</TD>
   
 </TR>
 <TR>
+<TH valign="top" align="right" style="text-align:right">客服头像：</TH>
+  
+  <TD><input type="text" class="px" id="mqopenid_headpic" value="{pigcms:$info.mqopenid_headpic}" name="mqopenid_headpic" style="width:400px" ><a href="###" onclick="upyunPicUpload('mqopenid_headpic',700,420,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('mqopenid_headpic')">预览</a>
+   </TD>
+ 
+</TR>
+<TH valign="top" align="right" style="text-align:right">客服信息：</TH>
+  
+  <TD>&nbsp;&nbsp;客服账号：<input type="text" class="px" id="mqopenid_name" value="{pigcms:$info.mqopenid_name}" name="mqopenid_name" style="width:200px" >
+  客服密码：<input type="text" class="px" id="mqopenid_password" value="{pigcms:$info.mqopenid_password}" name="mqopenid_password" style="width:200px" >客服昵称：<input type="text" class="px" id="title1" value="{pigcms:$info.mqopenid_nickname}" name="mqopenid_nickname" style="width:100px" >
+   </TD>
+ 
+</TR>
+
+<!--<TR>
 <TH valign="top" align="right" style="text-align:right">客服昵称：</TH>
   
-  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.name}" name="name" style="width:500px" ></TD>
+  <TD><input type="text" class="px" id="title1" value="{pigcms:$info.name}" name="name" style="width:400px" ></TD>
   
 </TR>
 <TR>
@@ -165,7 +136,7 @@ return this;
 </TR
 
 
-  ><TH></TH>
+  >--><TH></TH>
 
   <TD><button type="submit"  name="button"  class="btnGreen left" >保存</button>　
 
@@ -179,7 +150,53 @@ return this;
 
   </form>
 
+<script>
+  $(function(){
 
+    $('#search1').click(function(){
+      var name  = $('#name1').val();
+      if(name != ''){
+        $.getJSON("/index.php?g=User&m=Gongdan&a=getOpenid&token=cafudx1427249125&name="+name,function(res){
+            if(res.error == 0){
+              $('#openid1').val(res.openid);
+            }else{
+              alert(res.info);
+            }
+        },JSON)
+      }else{
+        alert('请填写粉丝昵称');
+      }
+    });
+	$('#search2').click(function(){
+      var name  = $('#name2').val();
+      if(name != ''){
+        $.getJSON("/index.php?g=User&m=Gongdan&a=getOpenid&token=cafudx1427249125&name="+name,function(res){
+            if(res.error == 0){
+              $('#openid2').val(res.openid);
+            }else{
+              alert(res.info);
+            }
+        },JSON)
+      }else{
+        alert('请填写粉丝昵称');
+      }
+    });
+	$('#search3').click(function(){
+      var name  = $('#name3').val();
+      if(name != ''){
+        $.getJSON("/index.php?g=User&m=Gongdan&a=getOpenid&token=cafudx1427249125&name="+name,function(res){
+            if(res.error == 0){
+              $('#openid3').val(res.openid);
+            }else{
+              alert(res.info);
+            }
+        },JSON)
+      }else{
+        alert('请填写粉丝昵称');
+      }
+    });
+  });
+</script>
 
 
 

@@ -92,7 +92,7 @@ color: #9a9a9a;">收集数据</h2>
 		<ul class="unstyled album_list">
 			<volist name="info" id="item">
 				<li>
-					<a target="_blank" href="{pigcms:$eqx_siteUrl}/v-{pigcms:$item.scenecode_varchar}" class="album_pic" style="height:250px">
+					<a target="_blank" href="{pigcms:$eqx_siteUrl}/v/{pigcms:$item.scenecode_varchar}" class="album_pic" style="height:250px">
 
 <!--原声php判断输出-->
 <?php
@@ -123,8 +123,8 @@ if($d==p){
 						<p class="album_title">场景展示：<span style="color:#999">{pigcms:$item.hitcount_int}次</span></p>
 						<p class="album_title">收集数据：<span style="color:#999">{pigcms:$item.datacount_int}条</span></p>
                        
-                        <p class="album_title">预览地址:<input style="border:none" class="px" value="{pigcms:$eqx_siteUrl}/v-{pigcms:$item.scenecode_varchar}" type="text"></p>
-                         <p class="album_title"><a    style="margin-left:20px" href="{pigcms::U('Eqx/set',array('url'=>''.$eqx_siteUrl.'/v-'.$item['scenecode_varchar'].'','token'=>$token,'name'=>$item['scenename_varchar'],'desc_varchar'=>$item['desc_varchar'],'id'=>$item['sceneid_bigint'],'pic'=>$pic,'sceneid_bigint'=>$item['sceneid_bigint']))}" title="回复配置" class="btnGrayS vm bigbtn">回复配置</a>
+                        <p class="album_title">预览地址:<input style="border:none" class="px" value="{pigcms:$eqx_siteUrl}/v/{pigcms:$item.scenecode_varchar}" type="text"></p>
+                         <p class="album_title"><a    style="margin-left:20px" href="{pigcms::U('Eqx/set',array('url'=>''.$eqx_siteUrl.'/v/'.$item['scenecode_varchar'].'','token'=>$token,'name'=>$item['scenename_varchar'],'desc_varchar'=>$item['desc_varchar'],'id'=>$item['sceneid_bigint'],'pic'=>$pic,'sceneid_bigint'=>$item['sceneid_bigint']))}" title="回复配置" class="btnGrayS vm bigbtn">回复配置</a>
                          <a  style="margin-left:20px" href="{pigcms::U('Eqx/del',array('id'=>$item['sceneid_bigint']))}" title="删除场景" class="btnGrayS vm bigbtn">删除场景</a></p>
                         
                        

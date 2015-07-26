@@ -93,6 +93,10 @@
 	'Helping'     	=>	array(1, 0, '分享助力', 'Helping', '', 1, 1),
 	'Popularity'  	=>	array(1, 0, '人气冲榜', 'Popularity', '', 1, 1),
 	'Unitary'       =>	array(1, 0, '一元购', 'Unitary', '', 1, 1),
+	'DishOut'       =>	array(1, 0, '微外卖', 'DishOut', '', 1, 1),
+	'LivingCircle'  =>	array(1, 0, '微信生活圈', 'LivingCircle', '', 1, 1),
+	'Test'          =>	array(1, 0, '趣味测试', 'Test', '', 1, 1),
+	'Bargain'          =>	array(1, 0, '微砍价', 'Bargain', '', 1, 1),
 	
 	
 	);

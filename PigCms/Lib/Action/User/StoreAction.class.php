@@ -280,7 +280,6 @@ class StoreAction extends UserAction{
 			}
 		} else { 
 			$data = M('Norms')->where(array('id' => $this->_get('id'), 'type' => $type, 'catid' => $this->_get('catid')))->find();
-			//print_r($data);die;
 			$this->assign('catid', $this->_get('catid'));
 			$this->assign('type', $type);
 			$this->assign('token', session('token'));
@@ -850,16 +849,19 @@ class StoreAction extends UserAction{
 
 			$carts = unserialize($thisOrder['info']);
 			$tdata = $this->getCat($carts);
-			if (intval($_POST['paid'])&&intval($thisOrder['price'])){
+			if (intval($_POST['paid']) && empty($thisOrder['paid']) && intval($thisOrder['price'])) {
 				$list = array();
+
 				foreach ($tdata[0] as $va) {
 					$t = array();
+
 					if (!empty($va['detail'])) {
 						foreach ($va['detail'] as $v) {
 							$t = array('num' => $v['count'], 'colorName' => $v['colorName'], 'formatName' => $v['formatName'], 'price' => $v['price'], 'name' => $va['name']);
 							$list[] = $t;
 						}
-					} else {
+					}
+					else {
 						$t = array('num' => $va['count'], 'price' => $va['price'], 'name' => $va['name']);
 						$list[] = $t;
 					}
@@ -1040,17 +1042,9 @@ if ($obj = M('Product_setting')->where(array('token' => $this->token, 'cid' => $
 				$product_model->where(array('id' => $pid))->setInc('num', $total);
 				//$product_model->where(array('id' => $pid))->setDec('salecount', $total);
 			}
-//			foreach ($carts as $k => $c){
-//				if (is_array($c)){
-//					$productid=$k;
-//					$price=$c['price'];
-//					$count=$c['count'];
-//					$product_model->where(array('id'=>$k))->setDec('salecount',$c['count']);
-//				}
-//			}
 		}
-		$this->success('操作成功',U('Store/orders', array('token' => session('token'))));
-		//$this->success('操作成功',$_SERVER['HTTP_REFERER']);
+
+		$this->success('操作成功', U('Store/orders', array('token' => session('token'))));
 	}
 	
 	

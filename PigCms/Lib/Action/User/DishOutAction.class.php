@@ -1,5 +1,4 @@
 <?php
-
 class DishOutAction extends UserAction
 {
 	public $_cid = 0;
@@ -8,7 +7,6 @@ class DishOutAction extends UserAction
 	{
 		parent::_initialize();
 		$this->canUseFunction('DishOut');
-
 		$this->_cid = 0 < session('companyid') ? session('companyid') : intval($_GET['cid']);
 		$this->_cid = 0 < $this->_cid ? $this->_cid : 0;
 
@@ -359,10 +357,10 @@ class DishOutAction extends UserAction
 			}
 		}
 
-		$count = $dish_order->where($where)->count();
+		$count = (!empty($where) ? $dish_order->where($where)->count() : 0);
 		$Page = new Page($count, 20);
 		$show = $Page->show();
-		$orders = $dish_order->where($where)->order('id DESC')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$orders = (!empty($where) ? $dish_order->where($where)->order('id DESC')->limit($Page->firstRow . ',' . $Page->listRows)->select() : false);
 		$this->assign('orders', $orders);
 		$this->assign('status', $pstatus);
 		$this->assign('fstatus', $fstatus);
@@ -374,6 +372,54 @@ class DishOutAction extends UserAction
 		else {
 			$this->display();
 		}
+	}
+
+	public function saleLog($data)
+	{
+		$log_db = M('Dishout_salelog');
+		$tmplog = $log_db->where(array('order_id' => $data['oid']))->find();
+
+		if (!empty($tmplog)) {
+			return false;
+		}
+
+		$Dishcompany = M('Dish_company')->where(array('cid' => $data['cid']))->find();
+		$kconoff = $Dishcompany['kconoff'];
+		unset($Dishcompany);
+		$tmparr = array('token' => $this->token, 'cid' => $data['cid'], 'order_id' => $data['oid'], 'paytype' => $data['paytype']);
+		$mDishSet = $this->getDishMainCompany($this->token);
+
+		if (!empty($data['dish'])) {
+			$DishDb = M('Dish');
+
+			foreach ($data['dish'] as $kk => $vv) {
+				$did = (isset($vv['did']) ? $vv['did'] : $kk);
+				$dishofcid = $data['cid'];
+				if (($mDishSet['cid'] != $data['cid']) && ($mDishSet['dishsame'] == 1)) {
+					$dishofcid = $mDishSet['cid'];
+					$kconoff = $mDishSet['kconoff'];
+				}
+
+				$tmpdish = $DishDb->where(array('id' => $did, 'cid' => $dishofcid))->find();
+				if ($kconoff && !empty($tmpdish) && (0 < $tmpdish['instock'])) {
+					$DishDb->where(array('id' => $did, 'cid' => $dishofcid))->setDec('instock', $vv['num']);
+				}
+
+				$logarr = array('did' => $did, 'nums' => $vv['num'], 'unitprice' => $vv['price'], 'money' => $vv['num'] * $vv['price'], 'dname' => $vv['name'], 'addtime' => $data['time'], 'addtimestr' => date('Y-m-d H:i:s', $data['time']), 'comefrom' => 0);
+				$savelogarr = array_merge($tmparr, $logarr);
+				$log_db->add($savelogarr);
+			}
+		}
+	}
+
+	private function getDishMainCompany($token)
+	{
+		$MainC = M('Company')->where(array('token' => $token, 'isbranch' => 0))->find();
+		$m_cid = $MainC['id'];
+		unset($MainC);
+		$mDishC = M('Dish_company')->where(array('cid' => $m_cid))->find();
+		unset($m_cid);
+		return $mDishC;
 	}
 
 	public function orderInfo()
@@ -398,8 +444,9 @@ class DishOutAction extends UserAction
 
 				if ($paid) {
 					$temp = unserialize($thisOrder['info']);
+					$this->saleLog(array('cid' => $cid, 'oid' => $thisOrder['id'], 'paytype' => $thisOrder['paytype'], 'dish' => $temp, 'time' => $thisOrder['time']));
 					$op = new orderPrint();
-					$msg = array('companyname' => $company['name'], 'des' => htmlspecialchars_decode($thisOrder['des'], ENT_QUOTES), 'companytel' => $company['tel'], 'truename' => htmlspecialchars_decode($thisOrder['name'], ENT_QUOTES), 'tel' => $thisOrder['tel'], 'address' => htmlspecialchars_decode($thisOrder['address'], ENT_QUOTES), 'buytime' => $thisOrder['time'], 'orderid' => $thisOrder['orderid'], 'sendtime' => $thisOrder['reservetime'], 'price' => $thisOrder['price'], 'total' => $thisOrder['total'], 'typename' => '外卖', 'ptype' => $thisOrder['paytype'], 'list' => $temp);
+					$msg = array('companyname' => $company['name'], 'des' => htmlspecialchars_decode($thisOrder['des'], ENT_QUOTES), 'companytel' => $company['tel'], 'truename' => htmlspecialchars_decode($thisOrder['name'], ENT_QUOTES), 'tel' => $thisOrder['tel'], 'address' => htmlspecialchars_decode($thisOrder['address'], ENT_QUOTES), 'buytime' => $thisOrder['time'], 'orderid' => $thisOrder['orderid'], 'sendtime' => 0 < $thisOrder['reservetime'] ? $thisOrder['reservetime'] : '尽快送达', 'price' => $thisOrder['price'], 'total' => $thisOrder['total'], 'typename' => '外卖', 'ptype' => $thisOrder['paytype'], 'list' => $temp);
 					$msg = ArrayToStr::array_to_str($msg, 1);
 					$op->printit($this->token, $this->_cid, 'DishOut', $msg, 1);
 				}
@@ -426,7 +473,8 @@ class DishOutAction extends UserAction
 
 	public function toPrint()
 	{
-		$id = ($this->_get('oid') ? intval($this->_get('oid', 'trim')) : 0);
+		$id = ($this->_post('oid') ? intval($this->_post('oid', 'trim')) : 0);
+		$dishOrder = M('Dish_order');
 
 		if ($thisOrder = $dishOrder->where(array('id' => $id, 'cid' => $this->_cid, 'token' => $this->token, 'comefrom' => 'dishout'))->find()) {
 			$company = M('Company')->where(array('token' => $this->token, 'id' => $thisOrder['cid']))->find();

@@ -72,6 +72,43 @@ class View {
         // 视图结束标签
         tag('view_end');
     }
+	
+	public function showTpl($action){
+        G('viewStartTime');
+		$templateFile = '';
+        // 视图开始标签
+        tag('view_begin',$templateFile);
+        // 解析并获取模板内容
+		if($action == 'index' && strlen(tpl_path)==32){
+			$tpl_arr = S('web_index_html_'.token);
+			if(empty($tpl_arr)){
+				$tpl_arr = $this->web_get_tpl($action);
+				S('web_index_html_'.token,$tpl_arr,0);
+			}
+			$tpl_con = $tpl_arr['html'];
+		}else{
+			$tpl_arr = $this->web_get_tpl($action);
+			$tpl_con = $tpl_arr['html'];
+		}
+        $content = $this->fetch('',$tpl_con);
+		$content = str_replace('{pigcms:WEB_VISIT_URL}','http://'.now_host,$content);
+		$content = str_replace('{pigcms:WEB_STATIC_URL}',$tpl_arr['static'],$content);
+        // 输出模板内容
+        $this->render($content);
+        // 视图结束标签
+        tag('view_end');
+    }
+	protected function web_get_tpl($action){
+		$tpl_arr = json_decode(urlgettpl($action),true);
+		if(is_array($tpl_arr)){
+			if(!empty($tpl_arr['error_code'])){
+				exit('错误原因：'.$tpl_arr['error_msg'].'<br/>错误码：'.$tpl_arr['error_code']);
+			}
+		}else{
+			exit('模板未获取成功！请重试。');
+		}
+		return $tpl_arr;
+	}
 
     /**
      * 输出内容文本可以包括Html

@@ -2,23 +2,29 @@
 class Wechat {
 	public $token;
 	public $wxuser;
-	public $pigsecret;
 	private $data = array();
-	public function __construct($token, $wxuser = '') {
-		$this->auth($token, $wxuser) || exit;
-        if (IS_GET) {
-			echo($_GET['echostr']);
-			exit;
-		}else {
-			$this->token = $token;
-			if (!$wxuser) {
-				$wxuser = M('wxuser')->where(array('token' => $this->token))->find();
+	
+
+	public function __construct($token,$wxuser=''){
+		$this->auth($token,$wxuser) || exit;
+		if(IS_GET){
+			echo($_GET['echostr']);exit;
+		} else {
+			$this->token=$token;
+			if (!$wxuser){
+				$wxuser=M('wxuser')->where(array('token'=>$this->token))->find();
 			}
-			$this->wxuser = $wxuser;
-			if (!$this->wxuser['pigsecret']) {
-				$this->pigsecret = $this->token;
-			}else {
-				$this->pigsecret = $this->wxuser['pigsecret'];
+			
+			$this->wxuser=$wxuser;
+			if($this->wxuser['type'] == 1){ //第三方授权
+				$account_info 	 		= M('Weixin_account')->where('type=1')->field('token,appId,encodingAesKey')->find();
+				$this->wxuser['pigsecret'] 	= $account_info['token'];
+				$this->wxuser['appid'] 		= $account_info['appId'];
+				$this->wxuser['aeskey'] 	= $account_info['encodingAesKey'];
+			}else{
+				if (empty($this->wxuser['pigsecret'])){
+					$this->wxuser['pigsecret']  = $this->token;
+				}
 			}
 			$xml = file_get_contents("php://input");
 			if ($this->wxuser['encode'] == 2) {
@@ -32,13 +38,16 @@ class Wechat {
 			}
 		}
 	}
-	public function encodeMsg($sRespData) {
+	
+	public function encodeMsg($sRespData){
 		$sReqTimeStamp = time();
+		// $sReqNonce = HttpUtils.ParseUrl("nonce");
 		$sReqNonce = $_GET['nonce'];
-		$encryptMsg = "";
+
+		$encryptMsg = "";  // 解析之后的明文
 		import("@.ORG.aes.WXBizMsgCrypt");
-		$pc = new WXBizMsgCrypt($this->pigsecret, $this->wxuser['aeskey'], $this->wxuser['appid']);
-		$sRespData = str_replace('<?xml version="1.0"?>', '', $sRespData);
+		$pc = new WXBizMsgCrypt($this->wxuser['pigsecret'], $this->wxuser['aeskey'], $this->wxuser['appid']);
+		$sRespData=str_replace('<?xml version="1.0"?>','',$sRespData);
 		$errCode = $pc->encryptMsg($sRespData, $sReqTimeStamp, $sReqNonce, $encryptMsg);
 		if ($errCode == 0) {
 			return $encryptMsg;
@@ -51,12 +60,20 @@ class Wechat {
 		$sReqMsgSig = $_GET['msg_signature'];
 		$sReqTimeStamp = $_GET['timestamp'];
 		$sReqNonce = $_GET['nonce'];
-		$sReqData = $msg;
-		$sMsg = "";
-		$pc = new WXBizMsgCrypt($this->pigsecret, $this->wxuser['aeskey'], $this->wxuser['appid']);
+		// post请求的密文数据
+		// $sReqData = HttpUtils.PostData();
+		$sReqData=$msg;
+		$sMsg = "";  // 解析之后的明文
+		$pc = new WXBizMsgCrypt($this->wxuser['pigsecret'], $this->wxuser['aeskey'], $this->wxuser['appid']);
 		$errCode = $pc->decryptMsg($sReqMsgSig, $sReqTimeStamp, $sReqNonce, $sReqData, $sMsg);
+
 		if ($errCode == 0) {
-			$data = array();
+			/*
+			$xml = new DOMDocument();
+			$xml->loadXML($sMsg);
+			$content = $xml->getElementsByTagName('Content')->item(0)->nodeValue;
+			*/
+			$data=array();
 			$xml = new SimpleXMLElement($sMsg);
 			$xml || exit;
 			foreach ($xml as $key => $value) {
@@ -74,18 +91,26 @@ class Wechat {
     public function request() {
 		return $this->data;
 	}
-    /**
-     * * 响应微信发送的信息（自动回复）
-     * @param  string $to      接收用户名
-     * @param  string $from    发送者用户名
-     * @param  array  $content 回复信息，文本信息为string类型
-     * @param  string $type    消息类型
-     * @param  string $flag    是否新标刚接受到的信息
-     * @return string          XML字符串
-     */
-	public function response($content, $type = 'text', $flag = 0) {
-		$this->data = array('ToUserName' => $this->data['FromUserName'], 'FromUserName' => $this->data['ToUserName'], 'CreateTime' => NOW_TIME, 'MsgType' => $type,);
-        /* 添加类型数据 */
+
+	/**
+	 * * 响应微信发送的信息（自动回复）
+	 * @param  string $to      接收用户名
+	 * @param  string $from    发送者用户名
+	 * @param  array  $content 回复信息，文本信息为string类型
+	 * @param  string $type    消息类型
+	 * @param  string $flag    是否新标刚接受到的信息
+	 * @return string          XML字符串
+	 */
+	public function response($content, $type = 'text', $flag = 0){
+		/* 基础数据 */
+		$this->data = array(
+			'ToUserName'   => $this->data['FromUserName'],
+			'FromUserName' => $this->data['ToUserName'],
+			'CreateTime'   => NOW_TIME,
+			'MsgType'      => $type,
+		);
+
+		/* 添加类型数据 */
 		$this->$type($content);
         /* 添加状态 */
 		$this->data['FuncFlag'] = $flag;
@@ -155,17 +180,23 @@ class Wechat {
 	}
 	private function auth($token, $wxuser = '') {
 		$signature = $_GET["signature"];
-		$timestamp = $_GET["timestamp"];
-		$nonce = $_GET["nonce"];
-		if (!$wxuser) {
-		}
-		if ($wxuser && strlen($wxuser['pigsecret'])) {
-		}
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        if (!$wxuser){
+        	//$wxuser=M('Wxuser')->where(array('token'=>$token))->find();
+        }
+        if ($wxuser&&strlen($wxuser['pigsecret'])){
+        	//$token=$wxuser['pigsecret'];
+        }
 		$tmpArr = array($token, $timestamp, $nonce);
 		sort($tmpArr, SORT_STRING);
-		$tmpStr = implode($tmpArr);
-		$tmpStr = sha1($tmpStr);
-		if (trim($tmpStr) == trim($signature)) {
+		$tmpStr = implode( $tmpArr );
+		$tmpStr = sha1( $tmpStr );
+		
+		//F('st',$token.'_'.$signature.'_'.$tmpStr);
+		//S('st',$token.'_'.$signature.'_'.$tmpStr);
+		
+		if( trim($tmpStr) == trim($signature) ){
 			return true;
 		}else {
 			return true;

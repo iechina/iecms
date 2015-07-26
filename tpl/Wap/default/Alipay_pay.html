@@ -24,7 +24,7 @@
     </head>
     <body onselectstart="return true;" ondragstart="return false;">
 		<header>选择支付方式</header>
-		<if condition="$pay_setting['Weixin'] && empty($_GET['notOnline'])">
+		<if condition="$pay_setting['Weixin'] && empty($_GET['notOnline']) && $isFuwu == 0">
 			<section>
 				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Weixin'))}">
 					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/weixin.png"/>微信 付款</span>
@@ -33,13 +33,13 @@
 		</if>
 		<if condition="$pay_setting['Alipaytype'] && empty($_GET['notOnline'])">
 			<section>
-				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Alipaytype'))}">
+				<a href="{pigcms::U($isWechat ? 'Alipay/iframe_pay' : 'Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Alipaytype'))}">
 					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/alipay.png"/>支付宝 付款</span>
 				</a>
 			</section>
 		<elseif condition="$pay_setting['Platform'] && C('platform_open') && C('platform_alipay_open') && empty($_GET['notOnline'])"/>
 			<section>
-				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Alipaytype','platform'=>'1'))}">
+				<a href="{pigcms::U($isWechat ? 'Alipay/iframe_pay' : 'Alipay/go_pay', array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Alipaytype','platform'=>'1'))}">
 					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/alipay.png"/>支付宝<if condition="$pay_setting['Platform']['platformName']">[{pigcms:$pay_setting.Platform.platformName}]</if> 付款</span>
 				</a>
 			</section>
@@ -104,19 +104,20 @@
 			</section>
 		<elseif condition="$pay_setting['Platform'] && C('platform_open') && C('platform_chinabank_open') && empty($_GET['notOnline'])"/>
 			<section>
-				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Chinabank','platform'=>'1'))}">
-					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/chinabank.png"/>网银在线<if condition="$pay_setting['Platform']['platformName']">[{pigcms:$pay_setting.Platform.platformName}]</if> 付款</span>
+				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'CardPay'))}">
+					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/cardpay.jpg"/>会员卡付款</span>
 				</a>
 			</section>
 		</if>
-		<if condition="$pay_setting['Daofu'] && empty($_GET['notOffline'])">
+
+		<if condition="$pay_setting['Daofu'] && empty($_GET['notOffline']) && $_GET['from'] != 'Card'">
 			<section>
 				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Daofu'))}">
 					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/daofu.png"/>货到付款</span>
 				</a>
 			</section>
 		</if>
-		<if condition="$pay_setting['Dianfu'] && empty($_GET['notOffline'])">
+		<if condition="$pay_setting['Dianfu'] && empty($_GET['notOffline']) && ($from !='DishOut')">
 			<section>
 				<a href="{pigcms::U('Alipay/go_pay',array('price'=>$price,'orderName'=>$orderName,'orderid'=>$orderid,'from'=>$from,'token'=>$token,'wecha_id'=>$wecha_id,'pay_type'=>'Dianfu'))}">
 					<span><img src="{pigcms:$staticPath}/tpl/static/pay_icon/dianfu.png"/>到店付款</span>

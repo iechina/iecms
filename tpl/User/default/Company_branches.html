@@ -28,11 +28,21 @@ function selectall(name) {
 </div>
 <div class="clr"></div>
 </div>
+<if condition="$wxuser.wx_coupons eq 1">
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+    使用“微信门店导”入门店前请检查门店的“名称”、“行业”等信息设置完整。需要更新门店信息时候，请登陆您的公众号将已导入的门店信息清除，以免出现重复的门店信息。
+</div>
+</if>
 <!--tab start-->
 <div class="tab">
 <ul>
 <li class="tabli" id="tab0"><a href="{pigcms::U('Company/index',array('token'=>$token))}">公司信息</a></li>
 <li class="<if condition="$isBranch eq 1">current</if> tabli" id="tab2"><a href="{pigcms::U('Company/branches',array('token'=>$token,'isBranch'=>1))}">分支机构</a></li>
+
+<if condition="$wxuser.wx_coupons eq 1">
+	<li  style="float:right;"><a href="{pigcms::U('Member_card/import_company',array('token'=>$token))}">微信门店导入</a></li>
+</if>
+
 </ul>
 </div>
 <!--tab end-->
@@ -47,7 +57,9 @@ function selectall(name) {
 <thead>
 <tr>
 <th class="select" style="display:none"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+<th width="50">商户ID</th>
 <th width="70">名称</th>
+<th width="70">行业分类</th>
 <th width="80">电话</th>
 <th width="80">状态</th>
 <th width="160">地址</th>
@@ -60,10 +72,12 @@ function selectall(name) {
 <volist name="branches" id="c"> 
 <tr>
 <td style="display:none"><input type="checkbox" value="{pigcms:$o.id}" class="cbitem" name="id_{pigcms:$i}"></td>
+<td>{pigcms:$c.id}</td>
 <td>{pigcms:$c.name}</td>
+<td>{pigcms:$c.cat_name}</td>
 <td>{pigcms:$c.tel}</td>
 <td><if condition="$c['display'] eq 1">显示<else />隐藏</if></td>
-<td>{pigcms:$c.address}</td>
+<td>{pigcms:$c.province}{pigcms:$c.city}{pigcms:$c.district}{pigcms:$c.address}</td>
 <td>{pigcms:$c.url}</td>
 <td class="norightborder"><a href="{pigcms::U('Company/index',array('token'=>$token,'id'=>$c['id'],'isBranch'=>1))}">修改</a> <a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Company/delete',array('token'=>$token,'id'=>$c['id'],'isBranch'=>1))}');">删除</a></td>
 </tr>

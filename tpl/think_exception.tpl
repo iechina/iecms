@@ -1,3 +1,10 @@
+<?php
+if (!C('pigcms_debug')){
+Header("Location: http://".$_SERVER['HTTP_HOST']); 
+}else {
+?>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -34,10 +41,22 @@ h1{ font-size: 32px; line-height: 48px; }
 		</div>
 	</div>
 <?php }?>
+<?php if(isset($e['trace'])) {?>
+	<div class="info">
+		<div class="title">
+			<h3>TRACE</h3>
+		</div>
+		<div class="text">
+			<p><?php echo nl2br($e['trace']);?></p>
+		</div>
+	</div>
+<?php }?>
 </div>
 </div>
 <div class="copyright">
-<p><a title="官方网站" href="http://www.www.weiqianlong.com">微乾隆</a><sup><?php echo THINK_VERSION ?></sup></p>
+<p><a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a><sup><?php echo THINK_VERSION ?></sup> { Fast & Simple OOP PHP Framework } -- [ WE CAN DO IT JUST THINK ]</p>
 </div>
 </body>
 </html>
+<?php
+}?>

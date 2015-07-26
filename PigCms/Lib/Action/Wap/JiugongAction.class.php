@@ -1,6 +1,8 @@
 <?php
-class JiugongAction extends LotteryBaseAction{
+class JiugongAction extends LotteryBaseMoreAction{
 	public function index(){
+		
+		//$this->wecha_id = "o6Jlyt-8jTEZKtpmN-5-DpmFB3cA";
 		$agent = $_SERVER['HTTP_USER_AGENT'];
 		if(!strpos($agent,"icroMessenger")) {
 			//echo '此功能只能在微信浏览器中使用';exit;
@@ -13,18 +15,16 @@ class JiugongAction extends LotteryBaseAction{
 		}
 		$redata		= M('Lottery_record');
 		$where 		= array('token'=>$token,'wecha_id'=>$wecha_id,'lid'=>$id);
-		$record 	= $redata->where(array('token'=>$token,'wecha_id'=>$wecha_id,'lid'=>$id,'islottery'=>1))->find();
-		if (!$record){
-			$record 	= $redata->where($where)->order('id DESC')->find();
-		}
+		$record 	= $redata->where(array('token'=>$token,'wecha_id'=>$wecha_id,'lid'=>$id,'islottery'=>1))->order('time desc')->select();
+		$record2 	= $redata->where($where)->order('id DESC')->find();
 		
 		$Lottery 	= M('Lottery')->where(array('id'=>$id,'token'=>$token,'type'=>10,'status'=>1))->find();
 		if(!($Lottery)){
 			$this->error("不存在的活动!");
 		}
-		if($Lottery['guanzhu'] == 1 && empty($this->wecha_id)){
+		if($Lottery['guanzhu'] == 1 && $this->isSubscribe() == false){
 			$this->memberNotice('',1);
-		}elseif(($Lottery['needreg'] == 1 && empty($this->fans)) || ($Lottery['guanzhu'] == 0 && empty($this->wecha_id))){
+		}elseif(($Lottery['needreg'] == 1 && $this->fans['tel'] == '')){
 			$this->memberNotice();
 		}
 		$Lottery['renametel']=$Lottery['renametel']?$Lottery['renametel']:'手机号';
@@ -35,31 +35,32 @@ class JiugongAction extends LotteryBaseAction{
 		if ($Lottery['enddate'] < time()) {
 			 $data['end'] = 1;
 			 $data['endinfo'] = $Lottery['endinfo'];
+			 $data['lid']		= $Lottery['id'];
+			 $this->assign('record',$record);
 			 $this->assign('Dazpan',$data);
 			 $this->display();
 			 exit();
 		}
 		// 1. 中过奖金	
-		if ($record['islottery'] == 1) {				
-			$data['end'] = 5;
-			$data['sn']	 	 = $record['sn'];
-			$data['uname']	 = $record['wecha_name'];
-			$data['prize']	 = $record['prize'];
-			$data['tel'] 	 = $record['phone'];	
-		}
+		// if ($record['islottery'] == 1) {				
+			// $data['end'] = 5;
+			// $data['sn']	 	 = $record['sn'];
+			// $data['uname']	 = $record['wecha_name'];
+			// $data['prize']	 = $record['prize'];
+			// $data['tel'] 	 = $record['phone'];	
+		// }
 		//抽取次数
 		$data['On'] 		= 1;
 		$data['token'] 		= $token;
 		$data['wecha_id']	= $wecha_id;		
 		$data['lid']		= $Lottery['id'];
-		$data['rid']		= intval($record['id']);
-		$data['usenums'] 	= $record['usenums'];
+		$data['usenums'] 	= $record2['usenums'];
 		$data['info']=str_replace('&lt;br&gt;','<br>',$data['info']);
 		$data['endinfo']=str_replace('&lt;br&gt;','<br>',$data['endinfo']);
 		$this->assign('Dazpan',$data);
-		$record['id']=intval($record['id']);
 		$this->assign('record',$record);
 		$where_list = array('token'=>$token,'lid'=>$id);
+		$where_list['phone'] = array('neq','');
 		$record_list = $redata->where($where_list)->select();
 		$this->assign("record_list",$record_list);
 		$this->display();
@@ -68,7 +69,6 @@ class JiugongAction extends LotteryBaseAction{
 		$token 		=	$this->_get('token');
 		$wecha_id	=	$this->_get('oneid');
 		$id 		=	$this->_get('id');
-		$rid 		= 	$this->_get('rid');
 		$Lottery=M('Lottery')->where(array('id'=>$id))->find();
 		$data=$this->prizeHandle($token,$wecha_id,$Lottery);
 		if ($data['end']==3){
@@ -76,7 +76,12 @@ class JiugongAction extends LotteryBaseAction{
 			$uname	 = $data['wecha_name'];
 			$prize	 = $data['prize'];
 			$tel 	 = $data['phone'];
-			$msg = "您已经中过了";
+			$msg = $data['msg'];
+			echo '{"error":1,"msg":"'.$msg.'"}';
+			exit;
+		}
+		if($data['end'] == 4){
+			$msg = $data['msg'];
 			echo '{"error":1,"msg":"'.$msg.'"}';
 			exit;
 		}
@@ -92,7 +97,7 @@ class JiugongAction extends LotteryBaseAction{
 		}
 		//
 		if ($data['prizetype'] >= 1 && $data['prizetype'] <= 6) {
-			echo '{"success":1,"sn":"'.$data['sncode'].'","prizetype":"'.$data['prizetype'].'","usenums":"'.$data['usenums'].'"}';
+			echo '{"success":1,"sn":"'.$data['sncode'].'","prizetype":"'.$data['prizetype'].'","usenums":"'.$data['usenums'].'","rid":"'.$data['rid'].'"}';
 		}else{
 			echo '{"success":0,"prizetype":"","usenums":"'.$data['usenums'].'"}';
 		}

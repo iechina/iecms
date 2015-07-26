@@ -8,9 +8,13 @@ class Token_openAction extends UserAction{
 		}else {
 			$fun=M('Function')->where(array('id'=>intval($this->_get('id'))))->find();
 		}
-
+		
 		$openwhere=array('uid'=>session('uid'),'token'=>session('token'));
-		//删除掉重复的token  这个步骤已经去掉
+		//删除掉重复的token
+		$deleteWhere=array();
+		$deleteWhere['uid']=array('neq',session('uid'));
+		$deleteWhere['token']=session('token');
+		M('Token_open')->where($deleteWhere)->delete();
 		//
 		$open=M('Token_open')->where($openwhere)->find();		
 		$str['queryname']=str_replace(',,',',',$open['queryname'].','.$fun['funname']);	
@@ -35,7 +39,11 @@ class Token_openAction extends UserAction{
 		}
 		$openwhere=array('uid'=>session('uid'),'token'=>session('token'));
 		$open=M('Token_open')->where($openwhere)->find();		
-		//删除掉重复的token  这句也去掉了
+		//删除掉重复的token
+		$deleteWhere=array();
+		$deleteWhere['uid']=array('neq',session('uid'));
+		$deleteWhere['token']=session('token');
+		M('Token_open')->where($deleteWhere)->delete();
 		//
 		$str['queryname']=ltrim(str_replace(',,',',',str_replace($fun['funname'],'',$open['queryname'])),',');	
 		$back=M('Token_open')->where($openwhere)->save($str);

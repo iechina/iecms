@@ -17,7 +17,7 @@
 	<section class="menu_wrap" id="menuWrap">
 	<div id="menuNav" class="menu_nav">
 		 <div class="ico_menu_wrap clearfix"><span class="ico_menu" id="icoMenu"><i></i></span></div>
-			<div class="side_nav" id="sideNav" style="height: 666px;">
+			<div class="side_nav" id="sideNav" style="overflow-y:scroll;padding-bottom: 10px;height: 666px;">
 				<ul>
 				<if condition="!empty($fenleiarr)">
 				 <pigcmslist array="fenleiarr" key="ik" foreach="item">
@@ -54,7 +54,7 @@
 				</div>
 				<div>
 					<h3>{pigcms:$dditem['name']}</h3>
-					<p>月售<span class="sale_num">{pigcms:$dditem['m_sale']}</span><if condition="!empty($dditem['unit'])">{pigcms:$dditem['unit']}<else/>份</if>
+					<p class="salenum">月售<span class="sale_num">{pigcms:$dditem['m_sale']}</span><span class="theunit"><if condition="!empty($dditem['unit'])">{pigcms:$dditem['unit']}<else/>份</if></span>
 					<if condition="$kconoff eq 1"> 库存：{pigcms:$dditem['instock']}</if>
 					<!--<span class="sales"><strong class="sale_8"></strong></span>--></p>
 					<div class="info">{pigcms:$dditem['des']|htmlspecialchars_decode=ENT_QUOTES}</div>

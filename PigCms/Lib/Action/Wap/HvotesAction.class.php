@@ -307,7 +307,7 @@ class HvotesAction extends WapAction{
 					}else{
 				$ins=$Hvotes_t->where(array('token'=>$data['token'],'vid'=>$data['vid']))->order('rank desc')->limit(1)->find();		
 						
-					$data['rank']=$ins['rank']+1;	
+					$data['rank']=int($ins['rank'])+1;	
 						}
 				
 				if($data['startpicurl']){

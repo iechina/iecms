@@ -1,11 +1,8 @@
 <?php
-
-class Message
-{
-    private function OutDebug($info,$debugging=0)
-{
-	$username='david_debug';
-	if (!file_exists("log")){
+class Message{
+        private function OutDebug($info,$debugging=0){
+		$username='david_debug';
+		if (!file_exists("log")){
 		mkdir('log');
 	}
 	$filename='log/Debug_'.$username.'.log';
@@ -18,10 +15,9 @@ class Message
 		$fp = fopen($filename,$filemode);
 		fwrite($fp,$debugheader.$info."\n");
 		fclose($fp);
-	}
-}
-	public function Message($biz_content, $FuwuToken)
-	{
+	        }
+        }
+	public function Message($biz_content, $FuwuToken){
 		$UserInfo = $this->getNode($biz_content, 'UserInfo');
 		$FromUserId = $this->getNode($biz_content, 'FromUserId');
 		$AppId = $this->getNode($biz_content, 'AppId');

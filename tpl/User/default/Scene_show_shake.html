@@ -8,9 +8,9 @@
 <body style="width:1200px;height:550px;">
 <h1>中奖名单</h1>
 	<ul class="rotate-tab clearfix">
-		<volist id="max" name="max" key="key">
-			<li class="<if condition="$round eq $max['round']">active</if>">
-				<a href="{pigcms::U('Scene/show_shake',array('sceneid'=>$sceneid,'id'=>$id,'round'=>$max['round']))}">第{pigcms:$key}轮</a>
+	<volist id="max" name="max" key="key">
+			<li class="<if condition="$round eq $max">active</if>">
+				<a href="{pigcms::U('Scene/show_shake',array('sceneid'=>$sceneid,'id'=>$id,'round'=>$max))}">第{pigcms:$key}轮</a>
 			</li>
 		</volist>
 		<span class="clear"></span>

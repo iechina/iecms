@@ -32,10 +32,10 @@ label {cursor: default;}
 .bg1{position: absolute;top: 0;left: 0;width: 100%;z-index: -1; }
 .reading-bg1 {height: 100%;}
 .start-bg1 {width: 300px;left: 18px;top: 60px;}
-.start1 {position: absolute;top:94px;left:38px;z-index: 14;font-size: 18px;background: #f4bf5f;background: -moz-linear-gradient(top, #f4bf5f 0, #cd9f18 100%);
+.start1 {position: absolute;top: 118px;left: 52px;z-index: 14;font-size: 18px;background: #f4bf5f;margin:0;background: -moz-linear-gradient(top, #f4bf5f 0, #cd9f18 100%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f4bf5f), color-stop(100%, #cd9f18));background: -webkit-linear-gradient(top, #f4bf5f 0, #cd9f18 100%);background: -o-linear-gradient(top, #f4bf5f 0, #cd9f18 100%);background: -ms-linear-gradient(top, #f4bf5f 0, #cd9f18 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4bf5f', endColorstr='#cd9f18', GradientType=0 );background: linear-gradient(top, #f4bf5f 0, #cd9f18 100%);border: 0px;-webkit-box-shadow: #666 1px 2px 1px;-moz-box-shadow: #666 1px 2px 1px;box-shadow: #666 1px 2px 1px;z-index: 13;padding: 6px 28px;}
-.start-text {font-size: 24px;color: #FFFFFF;position: absolute;top: 45px;width: 100%;padding-left: 26px;}
+.start-text {font-size: 20px;color: #FFFFFF;position: absolute;top: 45px;width: 165px;padding-left: 26px;word-break: normal;}
 
 /*开始答题*/
 .top{position: relative;height: 130px;}

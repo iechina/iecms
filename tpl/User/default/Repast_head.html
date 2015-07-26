@@ -234,6 +234,7 @@ array(
 'display'=>1,
 'subs'=>array(
 array('name'=>'无线订餐（网络打印）','link'=>U('Product/orders',array('token'=>$token,'dining'=>1)),'new'=>0,'selectedCondition'=>array('m'=>'Product','a'=>'orders')),
+array('name'=>'微外卖','link'=>U('DishOut/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'DishOut'),'test'=>1),
 array('name'=>'360°全景','link'=>U('Panorama/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Panorama')),
 array('name'=>'婚庆喜帖','link'=>U('Wedding/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Wedding')),
 array('name'=>'3G微投票','link'=>U('Vote/index',array('token'=>$token)),'new'=>1,'selectedCondition'=>array('m'=>'Vote')),
@@ -302,6 +303,7 @@ array(
 'display'=>0,
 'subs'=>array(
 array('name'=>'无线订餐（网络打印）','link'=>U('Repast/index',array('token'=>$token,'cid'=>$cid)),'new'=>0,'selectedCondition'=>array('m'=>'Repast','a'=>'orders')),
+array('name'=>'微外卖','link'=>U('DishOut/index',array('token'=>$token)),'new'=>0,'selectedCondition'=>array('m'=>'DishOut'),'test'=>1),
 array('name'=>'酒店','link'=>U('Hotels/index',array('token'=>$token,'cid'=>$cid)),'new'=>0,'selectedCondition'=>array('m'=>'Hotels','a'=>'orders')),
 array('name'=>'微信商城系统','link'=>U('Store/index',array('token'=>$token,'cid'=>$cid)),'new'=>0,'selectedCondition'=>array('m'=>'Store','a'=>'orders')),
 )),

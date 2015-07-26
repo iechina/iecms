@@ -19,7 +19,9 @@ class AreplyAction extends UserAction{
 		$res=$db->where($where)->find();
 		if($res==false){
 			$where['content']=html_entity_decode($this->_post('content'));
-			if(!empty($_POST['keyword'])){
+			if(empty($_POST['keyword'])){	
+				$this->error('关键词不能为空',U('Areply/index'));
+			}else{
 				$where['keyword']=$this->_post('keyword');
 			}			
 			

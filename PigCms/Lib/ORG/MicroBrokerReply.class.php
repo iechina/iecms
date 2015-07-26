@@ -15,7 +15,7 @@ class MicroBrokerReply
 	public function index(){
 		$thisItem=$this->item;
 
-		return array(array(array($thisItem['title'],$thisItem['title'],$thisItem['imgreply'],$this->siteUrl.U('Wap/MicroBroker/index',array('bid'=>$thisItem['id'],'token'=>$this->token,'wecha_id'=>$this->wechat_id)))),'news');
+		return array(array(array($thisItem['title'],$thisItem['rinfo'],$thisItem['imgreply'],$this->siteUrl.U('Wap/MicroBroker/index',array('bid'=>$thisItem['id'],'token'=>$this->token,'wecha_id'=>$this->wechat_id)))),'news');
 	}
 }
 ?>

@@ -228,6 +228,15 @@ public function edit(){
 			
 			$data['rank']=$this->_post('rank');
 			
+			$in=$t_item->where(array('token'=>$_GET['token'],'vid'=>$vid))->find();
+				if(empty($in)){
+				$data['rank']=1;	
+					
+					}else{
+				$ins=$t_item->where(array('token'=>$_GET['token'],'vid'=>$_GET['vid']))->order('rank desc')->limit(1)->find();		
+						
+					$data['rank']=$ins['rank']+1;	
+						}
 			if(!empty($vid) && empty($id)){
 			    $data['vid']=$vid;
 				$result=$t_item->add($data);

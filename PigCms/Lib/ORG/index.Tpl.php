@@ -2929,6 +2929,46 @@
 			'attr'=>'thumb bg other focu filt',
 			'sort'=>358,
 		),
+		array(
+			'tpltypeid'=>359,
+			'tplview'=>'cate1359.png',
+			'tpltypename'=>'1359_index_eor5w',
+			'tpldesinfo'=>'此模版只适合列表页面使用',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>359,
+		),
+		array(
+			'tpltypeid'=>360,
+			'tplview'=>'cate1360.png',
+			'tpltypename'=>'1360_index_eor5w',
+			'tpldesinfo'=>'此模版只适合列表页面使用',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>360,
+		),
+		array(
+			'tpltypeid'=>361,
+			'tplview'=>'cate1361.png',
+			'tpltypename'=>'1361_index_eor5w',
+			'tpldesinfo'=>'此模版只适合列表页面使用',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>361,
+		),
+		array(
+			'tpltypeid'=>362,
+			'tplview'=>'cate1362.png',
+			'tpltypename'=>'1362_index_vfdss',
+			'tpldesinfo'=>'分类图标为长方形480x130px。最多显示30个分类，背景图随机选取，需滑动屏幕拉出菜单',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>362,
+		),
+		array(
+			'tpltypeid'=>363,
+			'tplview'=>'cate1363.png',
+			'tpltypename'=>'1363_index_vfdss',
+			'tpldesinfo'=>'分类图标为长方形480x130px。最多显示30个分类，背景图随机选取，需滑动屏幕拉出菜单',
+			'attr'=>'thumb bg other focu filt',
+			'sort'=>363,
+		),
 
 	);
 

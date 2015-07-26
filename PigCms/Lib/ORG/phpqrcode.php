@@ -943,15 +943,13 @@
             $image = self::image($frame, $pixelPerPoint, $outerFrame);
             
             if ($filename === false) {
-				//Header("Content-type:text/html;charset=utf-8"); 
-				
                 Header("Content-type: image/png");
-                ImagePng($image,null);
+                ImagePng($image);
             } else {
                 if($saveandprint===TRUE){
                     ImagePng($image, $filename);
                     header("Content-type: image/png");
-                    ImagePng($image,null);
+                    ImagePng($image);
                 }else{
                     ImagePng($image, $filename);
                 }
@@ -966,7 +964,7 @@
             $image = self::image($frame, $pixelPerPoint, $outerFrame);
             
             if ($filename === false) {
-                //Header("Content-type: image/jpeg");
+                Header("Content-type: image/jpeg");
                 ImageJpeg($image, null, $q);
             } else {
                 ImageJpeg($image, $filename, $q);            

@@ -3,53 +3,52 @@
 <else />
 <include file="Repast:head" />
 </if>
+<script src="{pigcms:$staticPath}/tpl/User/default/common/js/date/WdatePicker.js"></script>
 <link rel="stylesheet" type="text/css" href="{pigcms::RES}/css/cymain.css" />
-<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
-<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
-<script>
-function chg_catid(catid) {
-	document.getElementById('cid').value = catid;
-}
-</script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{pigcms:$staticPath}/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{pigcms:$staticPath}/tpl/static/upyun.js"></script>
+<style type="text/css">
+.okcoff{display:none;}
+.bdrcontent td{height: 45px;}
+
+</style>
 <div class="content">
 <div class="cLineB">
-<h4 class="left">添加餐厅</h4>
+<h4 class="left">餐厅管理 </h4>
 <div class="searchbar right">
 </div>
 <div class="clr"></div>
 </div>
-<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看</div>
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+<span>温馨提示：</span>
+<p>1、<b>餐饮订单支持无线打印，购买无线打印机（购买请直接联系{pigcms:$f_siteName}）后便可以实现订单的自动打印</b><br>此处只显示总店信息，连锁店订单及菜品请进入相应平台进行管理，连锁店登录账号密码及登录地址请在LBS里设置查看</p>
+<p>2、本功能使用了模板消息中的“订单完成通”知模板消息，模板编号OPENTM202521011。
+          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p></div>
 <!--tab start-->
 <div class="tab">
 <ul>
-<li class="current tabli" id="tab0"><a href="{pigcms::U('Repast/company_index', array('token' => $token,'cid' => $cid))}">餐厅管理</a></li>
+<li class="current tabli" id="tab0"><a href="{pigcms::U('Repast/company', array('token' => $token,'cid' => $cid))}">餐厅管理</a></li>
 <li class="tabli" id="tab1"><a href="{pigcms::U('Repast/index', array('token' => $token,'cid' => $cid))}">餐台管理</a></li>
 <li class="tabli" id="tab2"><a href="{pigcms::U('Repast/detail', array('token' => $token,'cid' => $cid))}">餐台预定情况</a></li>
 <li class="tabli" id="tab2"><a href="{pigcms::U('Repast/sort', array('token' => $token,'cid' => $cid))}">分类管理</a></li>
 <li class="tabli" id="tab3"><a href="{pigcms::U('Repast/dish', array('token' => $token,'cid' => $cid))}">菜品管理</a></li>
 <li class="tabli" id="tab4"><a href="{pigcms::U('Repast/orders', array('token' => $token,'cid' => $cid))}">订单管理</a></li>
+<li class="tabli" id="tab4"><a href="{pigcms::U('Repast/Statistics', array('token' => $token,'cid' => $cid))}">菜品统计</a></li>
 <if condition="$ischild neq 1" >
 <li class="tabli" id="tab5"><a href="{pigcms::U('Reply_info/set', array('token'=>$token,'infotype'=>'Dining'))}">订餐回复配置</a></li>
 </if>
 </ul>
 </div>
 <!--tab end-->
-<form method="post" action="" id="formID">
+<form method="post" action="" id="formID" name="myformID">
 <input type="hidden" name="id" value="{pigcms:$company.id}" />
-<input type="hidden" name="cid" id="cid" value="{pigcms:$cid}" />
+<input type="hidden" name="cid" value="{pigcms:$cid}" />
     <div class="msgWrap bgfc"> 
      <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
       <tbody> 
-      <tr> 
-        <th><span class="red">*</span>店铺选择：</th> 
-        <td>  <select name="catid" style="width:400px; height:26px" onchange="chg_catid(this.value)" >
-        <option  value="0" <if condition="$company['catid'] eq 0">selected</if>>请选择</option>
-         <volist name="Companys" id="t">
-        <option  value="{pigcms:$t.id}" <if condition="$company['catid'] eq $t['id']">selected</if>>{pigcms:$t.name}</option>
-        </volist>
-        </select> </td> 
-       </tr>
-	   <tr> 
+	  <!--
+       <tr> 
         <th><span class="red">*</span>是否支持外卖：</th> 
         <td>
         <select name="istakeaway">
@@ -61,8 +60,81 @@ function chg_catid(catid) {
        <tr> 
         <th>外卖费：</th>
         <td><input type="text" name="price" value="{pigcms:$company.price}" class="px" id="pic" style="width:80px;" /> 元</td> 
+       </tr>--->
+	   <tr> 
+        <th>营业时间：</th>
+        <td>
+		从 <input type="input" class="px" name="starttime" id="starttime" value="<if condition="$company['starttime'] gt 0">{pigcms:$company['starttime']|date="H:i",###}</if>" onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})"> 开始
+		&nbsp; 到 &nbsp;
+		<input type="input" class="px" name="endtime" id="endtime" value="<if condition="$company['endtime'] gt 0">{pigcms:$company['endtime']|date="H:i",###}</if>"  onClick="WdatePicker({dateFmt:'H:mm',minDate:'5:00'})"> 结束
+		&nbsp;&nbsp;&nbsp;<span class="red">不填默认为全天24小时营业</span>
+		</td> 
+       </tr>
+		<if condition="$ischild neq 1">
+		   <tr> 
+			<th>分店统一菜品：</th>
+			<td>
+				<label><input type="radio" name="dishsame" value="1"  id="is_dishSameon" style="width:30px;" <if condition="$company['dishsame'] eq 1"> checked="checked" </if> />是</label>
+				&nbsp;&nbsp;&nbsp;
+				<label><input type="radio" name="dishsame" value="0"  id="is_dishSameoff" style="width:30px;" <if condition="$company['dishsame'] neq 1"> checked="checked" </if>/>否</label>
+				&nbsp;&nbsp;&nbsp;<span class="red">选择 是 以后 分店前端将展示主店的菜品，分店设置的菜品以及相关属性无效</span>
+			</td> 
+		   </tr>
+		</if>
+		<tr> 
+        <th>关闭选择餐桌：</th>
+        <td>
+			<label><input type="radio" name="offtable" value="1"  id="is_offtableon" style="width:30px;" <if condition="$company['offtable'] eq 1"> checked="checked" </if> />是</label>
+			&nbsp;&nbsp;&nbsp;
+			<label><input type="radio" name="offtable" value="0"  id="is_offtableoff" style="width:30px;" <if condition="$company['offtable'] neq 1"> checked="checked" </if>/>否</label>
+			&nbsp;&nbsp;&nbsp;<span class="red">选择 是 以后 下单时将关闭餐桌的选择和判断</span>
+		</td> 
+       </tr>
+	   <tr> 
+        <th>自定义预订就餐名称：</th>
+        <td>
+		<div class="bdrcontent">
+		  <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" style="margin：0">
+		  <if condition="!empty($Dcname)">
+		  <volist name="Dcname" id="item">
+		  <tr class="itemtr"><td  style="padding:0;"><input type="text" class="px" name="biaoq[]" style="height: 25px;" value="{pigcms:$item['name']}"><input type="hidden" name="bqid[]" value="{pigcms:$item['id']}"></td><td style="text-align: center;padding:0;"><a href="javascript:void(0);" class="btnGray" onclick="DelThis($(this),{pigcms:$item['id']})">删 除</a></td></tr>
+		  </volist>
+		 </if>
+			<tr style="text-align: center;" id="traddbtn">
+		     <td class="norightborder" style="padding:0;">
+              <a href="javascript:void(0);" class="btnGray" id="addItem" style="margin:0;padding:4px !important;">添加一个就餐名称</a>
+            </td>
+			</tr>
+
+			</table>
+		 </div>
+		</td>
+		<td>
+		<span class="red">例如：早餐、中餐、晚餐、夜宵等</span>
+		</td>
+       </tr>
+	   
+	   <tr> 
+        <th>餐厅图片：</th>
+		<td><input type="text" name="imgs" value="{pigcms:$company['imgs']}" class="px" id="imgshop" style="width:380px;" /><a href="###" onclick="upyunPicUpload('imgshop',600,400,'{pigcms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('imgshop')"> &nbsp;预览</a>&nbsp;&nbsp;&nbsp;图片建议尺寸[600*400]</td> 
        </tr>
        <tr> 
+        <th>开启菜品会员折扣：</th>
+        <td>打
+		<input type="text" name="discount" class="px" id="discount" style="width:50px;" <if condition="$company['discount'] gt 0">value="{pigcms:$company['discount']}" <else/> value=""</if> /> &nbsp;折
+		&nbsp;&nbsp;&nbsp;<span class="red">填上一个1.0到9.9之间的数即开启菜品会员折扣（当客户是你的会员时有效）</span>
+		</td> 
+       </tr>
+	   <tr> 
+        <th>开启菜品库存管理：</th>
+        <td>
+		<label><input type="radio" name="kconoff" value="0"  id="is_kcoff" style="width:30px;" <if condition="$company['kconoff'] neq 1"> checked="checked" </if> />关闭</label>
+		&nbsp;&nbsp;&nbsp;
+		<label><input type="radio" name="kconoff" value="1"  id="is_kcon" style="width:30px;" <if condition="$company['kconoff'] eq 1"> checked="checked" </if>/>开启</label>
+		&nbsp;&nbsp;&nbsp;<span class="red">开启菜品库存管理后，菜品的真实库存和当天在售库存有效（同步微外卖）</span>
+		</td> 
+       </tr>
+       <!--<tr> 
         <th>是否在线支付：</th>
         <td>
 	        <select name="payonline">
@@ -70,84 +142,85 @@ function chg_catid(catid) {
 	        <option value="1"  <if condition="1 eq $company['payonline']">selected</if> >需要</option>
 	        </select>
         </td> 
+       </tr>-->
+	    <tr> 
+        <th>在线点餐全额支付：</th>
+        <td>
+	        <select name="nowpay" style="width:100px;margin-right: 25px;" onchange="NoNowPay(this.value);">
+	        <option value="0"  <if condition="0 == $company['nowpay']">selected</if> >不需要</option>
+			<option value="1"  <if condition="0 != $company['nowpay']">selected</if> >需要</option>
+	        </select>
+			<span style="display:none;" id="advancepay">
+			先预付金额：
+			<input type="text" name="advancepay" <if condition="$company['advancepay'] gt 0"> value="{pigcms:$company['advancepay']}"<else/> value=""</if> class="px" style="width:80px;" /> 元订金就餐（余额再做支付）</span>
+			<span class="red">当选择 不需要 时，必须填上预付金额，如果预付金额没填或为0将等同选择了 需要</span>
+        </td> 
+       </tr>
+       <tr> 
+        <th>餐桌预订金：</th>
+        <td><input type="text" name="subscription" value="{pigcms:$company['subscription']}" class="px" id="subscription" style="width:80px;" /> 元</td> 
        </tr>
 	   <tr> 
-        <th><span class="red"></span>店铺类型：</th> 
-        <td><input type="text" id="category" name="category" value="{pigcms:$company.category}" placeholder="如：小吃、快餐 " class="px require" style="width:400px;" /></td> 
+        <th>本餐厅二维码：</th>
+		<if condition="$wxuser['winxintype'] eq 3">
+		 <td>
+		  <if condition="$erweima">
+		    <php>
+			if(!empty($erweima['c1']['code_url'])){
+			 echo '<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$erweima['c1']['code_url'].'" style="width: 250px;height: 250px">&nbsp;&nbsp;&nbsp;<span><a href="'.U('Repast/DownWxewm', array('token' => $token,'cid' => $cid,'ticket'=>$erweima['c1']['code_url'])).'" class="red">下载二维码</a></span>';
+			  }else{
+				echo '<span><a href="'.U('Recognition/get_Wxticket', array('token' => $token,'cid' => $cid,'rid'=>$erweima['c1']['id'])).'" class="red">点击获取二维码</a></span>';
+			  }
+			</php>
+		   <else/>
+		     <php>
+		    if ($ischild != 1){
+		     echo '请到 订餐回复配置 中设置关键词回复，设置后这里将显示二维码。';
+			}else{
+			 echo '<a href="javascript:;" onclick="Get_EWM();" class="red">请点击这里生成渠道来源二维码</a>';
+			}
+			</php>
+		  </if>
+		 </td> 
+		<else/>
+        <td><img src="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid))}" style="width: 250px;height: 250px">
+		&nbsp;&nbsp;&nbsp;<span><a href="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'down'=>1))}" class="red">下载二维码</a></span>
+		</td> 
+		</if>
        </tr>
-
-	   <!-- 
-       <tr> 
-        <th><span class="red"></span>店铺公告：</th> 
-        <td><input type="text" id="bulletin" name="bulletin" value="{pigcms:$company.bulletin}" placeholder="如：店铺最新优惠：买10元送1元 " class="px require" style="width:400px;" />如：店铺最新优惠：买10元送1元</td> 
-       </tr> 
-       <tr> 
-        <th><span class="red"></span>店铺状态：</th> 
-        <td>
-        <select name="status" style="width:400px; height:26px" >
-        <option value="0" <if condition="$company.status eq 0">selected</if>>营业中</option>
-        <option value="1" <if condition="$company.status eq 1"> selected</if>>未营业</option></select> 
-        </td> 
-       </tr> 
-         
-       <tr> 
-        <th><span class="red"></span>营业时间：</th> 
-        <td><input type="text" id="time" name="time" value="{pigcms:$company.time}" placeholder="如：8：00~22：00 " class="px require" style="width:400px;" /></td> 
-       </tr> 
-       <tr> 
-        <th><span class="red"></span>起送价格：</th> 
-        <td><input type="text" id="money" name="money" value="{pigcms:$company.money}" placeholder="请填写数字，如50，仅保留小数点后2位 " class="px require" style="width:400px;" /></td> 
-       </tr> 
-       <tr> 
-        <th><span class="red"></span>服务半径：</th> 
-        <td><input type="text" id="radius" name="radius" value="{pigcms:$company.radius}" placeholder="如：3公里   "  class="px require" style="width:400px;" /></td> 
-       </tr> 
-       <tr> 
-        <th><span class="red"></span>配送区域：</th> 
-        <td><input type="text" id="scope" name="scope" value="{pigcms:$company.scope}" placeholder="如：置地大道等   "   class="px require" style="width:400px;" /></td> 
-       </tr> 
-	   -->
-       <tr> 
-        <th><span class="red"></span>短信通知：</th> 
-        <td>开启&nbsp;<input type="radio" name="phone_status" <if condition="$company.phone_status eq 1">checked</if> id="statu-1" value="1">&nbsp;&nbsp;
-		关闭&nbsp;<input type="radio" name="phone_status" <if condition="$company.phone_status eq 0">checked</if> id="statu-0" value="0"> <span class="red"> &nbsp;&nbsp;&nbsp;&nbsp;通知的手机号为LBS中设置的手机号码！</span></td> 
-       </tr> 
-       <tr> 
-       <tr> 
-        <th><span class="red"></span>订单短信验证：</th> 
-        <td>开启&nbsp;<input type="radio" name="phone_authorize" <if condition="$company.phone_authorize eq 1">checked</if> id="statu-1" value="1">&nbsp;&nbsp;
-		关闭&nbsp;<input type="radio" name="phone_authorize" <if condition="$company.phone_authorize eq 0">checked</if> id="statu-0" value="0"></td> 
-       </tr> 
-       <tr>       
-        <th><span class="red"></span>邮件通知：</th> 
-        <td><input type="text" id="email" name="email" value="{pigcms:$company.email}" placeholder="如：qq@qq.com   "   class="px require" style="width:400px;" />&nbsp;&nbsp;开启&nbsp;<input type="radio" name="email_status" <if condition="$company.email_status eq 1">checked</if> id="statu-1" value="1">&nbsp;&nbsp;
-		关闭&nbsp;<input type="radio" name="email_status" <if condition="$company.email_status eq 0">checked</if> id="statu-0" value="0"></td> 
-       </tr> 
-       <tr> 
-        <th><span class="red"></span>无线打印：</th> 
-		<td>
-		开启&nbsp;<input type="radio" name="print_status" <if condition="$company.print_status eq 1">checked</if> id="statu-1" value="1">&nbsp;&nbsp;
-		关闭&nbsp;<input type="radio" name="print_status" <if condition="$company.print_status eq 0">checked</if> id="statu-0" value="0">&nbsp;&nbsp;
-        重复打印份数<input type="text" name="print_total" class="px" style="width:40px;" value="{pigcms:$company.print_total}" />
-		</td>
-		<tr><th><span class="red"></span>商户代码：</th>
-		<td><input type="text" class="px" name="memberCode" value="{pigcms:$company.memberCode}" tabindex="1" size="35"> <span class="red">&nbsp;&nbsp;&nbsp;登录飞印后在"API集成"-&gt;"获取API集成信息"获取</span></td>
-		</tr>
-		<tr><th><span class="red"></span>API 密钥：</th>
-		<td><input type="text" class="px" name="feiyin_key" value="{pigcms:$company.feiyin_key}" tabindex="1" size="25"> <span class="red">&nbsp;&nbsp;&nbsp;获取方法同上</span></td>
-		</tr>
-		<tr><th><span class="red"></span>设备编码：</th>
-
-		<td><input type="text" class="px" name="deviceNo" value="{pigcms:$company.deviceNo}" tabindex="1" size="25"> <span class="red">&nbsp;&nbsp;&nbsp;通过打印机后面的激活按键获取，为16位数字，例如"4600365507768327"</span></td>
-		</tr>
-       </tr> 
-       
-       
-              
+	   <tr> 
+        <th>餐桌员工独立管理：</th>
+		<if condition="$wxuser['winxintype'] eq 3">
+		 <td>
+		  <if condition="$erweima">
+		    <php>
+			if(!empty($erweima['c2']['code_url'])){
+			 echo '<img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$erweima['c2']['code_url'].'" style="width: 250px;height: 250px">&nbsp;&nbsp;&nbsp;<span><a href="'.U('Repast/DownWxewm', array('token' => $token,'cid' => $cid,'ticket'=>$erweima['c2']['code_url'])).'" class="red">下载二维码</a></span>';
+			  }else{
+				echo '<span><a href="'.U('Recognition/get_Wxticket', array('token' => $token,'cid' => $cid,'rid'=>$erweima['c2']['id'])).'" class="red">点击获取二维码</a></span>';
+			  }
+			</php>
+		   <else/>
+		     <php>
+		    if ($ischild != 1){
+		     echo '请到 订餐回复配置 中设置关键词回复，设置后这里将显示二维码。';
+			}else{
+			 echo '<a href="javascript:;" onclick="Get_EWM();" class="red">请点击这里生成渠道来源二维码</a>';
+			}
+			</php>
+		  </if>
+		 </td> 
+		<else/>
+        <td><img src="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'typ'=>'mtable'))}" style="width: 250px;height: 250px">
+		&nbsp;&nbsp;&nbsp;<span><a href="{pigcms::U('Repast/QRcode', array('token' => $token,'cid' => $cid,'typ'=>'mtable','down'=>1))}" class="red">下载二维码</a></span>
+		</td> 
+		</if>
+		<td style="width: 265px"><span class="red">备注说明：请到会员卡下=>点击会员卡管理=>点击店员管理=>添加职员 设置账号密码吧（如果没有会员卡管理请先添加一张会员卡）</span></td> 
+       </tr>
        <tr>
        <th>&nbsp;</th>
        <td>
-       <button type="submit" name="submit" class="btnGreen" id="save">保存</button></td> 
+       <a class="btnGreen" id="toSaveThis">保存</a></td> 
        </tr> 
       </tbody> 
      </table> 
@@ -158,22 +231,54 @@ function chg_catid(catid) {
 </div>
 </div>
 
-<script>
-function selectall(name) {
-	var checkItems=$('.cbitem');
-	if ($("#check_box").attr('checked')==false) {
-		$.each(checkItems, function(i,val){
-			val.checked=false;
-		});
-		
-	} else {
-		$.each(checkItems, function(i,val){
-			val.checked=true;
-		});
-	}
+<script type="text/javascript">
+function Get_EWM(){
+	window.location.href=window.location.href+'&erwm=1';
 }
-function change(obj) {
-	location.href = "{pigcms::U('Repast/orders',array('token' => $token, 'cid' => $cid))}&status=" + $(obj).val();
+
+function NoNowPay(vv){
+   vv=parseInt(vv);
+   var obj=$('#advancepay');
+   if(vv == 1){
+      obj.val('').hide();
+   }else{
+      obj.show();
+   }
+}
+NoNowPay({pigcms:$company['nowpay']});
+ /*$("#is_kcoff").click(function(){
+    if($("#set_okcoff").attr('class')!='okcoff'){ 
+	   $("#set_kcoff").click();
+	}
+	$("#set_okcoff").addClass('okcoff');
+ });
+  $("#is_kcon").click(function(){
+    if($("#set_okcoff").attr('class')=='okcoff'){
+	   $("#set_kcon").click();
+	}
+	$("#set_okcoff").removeClass('okcoff');
+ });*/
+$('#toSaveThis').click(function(){
+   var zkREG=/^[1-9](\.[0-9])?$/;
+   var discount=$.trim($('#discount').val());
+   if(discount && !zkREG.test(discount)){
+     alert('折扣必须是1.0到9.9之间的数字');
+	 return false;
+   }
+	document.myformID.submit();
+});
+
+$('#addItem').click(function(){
+	var ttpl='<tr class="itemtr"><td  style="padding:0;"><input type="text" class="px" name="biaoq[]" style="height: 25px;"><input type="hidden" name="bqid[]" value="0"></td><td style="text-align: center;padding:0;"><a href="javascript:void(0);" class="btnGray" onclick="DelThis($(this),0)">删 除</a></td></tr>';
+    $('#traddbtn').before(ttpl);
+});
+
+function DelThis(obj,nid){
+   obj.parent().parent('tr').remove();
+   nid=parseInt(nid);
+   if(nid>0){
+    $.post("{pigcms::U('Repast/delDname', array('token' => $token,'cid' => $cid))}",{bqid:nid},function(){});
+   }
 }
 </script>
 <include file="Public:footer"/>

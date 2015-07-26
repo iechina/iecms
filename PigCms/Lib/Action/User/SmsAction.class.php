@@ -77,6 +77,9 @@ class SmsAction extends UserAction{
 	
 		$moneyBalance=$this->user['moneybalance'];
 		$needFee=intval(C('sms_price'))*intval($_POST['count'])/100;
+		if ($needFee <0 ){
+			$this->error('购买失败，请输入大于0的数值');exit;
+		}
 		if ($needFee<$moneyBalance||$needFee==$moneyBalance){
 			//
 			$users_db=D('Users');

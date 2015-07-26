@@ -34,14 +34,10 @@ class UserAction extends BaseAction{
 										$this->error('非常遗憾的告诉您，您的帐号已经到期，请充值后再使用，感谢继续使用我们的系统。',
 										U('User/Alipay/index',array('flag'=>5.3)));
 					}
-				}else{
-					if(!in_array(get_class($this),$allow_pay)){
-					 $this->error('非常遗憾的告诉您，您的帐号已经到期，请充值后再使用，感谢继续使用我们的系统。',
-								U('User/Alipay/index',array('flag'=>5.2)));
-				   }
-
-		        }
-
+				}
+				else if (!in_array(get_class($this), $allow_pay)) {
+					$this->error('非常遗憾的告诉您，您的帐号已经到期，请充值后再使用，感谢继续使用我们的系统。', U('User/Alipay/index', array('flag' => 5.2000000000000002)));
+				}
 			}
 		}
 
@@ -57,7 +53,14 @@ class UserAction extends BaseAction{
 			$func_where = array('status' => 1);
 			$function_db = M('Function');
 		}
-		$group_func = M('User_group')->where($user_group_where)->getField('func');
+
+		if ((session('role_name') != '') && (session('role_name') == 'staff')) {
+			$group_func = M('company_staff')->where(array('id' => intval(session('staff_id'))))->getField('func');
+		}
+		else {
+			$group_func = M('User_group')->where($user_group_where)->getField('func');
+		}
+
 		$Afunc = $function_db->where($func_where)->field('id,funname')->select();
 		$group_func = explode(',', $group_func);
 //		foreach ($Afunc as $tk => $tv){
@@ -145,7 +148,7 @@ class UserAction extends BaseAction{
 			$options['x-gmkerl-type'] = 'fix_width';
 			$options['fix_width '] = $_GET['width'];
 		}
-		//$options['return-url'] = C('site_url').'/index.php?g=User&m=Upyun&a=editorUploadReturn'; /// 页面跳转型回调地址
+
 		$policy = base64_encode(json_encode($options));
 		$sign = md5($policy.'&'.UNYUN_FORM_API_SECRET); /// 表单 API 功能的密匙（请访问又拍云管理后台的空间管理页面获取）
 		$this->assign('editor_upyun_sign',$sign);
@@ -171,20 +174,159 @@ class UserAction extends BaseAction{
 		$func_where['funname'] = $funname;
 
 		$allow = $function_db->where($func_where)->getField('id');
-
-		function map_tolower($v){
+		function map_tolower($v)
+		{
 			return strtolower($v);
 		}
-		
+		if ((session('role_name') != '') && (session('role_name') == 'staff')) {
+			$user_group = M('company_staff')->where(array('id' => intval(session('staff_id'))))->getField('func');
+		}
+		else {
+			$user_group = M('User_group')->where(array('id' => intval(session('gid'))))->getField('func');
+		}
 
-		$user_group = M('User_group')->where(array('token'=>$this->token,'id'=>intval(session('gid'))))->getField('func');
 		$user_group = explode(',', $user_group);
-		$user_group = array_map("map_tolower", $user_group);
-
-			if (in_array(strtolower($funname),$user_group) === false || !$allow){
-
-				$this->error('您还没有开启这个功能的使用权,请到“功能模块”菜单中勾选这个功能',U('Function/index',array('token'=>$this->token)));
+		$user_group = array_map('map_tolower', $user_group);
+		if ((in_array(strtolower($funname), $user_group) === false) || !$allow) {
+			if ((session('role_name') != '') && (session('role_name') == 'staff')) {
+				$this->error('店主没有给你分配该权限,请联系你的店主', U('' . $_SESSION['first_func'] . '/index', array('token' => $this->token)));
 			}
+			else {
+				$this->error('您还没有开启这个功能的使用权,请到“功能模块”菜单中勾选这个功能', U('Function/index', array('token' => $this->token)));
+			}
+		}
 	}
 
+	public function convertLink($url)
+	{
+		$url = str_replace(array('{siteUrl}', '&amp;', '&wecha_id={wechat_id}', '{changjingUrl}'), array($this->siteUrl, '&', '&diymenu=1', 'http://www.weihubao.com'), $url);
+		return $url;
+	}
+
+	public function check_allow_Function($funname)
+	{
+		$gid = intval($_SESSION['gid']);
+		$func = M('User_group')->where(array('id' => $gid))->getField('func');
+		$func = explode(',', $func);
+
+		if (in_array($funname, $func)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	protected function replaceUrl($url, $params = array())
+	{
+		$url = trim($url);
+
+		if (empty($url)) {
+			return '';
+		}
+
+		$result = '';
+		$url = parse_url($url);
+		$siteUrl = parse_url($this->siteUrl);
+		parse_str(htmlspecialchars_decode($url['query']), $query);
+
+		foreach ($params['query'] as $key => $value) {
+			if (isset($query[$key])) {
+				$query[$key] = $value;
+			}
+		}
+
+		$url['query'] = urldecode(http_build_query($query));
+
+		if (isset($url['scheme'])) {
+			$result = $url['scheme'] . '://';
+		}
+
+		if (isset($url['user'])) {
+			$result .= $url['user'] . ':';
+		}
+
+		if (isset($url['pass'])) {
+			$result .= $url['pass'] . '@';
+		}
+
+		if (isset($url['host'])) {
+			if (($siteUrl['host'] == $url['host']) || ('{siteUrl}' == $url['host'])) {
+				$result = '';
+			}
+			else {
+				$result .= $url['host'];
+			}
+		}
+
+		if (!empty($url['path'])) {
+			if (empty($result)) {
+				$flag = true;
+				$dirname = dirname($url['path']);
+
+				if ($dirname == $siteUrl['host']) {
+					$dirname = '.';
+				}
+
+				if (('{siteUrl}' == $dirname) || strstr($dirname, '{siteUrl}') || ('{changjingUrl}' == $dirname) || strstr($dirname, '{changjingUrl}')) {
+					$flag = false;
+				}
+
+				$basename = basename($url['path']);
+				if (('.' == $dirname) && ('index.php' != $basename)) {
+					$result = $url['path'];
+				}
+				else {
+					if (('/' == $dirname) || ('\\' == $dirname) || ('.' == $dirname)) {
+						$flag = false;
+						$result .= '{siteUrl}/' . $basename;
+					}
+					else {
+						$result .= $url['path'];
+					}
+				}
+			}
+			else {
+				$result .= $url['path'];
+			}
+		}
+		else if (empty($result)) {
+			$result = '{siteUrl}/index.php';
+		}
+
+		if ($flag) {
+			$result = 'http://' . $result;
+		}
+
+		if (!empty($url['query'])) {
+			$result .= '?' . $url['query'];
+		}
+
+		if (!empty($url['fragment'])) {
+			$result .= '#' . $url['fragment'];
+		}
+
+		return $result;
+	}
+
+	protected function dwzQuery($data)
+	{
+		$urls = array('t.cn', 'dwz.cn', 'url.cn', '985.so', 'is.gd', 'url7.me', 'to.ly', 'goo.gl');
+		$url = parse_url($data['tinyurl']);
+
+		if (in_array($url['host'], $urls)) {
+			return true;
+		}
+		else if (in_array(dirname($url['path']), $urls)) {
+			return true;
+		}
+		else if (in_array($data['tinyurl'], $urls)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
+
+?>

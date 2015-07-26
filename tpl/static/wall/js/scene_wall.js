@@ -136,6 +136,11 @@ function ajax_screen_for_pull(){
     // 当60*10＝10分钟没有数据里复位看门狗，直接拉取数据，可能是浏览器出错
     if(Timeout>60){
         status = 0;
+    	window.location.href = window.location.href;
         alert('请求超时，请检查网络');
     }
 }
+// 1740000
+window.setTimeout(function () {
+	window.location.href = window.location.href;
+}, 1740000); 

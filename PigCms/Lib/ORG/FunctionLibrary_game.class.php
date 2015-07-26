@@ -15,7 +15,7 @@ class FunctionLibrary_game{
 			);
 		}else {
 			$game=new game();
-			$items=M('Games')->select(array('token'=>$this->token));
+			$items=M('Games')->where(array('token'=>$this->token))->select();
 			$arr=array(
 			'name'=>'微游戏',
 			'subkeywords'=>array(

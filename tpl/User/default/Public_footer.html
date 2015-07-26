@@ -19,7 +19,7 @@
 </div>
 <div id="copyright" style="color:white;">
 	{pigcms:$f_siteName}(c)版权所有 <a href="http://www.miibeian.gov.cn" target="_blank" style="color:white">{pigcms::C('ipc')}</a><br/>
-	技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={pigcms:$f_qq}&site=qq&menu=yes">联系我们</a>
+	技术支持：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={pigcms:$f_qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{pigcms:$f_qq}:51" alt="联系我吧" title="联系我吧"/></a>
 
 </div>
     </div>
@@ -103,10 +103,10 @@ $data_g='notingh';
 	$content = json_decode($content,true);
 </php>
 <if condition="!empty($content)">
-	<!--<link href="{pigcms:$staticPath}/tpl/static/help_xuanfu/css/zuoce.css" type="text/css" rel="stylesheet"/>-->
+	<link href="{pigcms:$staticPath}/tpl/static/help_xuanfu/css/zuoce.css" type="text/css" rel="stylesheet"/>
 	<div class="zuoce zuoce_clear">
 		<div id="Layer1">
-			<a href="javascript:"></a>
+			<a href="javascript:"><img src="{pigcms:$staticPath}/tpl/static/help_xuanfu/images/ou_03.png"/></a>
 		</div>
 		<div id="Layer2" style="display:none;">
 			<p class="xiangGuan zuoce_clear">相关帮助</p>
@@ -121,7 +121,7 @@ $data_g='notingh';
 		window.onload = function(){
 			var oDiv1 = document.getElementById('Layer1');
 			var oDiv2 = document.getElementById('Layer2');
-			oDiv1.onClick = function(){
+			oDiv1.onclick = function(){
 				oDiv2.style.display = oDiv2.style.display == 'block' ? 'none' : 'block';
 			}
 		}
@@ -135,7 +135,6 @@ $data_g='notingh';
 <div style="display:none">
 {pigcms:$alert} 
 {pigcms::base64_decode(C('countsz'))}
-<!-- <script src="http://s11.cnzz.com/z_stat.php?id=1254592827&web_id=1254592827" language="JavaScript"></script>
  --></div>
 
 </body>

@@ -9,6 +9,11 @@
 <h4 class="left">商品管理({pigcms:$page})</h4>
 <div class="clr"></div>
 </div>
+	<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+	<span>温馨提示：</span>
+	<p>本功能使用了模板消息中的“订单未支付通知”模板消息和“订单完成通知”模板消息，其模板编号分别为TM00184和OPENTM202521011。<br/>
+	          开通微信支付功能的公众号在使用此功能的时候可以在”基本设置——微信模板消息“中配置对应的模板消息</p>
+	</div>
 <!--tab start-->
 <div class="tab">
 <ul>
@@ -34,7 +39,7 @@
 <div class="cLine">
 <if condition="$catid neq 0">
 <div class="pageNavigator left">
-<a href="{pigcms::U('Store/addNew', array('token' => $token, 'catid' => $catid))}" title="添加" class="btnGrayS vm bigbtn">
+<a href="{pigcms::U('Store/addNew', array('token' => $token, 'catid' => $catid, 'p' => $_GET['p']))}" title="添加" class="btnGrayS vm bigbtn">
 <img src="{pigcms::RES}/images/product/add.png" width="16" class="vm">添加商品</a>
 </div>
 </if>
@@ -72,7 +77,7 @@
 <td>{pigcms:$hostlist.keyword}</td>
 <td>{pigcms:$hostlist.time|date="Y-m-d H:i:s",###}</td> 
 <td class="norightborder" align="center">
-	<a href="{pigcms::U('Store/addNew',array('id' => $hostlist['id'], 'token' => $token,'catid' => $catid))}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="{pigcms::U('Store/addNew',array('id' => $hostlist['id'], 'token' => $token,'catid' => $catid, 'p' => $_GET['p']))}">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="javascript:drop_confirm('您确定要删除吗?', '{pigcms::U('Store/del',array('id'=>$hostlist['id'],'token'=>$token,'catid'=>$catid))}');">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href="{pigcms::U('Store/comment', array('pid'=>$hostlist['id'],'token'=>$token,'catid'=>$catid))}">用户评论</a>
 </td>

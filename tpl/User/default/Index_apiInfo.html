@@ -96,16 +96,22 @@
   });
 </script>
 <table style="font-size:14px;margin:20px 0 0 20px;">
+<if condition="$info.type eq 0">
 <tr style="height:30px;"><td align="right">Url：</td><td><input class="px" value="{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$info.token}{pigcms:$info.urlsubfix}" style="width:550px;height:30px;" /> <input id="copy-button1" data-clipboard-text="{pigcms:$f_siteUrl}/index.php?g=Home&m=Weixin&a=index&token={pigcms:$info.token}{pigcms:$info.urlsubfix}" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
 <tr style="height:30px;"><td align="right">Token：</td><td><input class="px" value="{pigcms:$info.pigsecret}" style="width:550px;height:30px;" /> <input id="copy-button2" data-clipboard-text="{pigcms:$info.pigsecret}" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
 
 <tr style="height:30px;"><td align="right">EncodingAESKey：</td><td><input class="px" value="{pigcms:$info.aeskey}" style="width:550px;height:30px;" /> <input id="copy-button3" data-clipboard-text="{pigcms:$info.aeskey}" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
 
 <tr><td align="right">消息加解密方式：</td><td>{pigcms:$info.encodetype}</td></tr>
+</if>
 
-<tr><td align="right">网关（服务窗）</td><td><input class="px" value="{pigcms::C('site_url')}{pigcms::U('Fuwu/Fuwu/api',array('token'=>$info['token']))}" style="width:550px;height:30px;" /> <input id="copy-button4" data-clipboard-text="{pigcms::C('site_url')}{pigcms::U('Fuwu/Fuwu/api',array('token'=>$info['token']))}" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
+<if condition="$fuwu eq TRUE">
+  
+  <tr><td align="right">网关（服务窗）</td><td><input class="px" value="{pigcms::C('site_url')}{pigcms::U('Fuwu/Fuwu/api',array('token'=>$info['token']))}" style="width:550px;height:30px;" /> <input id="copy-button4" data-clipboard-text="{pigcms::C('site_url')}{pigcms::U('Fuwu/Fuwu/api',array('token'=>$info['token']))}" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
 
-<tr><td align="right">公钥（服务窗）</td><td><input class="px" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVwtjFJVYyf4/sZY+GE3FSeLx7RyOmt+KoWnLi9XsRpQdaXRd+X7mO8kr8Yw6KN9TwgZV8o7iVi3OsuuCD/hgua4Go2oyIWG/NjcaqM3nXOYripfV+BlOdslKBVyAhY6SNuavLt97CVpAe2bIcZH/heNQnHoMQtb/X+KoC6kwouQIDAQAB" style="width:550px;height:30px;" /> <input id="copy-button5" data-clipboard-text="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVwtjFJVYyf4/sZY+GE3FSeLx7RyOmt+KoWnLi9XsRpQdaXRd+X7mO8kr8Yw6KN9TwgZV8o7iVi3OsuuCD/hgua4Go2oyIWG/NjcaqM3nXOYripfV+BlOdslKBVyAhY6SNuavLt97CVpAe2bIcZH/heNQnHoMQtb/X+KoC6kwouQIDAQAB" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
+  <tr><td align="right">公钥（服务窗）</td><td><input class="px" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVwtjFJVYyf4/sZY+GE3FSeLx7RyOmt+KoWnLi9XsRpQdaXRd+X7mO8kr8Yw6KN9TwgZV8o7iVi3OsuuCD/hgua4Go2oyIWG/NjcaqM3nXOYripfV+BlOdslKBVyAhY6SNuavLt97CVpAe2bIcZH/heNQnHoMQtb/X+KoC6kwouQIDAQAB" style="width:550px;height:30px;" /> <input id="copy-button5" data-clipboard-text="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVwtjFJVYyf4/sZY+GE3FSeLx7RyOmt+KoWnLi9XsRpQdaXRd+X7mO8kr8Yw6KN9TwgZV8o7iVi3OsuuCD/hgua4Go2oyIWG/NjcaqM3nXOYripfV+BlOdslKBVyAhY6SNuavLt97CVpAe2bIcZH/heNQnHoMQtb/X+KoC6kwouQIDAQAB" class="btn btn-sm btn-default" value="复制" type="button"></td></tr>
+
+</if>
 
 </table>
 <div style="text-align:center;margin-top:20px;"><a href="{pigcms::U('Home/Index/help',array('id'=>$info['id'],'token'=>$info['token']))}" style="padding:10px 20px;font-size:16px; text-decoration:none" target="_blank" class="btnGreens">查看详细对接帮助</a></div>

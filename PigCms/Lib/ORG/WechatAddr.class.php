@@ -1,34 +1,24 @@
 <?php 
 class WechatAddr 
 {
-	private $appId		= '';
-	private $appSecret	= '';
+	private $wxuser		= '';
 	private $url 		= '';
 	
 	//构造函数获取access_token
-	function __construct($appId,$appSecret){
-		$this->appId		= $appId;
-		$this->appSecret	= $appSecret;
-		
+	function __construct($wxuser){
+		$this->wxuser	= $wxuser;	
 	}
 
 	public function addrSign(){
- 		$url 	= "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		if(empty($_GET['code']) || (!empty($_GET['code']) && $_GET['state'] == 'oauth')){
-			$url 		= $this->clearUrl($url);
-			if(isset($_GET['wecha_id'])){
-				$url .= '&wecha_id='.$_GET['wecha_id'];
-			}	
-			$authUrl 	= $this->get_auth_url($url);	
-			header("Location: $authUrl"); 	
-		}else{
-			$this->url		= $url;
-		}
 
-		$tokenres		= $this->requestToken($_GET['code']);
-		$accesstoken 	= $tokenres['access_token'];
+ 		$url 		= "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->url	= $url;
+
+		$apiOauth 		= new apiOauth();
 		
-		return $this->getSign($accesstoken); 
+		$oauthData  	= $apiOauth->webOauth($this->wxuser,'snsapi_base');
+
+		return $this->getSign($oauthData['access_token']); 
 	}
 	
 	public function clearUrl($url){
@@ -45,7 +35,7 @@ class WechatAddr
 		$timeStamp = time();
 		$nonceStr  = rand(100000,999999);
 		$array 	= array(
-				"appid" 		=> $this->appId,
+				"appid" 		=> $this->wxuser['appid'],
 				"url"			=> $this->url,
 				"timestamp"		=> $timeStamp,
 				"noncestr"		=> $nonceStr,
@@ -66,7 +56,7 @@ class WechatAddr
 		}
 		
 		$result = array(
-			'appId' 	=> $this->appId,
+			'appId' 	=> $this->wxuser['appid'],
 			'url' 		=> $this->url,
 			'timeStamp' => $timeStamp,
 			'nonceStr'  => $nonceStr,

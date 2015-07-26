@@ -76,6 +76,9 @@ class ThirdPayUnitary
 					$add_lucknum['state'] = 0;
 					$id_lucknum = $this->m_lucknum->add($add_lucknum);
 				}
+				$where_lucknum_num['token'] = $this->token;
+				$where_lucknum_num['unitary_id'] = $vo['unitary_id'];
+				$pay_count = $this->m_lucknum->where($where_lucknum_num)->count();
 				$save_unitary = null;
 				$save_unitary['proportion'] = $pay_count/$find_unitary['price']*100;
 				if($pay_count == $find_unitary['price']){
@@ -104,6 +107,7 @@ class ThirdPayUnitary
 					$where_cart3['unitary_id'] = $vo['unitary_id'];
 					$del_cart3 = $this->m_cart->where($where_cart3)->delete();
 					$save_unitary['proportion'] = 100;
+					$update_unitary = $this->m_unitary->where($where_unitary)->save($save_unitary);
 					$where_lucknum2['unitary_id'] = $vo['unitary_id'];
 					$where_lucknum2['token'] = $this->token;
 					$where_lucknum2['lucknum'] = $lucknum;
@@ -112,11 +116,23 @@ class ThirdPayUnitary
 					$update_lucknum2 = $this->m_lucknum->where($where_lucknum2)->save($save_lucknum2);
 					$where_lucknum2['state'] = 1;
 					$find_lucknum2 = $this->m_lucknum->where($where_lucknum2)->find();
+					require_once './PigCms/Lib/ORG/TemplateNews.class.php';
 					$model = new templateNews();
-					$model->sendTempMsg('TM00785', array('href' => U('Unitary/goodswhere',array('token' => $this->token, 'unitaryid' => $vo['unitary_id'])), 'wecha_id' => $find_lucknum2['wecha_id'], 'first' => '一元夺宝中奖通知', 'program' => $find_unitary['name'], 'result' => date("Y年m月d日H时i分s秒"), 'remark' => '恭喜您在一元夺宝中获得【'.$find_unitary['name'].'】点击查看'));
+					$model->sendTempMsg('TM00695', array('href' => $this->siteUrl.U('Unitary/goodswhere',array('token' => $this->token, 'unitaryid' => $vo['unitary_id'])), 'wecha_id' => $find_lucknum2['wecha_id'], 'title' => '一元夺宝中奖通知', 'headinfo' => '恭喜您在一元夺宝中获得【'.$find_unitary['name'].'】点击查看', 'program' => $find_unitary['name'], 'result' => date("Y年m月d日H时i分s秒"), 'remark' => ''));
 				}
 				$update_unitary = $this->m_unitary->where($where_unitary)->save($save_unitary);
 			}
+			$where_cart_count['token'] = $this->token;
+			$where_cart_count['wecha_id'] = $this->wecha_id;
+			$where_cart_count['order_id'] = $order['pigcms_id'];
+			$where_cart_count['state'] = 1;
+			$find_cart_count = $this->m_cart->where($where_cart_count)->find();
+			$where_lucknum_count['token'] = $this->token;
+			$where_lucknum_count['wecha_id'] = $this->wecha_id;
+			$where_lucknum_count['order_id'] = $order['pigcms_id'];
+			$where_lucknum_count['unitary_id'] = $find_cart_count['unitary_id'];
+			$save_cart_count['count'] = $this->m_lucknum->where($where_lucknum_count)->count();
+			$update_cart_count = $this->m_cart->where($where_cart_count)->save($save_cart_count);
 		}else{
 			$where_cart['order_id'] = $order['pigcms_id'];
 			$save_cart['state'] = 0;

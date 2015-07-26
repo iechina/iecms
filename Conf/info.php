@@ -13,7 +13,7 @@ return array (
   'site_my' => '小逸',
   'server_key' => '8261e0ca6df0fb6b93a21d93fafb33fe',
   'server_topdomain' => '',
-  'connectout' => '',
+  'connectout' => '用户已到期，请联系管理员或客服充值',
   'ischeckuser' => 'true',
   'reg_needmp' => 'false',
   'open_biz' => '0',

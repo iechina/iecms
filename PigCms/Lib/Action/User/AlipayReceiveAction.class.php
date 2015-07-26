@@ -152,15 +152,15 @@ class AlipayReceiveAction extends BaseAction {
 							M('Indent')->data(array('uid'=>$this->user['id'],'month'=>$month,'title'=>'购买服务','uname'=>$this->user['username'],'gid'=>$groupid,'create_time'=>time(),'indent_id'=>$indent['id'],'price'=>$spend,'status'=>1))->add();
 							M('Users')->where(array('id'=>$indent['uid']))->setDec('moneybalance',intval($needFee));
 							//
-							$this->success('充值成功并购买成功','/index.php?g=User&m=Index&a=index');
+							$this->success('充值成功并购买成功',U('User/Index/index'));
 						}else{
-							$this->success('充值成功但您的余额不足','/index.php?g=User&m=Index&a=index');
+							$this->success('充值成功但您的余额不足',U('User/Index/index'));
 						}
 					}else{
-						$this->error('充值失败,请在线客服,为您处理','/index.php?g=User&m=Index&a=index');
+						$this->error('充值失败,请在线客服,为您处理',U('User/Index/index'));
 					}
 				}else{
-					$this->error('订单不存在','/index.php?g=User&m=Index&a=index');
+					$this->error('订单不存在',U('User/Index/index'));
 
 				}
 			}else {

@@ -465,7 +465,7 @@ class Db {
                         $zone      =   implode(',',$this->parseValue($val[1]));
                         $whereStr .= $key.' '.strtoupper($val[0]).' ('.$zone.')';
                     }
-                }elseif(preg_match('/BETWEEN/i',$val[0])){ // BETWEEN运算
+                }elseif(preg_match('/^BETWEEN$/i',$val[0])){ // BETWEEN运算
                     $data = is_string($val[1])? explode(',',$val[1]):$val[1];
                     $whereStr .=  ' ('.$key.' '.strtoupper($val[0]).' '.$this->parseValue($data[0]).' AND '.$this->parseValue($data[1]).' )';
                 }else{

@@ -26,6 +26,57 @@ class SiteAction extends BackAction{
 		$this->assign('total',$total);
 		$this->display();
 	}
+	public function mysqlajax(){
+		switch($_POST['type']){
+			case 'table_name':
+				$db_name = C('DB_NAME');
+				$sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$db_name."'";
+				$query_sql = M()->query($sql);
+				$table_name = array();
+				foreach($query_sql as $k=>$v){
+					$table_name[$k] = $v['TABLE_NAME'];
+				}
+				$data['table_name'] = $table_name;
+				$data['table_count'] = count($table_name);
+				$this->ajaxReturn($data,'JSON');
+			break;
+			case 'youhuasql':
+				$sql_OPTIMIZE = "OPTIMIZE TABLE `".$_POST['table_name']."`";
+				$query_sql_OPTIMIZE = M()->query($sql_OPTIMIZE);
+				$query_sql_OPTIMIZE[0]['Table'] = str_replace(C('DB_NAME').'.','',$query_sql_OPTIMIZE[0]['Table']);
+				$data = $query_sql_OPTIMIZE[0];
+				$this->ajaxReturn($data,'JSON');
+			break;
+			case 'xiufusql':
+				$sql_REPAIR = "REPAIR TABLE `".$_POST['table_name']."`";
+				$query_sql_REPAIR = M()->query($sql_REPAIR);
+				$query_sql_REPAIR[0]['Table'] = str_replace(C('DB_NAME').'.','',$query_sql_REPAIR[0]['Table']);
+				$data = $query_sql_REPAIR[0];
+				$this->ajaxReturn($data,'JSON');
+			break;
+		}
+	}
+	public function wechat_api(){
+		$site 	= M('weixin_account')->find();
+		if(IS_POST){
+			if($site){
+				if(M('Weixin_account')->where('1')->save($_POST)){
+					$this->success('操作成功');
+				}else{
+					$this->success('操作失败');
+				}
+			}else{
+				if(M('Weixin_account')->add($_POST)){
+					$this->success('操作成功');
+				}else{
+					$this->success('操作失败');
+				}
+			}
+		}else{
+			$this->assign('site',$site);
+			$this->display();
+		}	
+	}
 	public function insert(){
 		$file=$this->_post('files');
 		unset($_POST['files']);

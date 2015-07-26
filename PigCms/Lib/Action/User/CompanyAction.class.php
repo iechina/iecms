@@ -85,9 +85,8 @@ class CompanyAction extends UserAction{
 	}
 	public function branches(){
 		$thisCompany=$this->company_model->where(array('token'=>$this->token))->order('id ASC')->find();
-		$where=array('token'=>$this->token);
-		$where['id']=array('neq',$thisCompany['id']);
-		$branches = $this->company_model->where($where)->order('taxis ASC')->select();
+		$where	  	=array('token'=>$this->token,'isbranch'=>1);
+		$branches 	= $this->company_model->where($where)->order('taxis ASC')->select();
 		$list = array();
 		foreach ($branches as $b) {
 			$b['url'] = $_SERVER['HTTP_HOST'] . '/index.php?m=Index&a=clogin&cid=' . $b['id'] . '&k=' . md5($b['id'] . $b['username']);

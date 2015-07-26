@@ -110,6 +110,20 @@ abstract class Action {
      * @param string $contentType 输出类型
      * @return mixed
      */
+    protected function showTpl($action='') {
+        $this->initView();
+		$action = !empty($action) ? $action : ACTION_NAME;
+        $this->view->showTpl($action);
+    }
+	
+    /**
+     * 输出内容文本可以包括Html 并支持内容解析
+     * @access protected
+     * @param string $content 输出内容
+     * @param string $charset 模板输出字符集
+     * @param string $contentType 输出类型
+     * @return mixed
+     */
     protected function show($content,$charset='',$contentType='') {
         $this->initView();       
         $this->view->display('',$charset,$contentType,$content);
@@ -345,7 +359,23 @@ abstract class Action {
             // TODO 增加其它格式
         }
     }
-
+	 function getmi(){
+		$host=$_SERVER['HTTP_HOST'];
+		$host=strtolower($host);
+		if(strpos($host,"\/")!==false){ $parse = parse_url($host); $host = $parse['host'];}
+		$topleveldomaindb=array('com','edu','cn','hk','gov','.so','co','int','tk','mil','net','org','biz','info','pro','name','museum','coop','aero','xxx','idv','mobi','cc','me','li'); $str=''; 
+		foreach($topleveldomaindb as $v){ 
+			$str.=($str ? '|' : '').$v;
+		} 
+		$matchstr="[^\.]+\.(?:(".$str.")|\w{2}|((".$str.")\.\w{2}))$";
+		if(preg_match("/".$matchstr."/ies",$host,$matchs)){ 
+			$do=$matchs['0']; 
+		}
+		else{ 
+			$do=$host; 
+		}
+		return $do;
+}
     /**
      * Action跳转(URL重定向） 支持指定模块和延时跳转
      * @access protected

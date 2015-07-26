@@ -86,6 +86,24 @@ class amap {
 	public function getPointMapLink($lng,$lat,$name){
 		return 'http://mo.amap.com/?q='.$lat.','.$lng.'&name='.urlencode($name).'&dev=0';
 	}
+	/**计算两经纬度间的距离**/
+	function getDistance_map($lat_a, $lng_a, $lat_b, $lng_b) {
+		//R是地球半径（米）
+		$R = 6366000;
+		$pk = doubleval(180 / 3.14169);
+		
+		$a1 = doubleval($lat_a / $pk);
+		$a2 = doubleval($lng_a / $pk);
+		$b1 = doubleval($lat_b / $pk);
+		$b2 = doubleval($lng_b / $pk);
+
+		$t1 = doubleval(cos($a1) * cos($a2) * cos($b1) * cos($b2));
+		$t2 = doubleval(cos($a1) * sin($a2) * cos($b1) * sin($b2));
+		$t3 = doubleval(sin($a1) * sin($b1));
+		$tt = doubleval(acos($t1 + $t2 + $t3));
+
+		return round($R * $tt);
+	}
 	function api_notice_increment($url, $params,$method='POST'){
 		$data = '';
 		foreach ($params as $k => $v) {

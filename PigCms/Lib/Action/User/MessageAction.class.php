@@ -5,14 +5,14 @@ class MessageAction extends UserAction{
 		parent::_initialize();
 		$where=array('token'=>$this->token);
 		$this->thisWxUser=M('Wxuser')->where($where)->find();
-		//$this->canUseFunction('groupmessage');
-		if (!$this->thisWxUser['appid']||!$this->thisWxUser['appsecret']){
+		
+		if($this->thisWxUser['type'] == 0){
 			$diyApiConfig=M('Diymen_set')->where($where)->find();
-			if (!$diyApiConfig['appid']||!$diyApiConfig['appsecret']){
-				//$this->error('请先设置AppID和AppSecret再使用本功能，谢谢','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
-			}else {
-				$this->thisWxUser['appid']=$diyApiConfig['appid'];
-				$this->thisWxUser['appsecret']=$diyApiConfig['appsecret'];
+			if( (empty($this->thisWxUser['appid']) || empty($this->thisWxUser['appsecret'])) && (empty($diyApiConfig['appid']) || empty($diyApiConfig['appsecret'])) ){
+				//$this->error('请先设置AppID和AppSecret再使用本功能','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
+			}else{
+				$this->thisWxUser['appid'] 		= $diyApiConfig['appid'];
+				$this->thisWxUser['appsecret']	= $diyApiConfig['appsecret'];
 			}
 		}
 	}
@@ -30,189 +30,242 @@ class MessageAction extends UserAction{
 		$wechat_group_db=M('Wechat_group');
 		$groups=$wechat_group_db->where(array('token'=>$this->token))->order('id ASC')->select();
 		$this->assign('groups',$groups);
+		
 		if (IS_POST){
-			$row=array();
-			$row['msgtype']=$this->_post('msgtype');
-			$row['mediasrc']=$this->_post('mediasrc');
-			$row['text']=$this->_post('text');
-			$row['imgids']=$this->_post('imgids');
-			$row['token']=$this->token;
-			$row['time']=time();
-			if ($row['msgtype']!='text'&&strpos($_SERVER['HTTP_HOST'],'pigcmszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')){
-				//$this->error('小猪演示站禁止文件上传，所以请测试文本消息的发送，谢谢您的支持');
+			$msgtype 	= $this->_post('send_type','intval');
+			$openid		= rtrim($_POST['openid'],',');
+			$wechatgroupid = $this->_post('wechatgroupid','intval');
+			
+			$imgids 	= ltrim($_POST['imgids'],',');
+			if($imgids){
+				$imgidsArr  = explode(',',$imgids);
 			}
-			//
-			if (isset($_POST['mediasrc'])&&trim($_POST['mediasrc'])){
-				$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
-				$json=json_decode($this->curlGet($url_get));
-				if (!$json->errmsg){
-					$postMedia=array();
-					$postMedia['access_token']=$json->access_token;
-					$postMedia['type']=$row['msgtype'];
-					$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace('http://'.$_SERVER['HTTP_HOST'],'',$row['mediasrc']);
-					
-					$rt=$this->curlPost('http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token='.$postMedia['access_token'].'&type='.$postMedia['type'],array('media'=>'@'.$postMedia['media']));
-					if($rt['rt']==false){
-						$this->error('操作失败,curl_errors:'.$rt['errorno']);
-					}else{
-						$media_id=$rt['media_id'];
-						$row['mediaid']=$media_id;
-					}
-				}else {
-					$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
+
+			/*if (strpos($_SERVER['HTTP_HOST'],'pigcms')){
+				$this->error('小猪演示站禁止文件上传，所以请测试一下其他功能吧，谢谢您的支持');
+			}*/
+			
+			if($msgtype == 1){
+				if($wechatgroupid == ''){
+					$this->error('请选择群发分组');
+				}
+			}else if($msgtype == 2){
+				if(empty($openid)){
+					$this->error('请选择群发粉丝');
 				}
 			}
-			$id=M('Send_message')->add($row);
-			$this->success('添加成功，现在开始发送信息',U('Message/send',array('id'=>$id)));
-		}else {
+	
+			if (empty($imgidsArr)){
+				$this->error('请选择图文消息');
+			}
+			$imgs 	= array();
 			
+			for($i=0;$i<count($imgidsArr);$i++){
+				$imgs[$i] = M('Img')->where(array('id'=>$imgidsArr[$i]))->find();
+			}
+			//$imgs 	= M('Img')->where(array('id'=>array('in',$imgidsArr)))->select();
+            $access_token = $this->getAccessToken();
+			$apiOauth 	= new apiOauth();
+			$access_token 	= $access_token;
+
+			if ($access_token){
+				$postMedia=array();
+				$postMedia['access_token']=$access_token;
+				$postMedia['type']='image';
+				$str 	= '';
+				foreach ($imgs as $img){
+					/*if (!strpos($img['pic'],'.jpg')){
+						$this->error('图文封面必须是jpg格式');
+					}*/
+					$imgStr=file_get_contents($img['pic']);
+
+					//if (!$imgStr){
+					//$imgStr=$this->curlGet($img['pic']);
+					//}
+
+					if (!$imgStr){
+						$this->error('您的图文消息没有封面或者封面获取不到'.$img['pic']);
+					}
+
+					file_put_contents(CONF_PATH.'img_'.$img['id'].'.jpg',$imgStr);
+
+					$postMedia['media'] = CONF_PATH.'img_'.$img['id'].'.jpg';
+					$postMedia['media'] = $_SERVER['DOCUMENT_ROOT'].str_replace(array('./'),array('/'),$postMedia['media']);
+
+					$rt = $this->curlPost('http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token='.$postMedia['access_token'].'&type='.$postMedia['type'],array('media'=>'@'.$postMedia['media']));
+					
+					if($rt['rt']){
+						$str .= $comma.'{"thumb_media_id":"'.$rt['media_id'].'","author":"","title":"'.$img['title'].'","content_source_url":"","content":"'.str_replace(array('"','"/upload'),array('\"','"'.C('site_url').'/upload'),html_entity_decode($img['info'])).'","digest":"'.$img['text'].'","show_cover_pic":'.$img['showpic'].'}';
+						$comma=',';
+					}else{
+						$this->error('操作失败,curl_error:'.$rt['errorno']);
+					}
+				}
+
+				if($str){
+					$post 	= '{"articles": ['.$str.']}';
+					$rt 	= $this->curlPost('https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token='.$postMedia['access_token'],$post);
+
+					if($rt['rt']){
+						$row=array();
+						$row['title'] 	= $this->_post('title','trim');
+						$row['openid']	= $openid;
+						$row['mediaid'] = $rt['media_id'];
+						$row['groupid'] = $wechatgroupid;
+						$row['msgtype'] = 'news';
+						$row['imgids']  = $imgids;
+						$row['token']   = $this->token;
+						$row['status'] 	= 0;
+						$row['send_type'] = $this->_post('send_type','intval');
+
+						if(M('Send_message')->add($row)){
+							$this->success('信息保存完毕',U('Message/sendHistory',array('token'=>$this->token)));
+						}
+					}else{
+						$this->error('操作失败,curl_error:'.$rt['errorno']);
+					}
+				}
+			}else {
+				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
+			}
+
+			//U('Message/tosendAll',array('imgids'=>$oimgids,'wechatgroupid'=>$wechatgroupid,'mediaids'=>$mediaids,'openid'=>$openid));
+		}else {
 			$this->display();
 		}
 	}
-	public function sendAll(){
-		if (IS_POST){
-			if (strpos($_SERVER['HTTP_HOST'],'pigcms')){
-				//$this->error('小猪演示站禁止文件上传，所以请测试一下其他功能吧，谢谢您的支持');
-			}
-			$imgids=$this->_post('imgids');
-			$oimgids=$imgids;
-			$wechatgroupid=$_POST['wechatgroupid'];
-			//
-			$imgidsArr=explode(',',$imgids);
-			$imgids=array();
-			$imgID=0;
-			if ($imgidsArr){
-				foreach ($imgidsArr as $ii){
-					if (intval($ii)){
-						array_push($imgids,$ii);
-					}
-				}
-			}
 
-			if (count($imgids)){
-				$imgs=M('Img')->where(array('id'=>array('in',$imgids)))->select();
-			}
-			if ($imgs){
-				
-			}else {
-				$this->error('请选择图文消息',U('Message/index'));
-			}
-			//
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
-			$json=json_decode($this->curlGet($url_get));
-			$mediaids='';
-
-			if (!$json->errmsg){
-				$postMedia=array();
-				$postMedia['access_token']=$json->access_token;
-				$postMedia['type']='image';
-				
-				foreach ($imgs as $img){
-					if (!strpos($img['pic'],'.jpg')){
-						$this->error('图文封面必须是jpg格式');
-					}
-					if (!file_get_contents($img['pic'])){
-						$this->error('您的图文消息没有封面或者封面获取不到');
-					}
-					file_put_contents(CONF_PATH.'img_'.$img['id'].'.jpg',file_get_contents($img['pic']));
-					
-					
-					//$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace('http://'.$_SERVER['HTTP_HOST'],'',$img['pic']);
-					//$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace('./','/',CONF_PATH.'img_'.$img['id'].'.jpg');
-					$postMedia['media']=CONF_PATH.'img_'.$img['id'].'.jpg';
-					$postMedia['media']=$_SERVER['DOCUMENT_ROOT'].str_replace(array('./'),array('/'),$postMedia['media']);
-					
-					$rt=$this->curlPost('http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token='.$postMedia['access_token'].'&type='.$postMedia['type'],array('media'=>'@'.$postMedia['media']));
-					
-					if($rt['rt']==false){
-						$this->error('操作失败,curl_error:'.$rt['errorno']);
-					}else{
-						$mediaids.=$comma.$rt['media_id'];
-						$comma=',';
-					}
-				}
-			}else {
-				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
-			}
-			$this->success('图片素材上传完毕，现在开始发送信息',U('Message/tosendAll',array('imgids'=>$oimgids,'wechatgroupid'=>$wechatgroupid,'mediaids'=>$mediaids)));
-		}
-	}
 	public function tosendAll(){
 		if (IS_GET){
-			$row=array();
-			$row['msgtype']='news';
-			$row['imgids']=$this->_get('imgids');
-			$row['token']=$this->token;
-			$row['time']=time();
-			//
-			$mediaids=explode(',',$_GET['mediaids']);
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
-			$json=json_decode($this->curlGet($url_get));
-			if (!$json->errmsg){
-				$postMedia=array();
-				$postMedia['access_token']=$json->access_token;
-				$imgidsArr=explode(',',$row['imgids']);
-				$imgidsArr=array_unique($imgidsArr);
-				$imgids=array();
-				$imgID=0;
-				if ($imgidsArr){
-					foreach ($imgidsArr as $ii){
-						if (intval($ii)){
-							array_push($imgids,$ii);
-						}
-					}
-				}
-		
-				if (count($imgids)){
-					$imgs=M('Img')->where(array('id'=>array('in',$imgids)))->select();
-				}
-		
-				if ($imgs){
-					$str='{"articles": [';
-					$comma='';
-					$i=0;
-					foreach ($imgs as $img){
-						if ($img['url']){
-							//$url=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($fan['openid'],C('site_url'),'&'),$thisNews['url']);
-						}else {
-							//$url=C('site_url').U('Wap/Index/content',array('token'=>$this->token,'wecha_id'=>$fan['openid'],'id'=>$thisNews['id']));
-						}
-						if ($img['showpic']){
-							//$img['info']='<div style="text-align:center"><img src="'.$img['pic'].'" /></div>'.$img['info'];
-						}
-						$img['title']=str_replace('"','\"',$img['title']);
-						$str.=$comma.'{"thumb_media_id":"'.$mediaids[$i].'","author":"","title":"'.$img['title'].'","content_source_url":"","content":"'.str_replace(array('"','"/upload'),array('\"','"'.C('site_url').'/upload'),html_entity_decode($img['info'])).'","digest":"'.$img['text'].'","show_cover_pic":"'.$img['showpic'].'"}';
-						$comma=',';
-						$i++;
-					}
-					$str.=']}';
-				}else {
-					$this->error('请选择图文消息',U('Message/index'));
+			$id 	= $this->_get('id','intval');
+			$info 	= M('Send_message')->where(array('token'=>$this->token,'id'=>$id))->find();
+
+			$apiOauth 	= new apiOauth();
+			$access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
+			
+			if ($access_token){
+				//OPENID就发送给个人
+				$openid 	= explode(',', $info['openid']);
+				
+				if($info['send_type'] == 1){
+					$sendrt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token,'{"filter":{"group_id":"'.$info['groupid'].'"},"mpnews":{"media_id":"'.$info['mediaid'].'"},"msgtype":"mpnews"}');
+				}else if($info['send_type'] == 2){
+					$sendrt = $this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$access_token,'{"touser":'.json_encode($openid).',"mpnews":{"media_id":"'.$info['mediaid'].'"},"msgtype":"mpnews"}');
+				}else{
+					$sendrt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token,'{"filter":{},"mpnews":{"media_id":"'.$info['mediaid'].'"},"msgtype":"mpnews"}');
 				}
 
-				$rt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token='.$postMedia['access_token'],$str);
-				if($rt['rt']==false){
-					$this->error('操作失败,curl_error:'.$rt['errorno']);
+				if($sendrt['rt']==false){
+					$this->error('操作失败,curl_error:'.$sendrt['errorno']);
 				}else{
-					$media_id=$rt['media_id'];
-					$row['mediaid']=$media_id;
+					M('Send_message')->where(array('id'=>$id))->save(array('msg_id'=>$sendrt['msg_id'],'status'=>1,'time'=>time()));
+					$this->success('发送任务已经启动，群发可能会在20分钟左右完成',U('Message/sendHistory',array('token'=>$this->token)));
 				}
+
 			}else {
 				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
 			}
-			
-			$id=M('Send_message')->add($row);
-			//
-			$sendrt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$postMedia['access_token'],'{"filter":{"group_id":"'.$this->_get('wechatgroupid').'"},"mpnews":{"media_id":"'.$row['mediaid'].'"},"msgtype":"mpnews"}');
-			if($sendrt['rt']==false){
-				$this->error('操作失败,curl_error:'.$sendrt['errorno']);
+		}
+	}
+
+	public function message_fans(){
+		$group 	= $this->_get('group','intval');
+		$name  	= $this->_post('name','trim');
+		$where 	= array('token'=>$this->token);
+		if($group){
+			$where['g_id'] 	= $group;
+		}
+		if($name){
+			$where['nickname'] = array('like','%'.$name.'%');
+		}
+		$count 	= M('Wechat_group_list')->where($where)->count();
+		$page 	= new Page($count,10);
+
+		$list 	= M('Wechat_group_list')->where($where)->order('id desc')->limit($page->firstRow.','.$page->listRows)->select();
+		
+		foreach ($list as $key => $val) {
+			if($val['g_id']){
+				$list[$key]['group_name'] 	= M('Wechat_group')->where(array('id'=>$val['g_id']))->getField('name');
 			}else{
-				$msg_id=$sendrt['msg_id'];
-				M('Send_message')->where(array('id'=>$id))->save(array('msg_id'=>$msg_id));
-				$this->success('发送任务已经启动，群发可能会在20分钟左右完成，您可以关闭该页面了',U('Message/sendHistory'));
+				$list[$key]['group_name'] 	= '未分组';
+			}
+		}
+
+		$this->assign('list',$list);
+		$this->assign('page',$page->show());
+		$this->display();
+	}
+
+	public function preview(){
+		$id 	= $this->_get('id','intval');
+		$info 	= M('Send_message')->where(array('token'=>$this->token,'id'=>$id))->find();
+
+		if(IS_POST){
+			$openid 	= $this->_post('openid','trim');
+			if($openid){
+				$apiOauth 	= new apiOauth();
+				$access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
+				if ($access_token){
+					$sendrt = $this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token='.$access_token,'{"touser":"'.$openid.'","mpnews":{"media_id":"'.$info['mediaid'].'"},"msgtype":"mpnews"}');
+					if($sendrt['rt']==false){
+						$this->error('操作失败,curl_error:'.$sendrt['errorno']);
+					}else{
+						$this->success('预览消息发送');
+					}
+				}else{
+					$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
+				}
+
+			}else{
+
+				$this->error('请填写openid');
+
+			}
+		}else{
+			$this->display();
+		}
+	}
+
+	public function getOpenid(){
+		$name 	= $this->_get('name','trim');
+		$where 	= array('token'=>$this->token,'nickname'=>$name);
+		$openid = M('Wechat_group_list')->where($where)->getField('openid');
+
+		if($openid){
+			echo json_encode(array('error'=>0,'openid'=>$openid));
+		}else{
+			echo json_encode(array('error'=>1,'info'=>'没有找到粉丝'));
+		}
+	}
+
+	public function del(){
+		$id 	= $this->_get('id','intval');
+		$info 	= M('Send_message')->where(array('token'=>$this->token,'id'=>$id))->find();
+
+		if($info['msg_id']){
+			$apiOauth 	= new apiOauth();
+			$access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
+
+			if ($access_token){
+				$sendrt 		= $this->curlPost('https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token='.$access_token,'{"msg_id":'.$info['msg_id'].'}',0);
+
+				//if($sendrt['rt']==false){
+				//	$this->error('操作失败,curl_error:'.$sendrt['errorno']);
+				//}else{
+					if(M('Send_message')->where(array('token'=>$this->token,'id'=>$id))->delete()){
+						$this->success('删除成功');
+					}
+				//}
+			}else{
+				$this->error('获取access_token发生错误：错误代码'.$json->errcode.',微信返回错误信息：'.$json->errmsg);
+			}
+		}else{
+			if(M('Send_message')->where(array('token'=>$this->token,'id'=>$id))->delete()){
+				$this->success('删除成功');
 			}
 		}
 	}
+
 	public function item(){
 		if (isset($_GET['id'])){
 			$info=M('Send_message')->where(array('token'=>$this->token,'id'=>intval($_GET['id'])))->find();
@@ -233,6 +286,7 @@ class MessageAction extends UserAction{
 		}
 		$this->display();
 	}
+
 	public function send(){
 		$fans=M('Wechat_group_list')->where(array('token'=>$this->token))->order('id ASC')->select();
 		//$fans=array(array('openid'=>'oCsUfuC0mqT4VM6JjbggaLvzGEXI'));
@@ -241,10 +295,9 @@ class MessageAction extends UserAction{
 		$thisMessage=M('Send_message')->where(array('id'=>intval($_GET['id'])))->find();
 		if ($i<$count){
 			$fan=$fans[$i];
-			$url_get='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->thisWxUser['appid'].'&secret='.$this->thisWxUser['appsecret'];
-			$json=json_decode($this->curlGet($url_get));
-			if (!$json->errmsg){
-				
+			$apiOauth 	= new apiOauth();
+			$access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
+			if ($access_token){	
 				switch ($thisMessage['msgtype']){
 					case 'text':
 						$data='{"touser":"'.$fan['openid'].'","msgtype":"text","text":{"content":"'.$thisMessage['text'].'"}}';
@@ -271,7 +324,8 @@ class MessageAction extends UserAction{
 						}
 						$thisNews=M('Img')->where(array('id'=>$imgID))->find();
 						if ($thisNews['url']){
-							$url=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($fan['openid'],C('site_url'),'&'),$thisNews['url']);
+							$url=$this->convertLink($thisNews['url']);
+							
 						}else {
 							$url=C('site_url').U('Wap/Index/content',array('token'=>$this->token,'wecha_id'=>$fan['openid'],'id'=>$thisNews['id']));
 						}
@@ -280,7 +334,7 @@ class MessageAction extends UserAction{
 						break;
 				}
 				//
-				$rt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$json->access_token,$data,0);
+				$rt=$this->curlPost('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token,$data,0);
 				if($rt['rt']==false){
 					//$this->error('操作失败,curl_error:'.$rt['errorno']);
 				}else{
@@ -339,11 +393,16 @@ class MessageAction extends UserAction{
 				return array('rt'=>true,'errorno'=>0,'media_id'=>$js['media_id'],'msg_id'=>$js['msg_id']);
 			}else {
 				if ($showError){
-					$this->error('发生了Post错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$js['errmsg']);
+					if($js['errcode'] == '40130'){
+						$this->error('抱歉，群发消息至少要选择两个人以上。');
+					}else{
+						$this->error('发生了Post错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$js['errmsg']);
+					}
 				}
 			}
 		}
 	}
+	
 	function curlGet($url){
 		$ch = curl_init();
 		$header = "Accept-Charset: utf-8";
@@ -360,6 +419,36 @@ class MessageAction extends UserAction{
 		$temp = curl_exec($ch);
 		return $temp;
 	}
+	protected function getAccessToken() {
+	$info=M('wxuser')->where(array('token'=>$this->token))->find();
+		
+		$this->_appid = $info['appid'];
+		
+		$this->_secret =$info['appsecret'];	
+    // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
+    $data = json_decode(file_get_contents('weiqianlong/'.$_SESSION['token'].'access_token.json'));
+    if ($data->expire_time < time()) {
+      $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$this->_appid.'&secret='.$this->_secret.'';
+	  
+      $res = file_get_contents($url);
+     
+	    $arr = json_decode($res, true);
+     $access_token = $arr['access_token'];
+		//dump($access_token );exit;
+      if ($access_token) {
+        $data->expire_time = time() + 7000;
+        $data->access_token = $access_token;
+		 $data->appid = $this->_appid;
+        $fp = fopen('weiqianlong/'.$_SESSION['token'].'access_token.json', "w");
+        fwrite($fp, json_encode($data));
+        fclose($fp);
+      }
+    } else {
+      $access_token = $data->access_token;
+    }
+	
+    return $access_token;
+  }	
 }
 
 

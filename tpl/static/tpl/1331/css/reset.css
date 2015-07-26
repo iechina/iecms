@@ -286,3 +286,9 @@ li {
 .box_swipe>ol>li.on{
 	background-color:#ffffff;
 }
+
+.footer{
+	padding: 0;
+text-align: center;
+line-height: 16px;
+}

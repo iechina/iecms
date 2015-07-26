@@ -19,9 +19,9 @@
 				  </label>
 				  </a>
 				  <a href="{pigcms::U('Repast/OrderToPay', array('token'=>$token, 'cid'=>$order['cid'],'orid'=>$order['oid'], 'wecha_id'=>$wecha_id))}" class="btn" style="margin-right: 15px;">去付款</a>
-				 <if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
+				 <!---<if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
 				  <a href="{pigcms::U('Repast/dishMenu', array('token'=>$token, 'cid'=>$order['cid'],'orid'=>$order['oid'], 'wecha_id'=>$wecha_id))}" class="btn" style="margin-right: 100px;">去加菜</a>
-				</if>
+				</if>-->
 				<else/>
 				 <span class="sawtooth faild hasicon"><label>×</label>已过期</span>
 				 <label>
@@ -29,9 +29,9 @@
 				  <span class="time">{pigcms:$order['otimestr']}</span>
 				  </label>
 				  </a>
-				  <if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
+				  <!---<if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
 				  <a href="{pigcms::U('Repast/dishMenu', array('token'=>$token, 'cid'=>$order['cid'],'orid'=>$order['oid'], 'wecha_id'=>$wecha_id))}" class="btn" style="margin-right: 30px;">去加菜</a>
-				</if>
+				</if>-->
 				</if>
 				<else/>
 				  <span class="sawtooth faild hasicon"><label>×</label>已完成</span>
@@ -40,9 +40,9 @@
 				  <span class="time">{pigcms:$order['otimestr']}</span>
 				  </label>
 				  </a>
-				  <if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
+				  <!---<if condition="isset($order['jiaxcai']) AND $order['jiaxcai']">
 				  <a href="{pigcms::U('Repast/dishMenu', array('token'=>$token, 'cid'=>$order['cid'],'orid'=>$order['oid'], 'wecha_id'=>$wecha_id))}" class="btn" style="margin-right: 30px;">去加菜</a>
-				</if>
+				</if>-->
 				</if>
 				<a><span class="icon_right"><span class="right_adron"></span></span></a>
 			</li>

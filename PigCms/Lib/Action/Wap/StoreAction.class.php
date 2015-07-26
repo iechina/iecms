@@ -20,15 +20,17 @@ class StoreAction extends WapAction{
 	public function _initialize() 
 	{
 		parent::_initialize();
-		
 		$tpl = $this->wxuser;
-		
 		$tpl['color_id'] = intval($tpl['color_id']);
-		
 		$this->tpl = $tpl;
+		$agent = $_SERVER['HTTP_USER_AGENT']; 
+		if (!strpos($agent, "MicroMessenger")) {
+			//	echo '此功能只能在微信浏览器中使用';exit;
+		}
+		$this->assign('isFuwu', $this->isFuwu);
+		$this->_cid = session("session_company_{$this->token}");
 		
-		$this->_cid = isset($_REQUEST['cid']) ? intval($_REQUEST['cid']) : session("session_company_{$this->token}");
-		
+		$this->session_cart_name = "session_cart_products_{$this->token}_{$this->_cid}";//'session_cart_products_' . $this->token;
 		$this->product_model = M('Product');
 		$this->product_cat_model = M('Product_cat');
 		$this->mainCompany = M('Company')->where("`token`='{$this->token}' AND `isbranch`=0")->find();
@@ -48,17 +50,17 @@ class StoreAction extends WapAction{
 			$cid = $this->_isgroup ? $this->mainCompany['id'] : $this->_cid;
 			$cats = $this->product_cat_model->where(array('token' => $this->token, 'cid' => $cid, 'parentid' => 0))->order("sort ASC, id DESC")->select();
 			$this->assign('cats', $cats);
-			
+			$twitter_set = M("Twitter_set")->where(array('token' => $this->token, 'cid' => $this->_cid))->find();
 		}
 		
 		
 		$this->_twid = isset($_REQUEST['twid']) ? $_REQUEST['twid'] : '';//来自推广人的推广标示
 		$this->mytwid = session('twid');//我自己的推广标示
 		$login = session("login");
-// 		$twitter_set = M("Twitter_set")->where(array('token' => $this->token, 'cid' => $this->_cid))->find();
-		if (empty($this->wecha_id) && empty($this->mytwid) && empty($login) && !in_array(ACTION_NAME, array('register', 'login'))) {
+		if ($twitter_set && empty($this->wecha_id) && empty($this->mytwid) && empty($login) && !in_array(ACTION_NAME, array('register', 'login'))) {
 			$callbackurl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
 			session('callbackurl', $callbackurl);
+			//点击链接时的推广记录
 			session("login", 1);
 			$this->redirect(U('Store/login', array('token' => $this->token, 'cid' => $this->_cid, 'wecha_id' => $this->wecha_id, 'twid' => $this->_twid)));
 		}
@@ -77,7 +79,10 @@ class StoreAction extends WapAction{
 		
 		if ($this->fans && empty($this->fans['twid'])) {
 			$twid = $this->randstr{rand(0, 51)} . $this->randstr{rand(0, 51)} . $this->randstr{rand(0, 51)} . $this->fans['id'];
-			D('Userinfo')->where(array('id' => $this->fans['id']))->save(array('twid' => $twid));
+			if (D('Userinfo')->where(array('id' => $this->fans['id']))->save(array('twid' => $twid))) {
+				S('fans_'.$this->token.'_'.$this->wecha_id,null);
+			}
+// 			D('Userinfo')->where(array('id' => $this->fans['id']))->save(array('twid' => $twid));
 			$this->fans['twid'] = $twid;
 			$this->assign('fans', $fansInfo);
 		} elseif (empty($this->fans) && $this->wecha_id) { //TODO 没有用户信息时候的处理
@@ -89,16 +94,24 @@ class StoreAction extends WapAction{
 			$this->fans = array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'twid' => $twid);
 		}
 		$this->mytwid = $this->fans['twid'];
-		
+
+		$this->_cid || $this->_cid = $this->mainCompany['id'];
 		$this->wecha_id || $this->wecha_id = $this->mytwid;
-		
+
 		$this->assign('staticFilePath', str_replace('./', '/', THEME_PATH . 'common/css/store'));
+		
+		$istwittersave = session('twitter_save');
+		if (empty($istwittersave) && $this->_cid) {
+			$this->savelog(1, $this->_twid, $this->token, $this->_cid);
+			session('twitter_save', 1);
+		}
 		//购物车
 		$calCartInfo = $this->calCartInfo();
 		$this->assign('totalProductCount', $calCartInfo[0]);
 		$this->assign('totalProductFee', $calCartInfo[1]);
 		$this->assign('mytwid', $this->mytwid);
 		$this->assign('twid', $this->_twid);
+		$this->assign('cid', $this->_cid);
 	}
 	
 	public function select()
@@ -130,6 +143,20 @@ class StoreAction extends WapAction{
 	 */
 	public function cats() 
 	{
+        //是否允许分销
+        $setting = M('Distribution_setting');
+        $setting = $setting->where(array('token' => $this->token))->find();
+        $this->assign('allow_distribution', $setting['allow_distribution']);
+
+        //分销商
+        $distributor = array();
+        $store = array();
+        if (session('distributor')) {
+            $distributor = M('Distributor');
+            $distributor = $distributor->find(session('distributor'));
+            $this->assign('distributor', $distributor);
+        }
+
 		$company = M('Company')->where("`token`='{$this->token}' AND `isbranch`=0")->find();
 		D("Product_cat")->where(array('token' => $this->token, 'cid' => 0))->save(array('cid' => $company['id']));
 		D("Attribute")->where(array('token' => $this->token, 'cid' => 0))->save(array('cid' => $company['id']));
@@ -201,6 +228,7 @@ class StoreAction extends WapAction{
 			foreach ($allflash as &$f) {
 				if ($f['url']) {
 					$url = $f['url'];
+					$url  = $this->getLink($url);
 					$link=str_replace(array('{wechat_id}','{siteUrl}','&amp;'),array($this->wecha_id,$this->siteUrl,'&'),$url);
 					if (!!(strpos($url,'tel')===false)&&$url!='javascript:void(0)'&&!strpos($url,'wecha_id=')){
 						if (strpos($url,'?')){
@@ -706,6 +734,7 @@ class StoreAction extends WapAction{
 					$totalprice = 0;
 					$row['paid'] = 1;
 					$row['paymode'] = 5;
+					$row['paytype'] = 'score';
 				} else {
 					$score += $s;
 				}
@@ -729,12 +758,33 @@ class StoreAction extends WapAction{
 				$normal_rt = $product_cart_model->where(array('id' => $orid))->save($row);
 				$orderid = $cartObj['orderid'];
 			} else {
+			
+				//删除库存
+				foreach ($carts as $pid => $rowset) {
+					$total = 0;
+					if (is_array($rowset)) {
+						foreach ($rowset as $did => $ro) {
+							M('Product_detail')->where(array('id' => $did, 'pid' => $pid))->setDec('num', $ro['count']);
+							$total += $ro['count'];
+						}
+					} else {
+						if (strstr($rowset, '|')) {
+							$a = explode("|", $rowset);
+							$total = $a[0];
+						} else {
+							$total = $rowset;
+						}
+					}
+					$product_model = M('product');
+					$product_model->where(array('id' => $pid))->setDec('num', $total);
+				}
+			
 				$row['time'] = $time = time();
 				$row['orderid'] = $orderid = date("YmdHis") . rand(100000, 999999);
 				$normal_rt = $product_cart_model->add($row);
 			}
-			
-			
+			$_SESSION[$this->session_cart_name] = null;
+			unset($_SESSION[$this->session_cart_name]);
 			//TODO 发货的短信提醒
 			if ($normal_rt && empty($orid)) {
 			$info=M('deliemail')->where(array('token'=>$this->_get('token')))->find();
@@ -831,34 +881,14 @@ class StoreAction extends WapAction{
 					$totalprice || $product_model->where(array('id'=>$k))->setInc('salecount', $tdata[1][$k]['total']);
 				}
 				
-				//删除库存
-				foreach ($carts as $pid => $rowset) {
-					$total = 0;
-					if (is_array($rowset)) {
-						foreach ($rowset as $did => $ro) {
-							M('Product_detail')->where(array('id' => $did, 'pid' => $pid))->setDec('num', $ro['count']);
-							$total += $ro['count'];
-						}
-					} else {
-						if (strstr($rowset, '|')) {
-							$a = explode("|", $rowset);
-							$total = $a[0];
-						} else {
-							$total = $rowset;
-						}
-					}
-					$product_model->where(array('id' => $pid))->setDec('num', $total);
-				}
-				$_SESSION[$this->session_cart_name] = null;
-				unset($_SESSION[$this->session_cart_name]);
 				//保存个人信息
 				if ($_POST['saveinfo']) {
 					$this->assign('thisUser', $thisUser);
 					$userRow = array('tel' => $row['tel'],'truename' => $row['truename'], 'address' => $row['address']);
 					if ($thisUser) {
 						$userinfo_model->where(array('id' => $thisUser['id']))->save($userRow);
-						$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('egt', $score)))->setDec('total_score', $score);
-						F('fans_token_wechaid', NULL);
+// 						$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('egt', $score)))->setDec('total_score', $score);
+						S('fans_'.$this->token.'_'.$this->wecha_id, null);
 					} else {
 						$userRow['token'] = $this->token;
 						$userRow['wecha_id'] = $wecha_id;
@@ -879,9 +909,15 @@ class StoreAction extends WapAction{
 						$userinfo_model->add($userRow);
 					}
 				}
+				
+				if ($thisUser) {
+// 					$userinfo_model->where(array('id' => $thisUser['id']))->save($userRow);
+					$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('egt', $score)))->setDec('total_score', $score);
+					S('fans_'.$this->token.'_'.$this->wecha_id, null);
+				}
 			} else {
 				$userinfo_model->where(array('id' => $thisUser['id'], 'total_score' => array('egt', $score - $cartObj['score'])))->setDec('total_score', $score - $cartObj['score']);
-				F('fans_token_wechaid', NULL);
+				S('fans_'.$this->token.'_'.$this->wecha_id, null);
 			}
 			//购买商品时的推广记录
 // 			if ($this->_twid) {
@@ -898,20 +934,18 @@ class StoreAction extends WapAction{
 // 					die;
 // 				}
 // 			}
-
+			$model = new templateNews();
+			$model->sendTempMsg('TM00184', array('href' => U('Store/my',array('token' => $this->token, 'wecha_id' => $wecha_id, 'success' => 1, 'twid' => $this->_twid), true, false, true), 'wecha_id' => $wecha_id, 'first' => '购买商品提醒', 'ordertape' => date("Y年m月d日H时i分s秒"), 'ordeID' => $orderid, 'remark' => '购买成功，感谢您的光临，欢迎下次再次光临！'));
 			if ($totalprice) {
-				$alipayConfig = M('Alipay_config')->where(array('token' => $this->token))->find();
 				if ($this->fans['balance'] > 0 && $row['paymode'] == 4) {
 					$this->success('正在提交中...', U('CardPay/pay', array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'success' => 1, 'from'=> 'Store', 'orderName' => $orderid, 'single_orderid' => $orderid, 'price' => $totalprice)));
 					die;
-				} elseif ($alipayConfig['open']) {
+				} else {
 					$notOffline = $setting['paymode'] == 1 ? 0 : 1;
 					$this->success('正在提交中...', U('Alipay/pay', array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'success' => 1, 'from'=> 'Store', 'orderName' => $orderid, 'single_orderid' => $orderid, 'price' => $totalprice, 'notOffline' => $notOffline)));
 					die;
 				}
 			}
-			$model = new templateNews();
-			$model->sendTempMsg('TM00820', array('href' => U('Store/my',array('token' => $this->token, 'wecha_id' => $wecha_id)), 'wecha_id' => $wecha_id, 'first' => '购买商品提醒', 'keynote1' => '订单未支付', 'keynote2' => date("Y年m月d日H时i分s秒"), 'remark' => '购买成功，感谢您的光临，欢迎下次再次光临！'));
 			$this->success('预定成功,进入您的订单页', U('Store/my',array('token' => $_GET['token'], 'wecha_id' => $wecha_id, 'success' => 1, 'twid' => $this->_twid)));
 		} else {
 			$this->error('订单生产失败');
@@ -962,9 +996,8 @@ class StoreAction extends WapAction{
 			$this->error('没有购买商品!', U('Store/cart', array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'cid' => $this->_cid, 'twid' => $this->_twid)));
 		}
 
-
-		if($this->wxuser['winxintype'] ==3 && $this->wxuser['oauth'] == 1){
-			$addr = new WechatAddr($this->wxuser['appid'],$this->wxuser['appsecret']);
+		if($this->wxuser['winxintype'] ==3 && $this->wxuser['oauth'] == 1 && $this->isWechat){
+			$addr = new WechatAddr($this->wxuser);
 			$this->assign('addrSign', $addr->addrSign());
 		}
 		
@@ -1264,29 +1297,38 @@ class StoreAction extends WapAction{
 	 * 支付成功后的回调函数
 	 */
 	public function payReturn() {
-	   $orderid = $_GET['orderid'];
-	   if ($order = M('Product_cart')->where(array('orderid' => $orderid, 'token' => $this->token))->find()) {
-			//TODO 发货的短信提醒
-			if ($order['paid']) {
-				$carts = unserialize($order['info']);
-				$tdata = $this->getCat($carts);
-				$list = array();
-				foreach ($tdata[0] as $va) {
-					$t = array();
-					$salecount = 0;
-					if (!empty($va['detail'])) {
-						foreach ($va['detail'] as $v) {
-							$t = array('num' => $v['count'], 'colorName' => $v['colorName'], 'formatName' => $v['formatName'], 'price' => $v['price'], 'name' => $va['name']);
-							$list[] = $t;
-							$salecount += $v['count'];
-						}
-					} else {
-						$t = array('num' => $va['count'], 'price' => $va['price'], 'name' => $va['name']);
-						$list[] = $t;
-						$salecount = $va['count'];
-					}
-					D("Product")->where(array('id' => $va['id']))->setInc('salecount', $salecount);
-				}
+// 	   $orderid = $_GET['orderid'];
+	   
+		if(isset($_GET['nohandle'])){
+			//执行跳转
+			$this->redirect(U('Store/my',array('token' => $this->token,'wecha_id' => $this->wecha_id, 'twid' => $this->_twid)));
+		}else {
+			$out_trade_no=$_GET['orderid'];
+			ThirdPayStore::index($out_trade_no);
+		}
+		
+// 	   if ($order = M('Product_cart')->where(array('orderid' => $orderid, 'token' => $this->token))->find()) {
+// 			//TODO 发货的短信提醒
+// 			if ($order['paid']) {
+// 				$carts = unserialize($order['info']);
+// 				$tdata = $this->getCat($carts);
+// 				$list = array();
+// 				foreach ($tdata[0] as $va) {
+// 					$t = array();
+// 					$salecount = 0;
+// 					if (!empty($va['detail'])) {
+// 						foreach ($va['detail'] as $v) {
+// 							$t = array('num' => $v['count'], 'colorName' => $v['colorName'], 'formatName' => $v['formatName'], 'price' => $v['price'], 'name' => $va['name']);
+// 							$list[] = $t;
+// 							$salecount += $v['count'];
+// 						}
+// 					} else {
+// 						$t = array('num' => $va['count'], 'price' => $va['price'], 'name' => $va['name']);
+// 						$list[] = $t;
+// 						$salecount = $va['count'];
+// 					}
+// 					D("Product")->where(array('id' => $va['id']))->setInc('salecount', $salecount);
+// 				}
 				
 				if ($order['twid']) {
 					$this->savelog(3, $order['twid'], $this->token, $order['cid'], $order['totalprice']);
@@ -1335,10 +1377,17 @@ class StoreAction extends WapAction{
 			if ($password != $password2) {
 				$this->error("密码不正确");
 			}
-			$uid = D("Userinfo")->add(array('truename' => $truename, 'token' => $this->token, 'address' => $address, 'password' => md5($password), 'tel' => $tel, 'username' => $username));
+            $userInfo = M('Userinfo')->where(array('wecha_id' => $this->wecha_id))->find();
+            if ($userInfo) {
+                D("Userinfo")->save(array('id' => $userInfo['id'], 'truename' => $truename, 'token' => $this->token, 'address' => $address, 'password' => md5($password), 'tel' => $tel, 'username' => $username));
+                $uid = $userInfo['id'];
+            } else {
+                $uid = D("Userinfo")->add(array('truename' => $truename, 'token' => $this->token, 'address' => $address, 'password' => md5($password), 'tel' => $tel, 'username' => $username));
+            }
 			if ($uid) {
 				$twid = $this->randstr{rand(0, 51)} . $this->randstr{rand(0, 51)} . $this->randstr{rand(0, 51)} . $uid;
-				D('Userinfo')->where(array('id' => $uid))->save(array('twid' => $twid, 'wecha_id' => $twid));
+                $wecha_id = !empty($this->wecha_id) ? $this->wecha_id : $twid;
+				D('Userinfo')->where(array('id' => $uid))->save(array('twid' => $twid, 'wecha_id' => $wecha_id));
 				$this->savelog(2, $this->_twid, $this->token, $this->_cid);
 				session('twid', $twid);
 				$callbackurl = session('callbackurl');
@@ -1354,6 +1403,10 @@ class StoreAction extends WapAction{
 	
 	public function login()
 	{
+        if (session('twid')) {
+            $this->redirect(U('Store/myinfo', array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'twid' => $this->mytwid)));
+        }
+
 		if (IS_POST) {
 			$username = isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '';
 			$password = isset($_POST['password']) ? htmlspecialchars($_POST['password']) : '';
@@ -1363,6 +1416,22 @@ class StoreAction extends WapAction{
 			} elseif ($userInfo['password'] != md5($password)) {
 				$this->error("密码不正确");
 			} else {
+
+                //是否是分销商
+                $distributor = M('Distributor');
+                $distributor = $distributor->where(array('uid' => $userInfo['id']))->find();
+                if (!empty($distributor['id'])) {
+                    session('distributor', $distributor['id']); //分销商id
+                    $store = M('Distributor_store');
+                    $store_id = $store->where(array('did' => $distributor['id']))->getField('id');
+                }
+                
+                //所属分销商店铺
+                if ($userInfo['store_id']) {
+                	session('store_id', $userInfo['store_id']);
+                }
+               
+                session('uid', $userInfo['id']);
 				session('twid', $userInfo['twid']);
 				$callbackurl = session('callbackurl');
 				if ($callbackurl) {
@@ -1389,6 +1458,9 @@ class StoreAction extends WapAction{
 			$db = D("Twitter_log");
 			$price = 0;
 			// 1.点击， 2.注册会员， 3.购买商品
+			$stime = strtotime(date("Y-m-d"));
+			$etime = $stime + 86400;
+			
 			if ($type == 3) {//购买商品
 				$price = $set['percent'] * 0.01 * $param;
 				$db->add(array('token' => $token, 'cid' => $cid, 'twid' => $twid, 'type' => 3, 'dateline' => time(), 'param' => $param, 'price' => $price));
@@ -1428,6 +1500,28 @@ class StoreAction extends WapAction{
 			$this->assign('count', $count);
 			$this->assign('metaTitle', '我的个人信息');
 		}
+
+        //分销商
+        $distributor = array();
+        $store = array();
+        if (session('distributor')) {
+			$distributor = M('Distributor');
+			$distributor = $distributor->find(session('distributor'));
+
+			//分销商店铺
+			$store = M('Distributor_store');
+			$where = array();
+        	$where['did'] = session('distributor');
+        	$store = $store->where($where)->find();
+        }
+        
+        $drp_register = U('DrpUcenter/index');	
+        
+
+        $this->assign('distributor', $distributor);
+        $this->assign('store', $store);
+        $this->assign('twid', $this->mytwid);
+        $this->assign('drp_register', $drp_register);
 		$this->display();
 	}
 	
@@ -1523,6 +1617,23 @@ class StoreAction extends WapAction{
 		$this->assign('metaTitle', '填写提现信息');
 		$this->display();
 	}
+
+   //检测店铺名称
+    public function check_name()
+    {
+        $store = M('Distributor_store');
+
+        $name = $this->_post('name', 'trim'); //店铺名称
+
+        $store = $store->where(array('name' => $name))->find();
+        if ($store) {
+            echo false;
+        } else {
+            echo true;
+        }
+        exit;
+    }
+}
 	public function sms(){
 		$where['token']=$this->token;
 		$where['wecha_id']=$this->wecha_id;

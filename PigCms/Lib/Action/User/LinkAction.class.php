@@ -50,13 +50,94 @@ class LinkAction extends UserAction{
 		);
 		$this->arr=array('game','Invite','Red_packet', 'Seckill','Autumns','Popularity','Helping','Jiugong','MicroBroker');
 	}
+	
+	/**
+	 * 2015-05-27 lixiang
+	 * 获取中文首写字母
+	 * @param String $string
+	 * @return string|Ambigous <string>
+	 */
+	private function _getFirstCharter($string) {
+		if (empty($string)) {
+			return '';
+		}		
+		$fchar = ord($string{0});		
+		if ($fchar >= ord('A') && $fchar <= ord('z')) {
+			return strtoupper($string{0});
+		}		
+		$s1 = iconv ( 'UTF-8', 'gb2312', $string );		
+		$s2 = iconv ( 'gb2312', 'UTF-8', $s1 );		
+		$s = $s2 == $string ? $s1 : $string;		
+		$asc = ord($s{0}) * 256 + ord($s{1}) - 65536;
+		if ($asc >= -20319 && $asc <= -20284) return 'A';		
+		if ($asc >= -20283 && $asc <= -19776) return 'B';		
+		if ($asc >= -19775 && $asc <= -19219) return 'C';		
+		if ($asc >= -19218 && $asc <= -18711) return 'D';		
+		if ($asc >= -18710 && $asc <= -18527) return 'E';		
+		if ($asc >= -18526 && $asc <= -18240) return 'F';		
+		if ($asc >= -18239 && $asc <= -17923) return 'G';		
+		if ($asc >= -17922 && $asc <= -17418) return 'H';		
+		if ($asc >= -17417 && $asc <= -16475) return 'J';		
+		if ($asc >= -16474 && $asc <= -16213) return 'K';		
+		if ($asc >= -16212 && $asc <= -15641) return 'L';		
+		if ($asc >= -15640 && $asc <= -15166) return 'M';		
+		if ($asc >= -15165 && $asc <= -14923) return 'N';		
+		if ($asc >= -14922 && $asc <= -14915) return 'O';		
+		if ($asc >= -14914 && $asc <= -14631) return 'P';		
+		if ($asc >= -14630 && $asc <= -14150) return 'Q';		
+		if ($asc >= -14149 && $asc <= -14091) return 'R';		
+		if ($asc >= -14090 && $asc <= -13319) return 'S';		
+		if ($asc >= -13318 && $asc <= -12839) return 'T';		
+		if ($asc >= -12838 && $asc <= -12557) return 'W';		
+		if ($asc >= -12556 && $asc <= -11848) return 'X';		
+		if ($asc >= -11847 && $asc <= -11056) return 'Y';		
+		if ($asc >= -11055 && $asc <= -10247) return 'Z';
+		$undefined = array('8460'=>'E'); //自定义
+		return empty($undefined[abs($asc)]) ? '#' : $undefined[abs($asc)];
+	}
+	
+	/**
+	 * 2015-05-27 lixiang
+	 * 分组排序，计算每列的数量
+	 * @param Array $modules
+	 * @return Array
+	 */
+	private function _getModules($modules) {
+		$key = array();
+		foreach ($modules as $value) {
+			$en =  $this->_getFirstCharter(strip_tags($value['name']));
+			$array[$en.'000'] = $en;
+			$num = str_pad(++$key[$en], 3, '0', STR_PAD_LEFT);
+			$array[$en.$num] = $value;				
+		}
+		// count($key) 
+		$count =  count($array);
+		for ($i = 3; $i > 0; $i--) {
+			$group[$i] = ceil($count / $i);
+			$count = $count - $group[$i];
+		}
+		rsort($group);
+		ksort($array);
+		$i = 1; $k=0; $en = 0;
+		foreach ($array as $key => $value) {
+			$count = $group[$k];
+			$i++;
+			$result[$k][$key] = $value;
+			if ($i > $count) {
+				$k++;
+				$i=1;
+			}
+		}
+		return $result;
+	}
+	
 	public function insert(){
 		if ($_GET['iskeyword']){
 			$modules=$this->keywordModules();
 		}else {
 			$modules=$this->modules();
 		}
-		$this->assign('modules',$modules);
+		$this->assign('modules', $this->_getModules($modules));
 		$this->display();
 	}
 	public function keywordModules(){
@@ -99,6 +180,9 @@ class LinkAction extends UserAction{
 		array('module'=>'Fansign','linkcode'=>'','name'=>'微信签到','sub'=>0,'canselected'=>1,'linkurl'=>'','keyword'=>'微信签到','askeyword'=>1),
 		array('module'=>'Vcard','linkcode'=>'','name'=>$this->modules['Vcard'],'sub'=>1,'canselected'=>0,'linkurl'=>'','keyword'=>'','askeyword'=>1),		
 		);
+		
+
+		
 		//
 		$sub=isset($_GET['sub'])?intval($_GET['sub']):0;
 		foreach ($this->arr as $ka){

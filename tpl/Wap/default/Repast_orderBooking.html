@@ -87,6 +87,7 @@ var takeaway="{pigcms:$takeaway}";
 						<span class="radio"><input type="radio" name="yousex" value="1" <if condition="empty($WechaidInfo) OR  $WechaidInfo['yousex'] eq 1">checked="checked"</if>></span><span class="radiotitle sex">先生</span>
 						<span class="radio"><input type="radio" name="yousex" value="0" <if condition="!empty($WechaidInfo) AND  $WechaidInfo['yousex'] eq 0">checked="checked"</if>></span><span class="radiotitle sex">女士</span></label>				
 					</li>
+					<if condition="$DishC['offtable'] eq 0">
 					<li>
 					<span>餐桌选择</span>
 						<div class="radiolist">
@@ -108,10 +109,12 @@ var takeaway="{pigcms:$takeaway}";
 						</div>	
 						<span id="tablestips" style="width: 85%;margin-left: 80px;color:red;line-height: 25px;display: none;"></span>
 					</li>
+					</if>
+
 					<if condition="$takeaway eq 0 AND $DishC['subscription'] gt 0">
 					<li><p>注：商家将收取 {pigcms:$DishC['subscription']}元 餐桌预订金</p></li>
 					</if>
-				<if condition="$DishC['nowpay'] neq 1 AND $takeaway eq 2">
+				<if condition="$DishC['nowpay'] neq 1 AND $takeaway eq 2 AND $DishC['advancepay'] gt 0">
 				<li style="font-size: 15px;height: 90px;" id="payoftype">
 				    <span>支付方式：</span>
 					<label><input type="radio" name="isallpay" value="1" checked="checked">立刻全额支付 </label><br/>
@@ -241,13 +244,14 @@ function getThisinfo(tid){
 	   $('#alreadytime').val('0');
 	}
 }
+<if condition="$DishC['offtable'] eq 0">
 var tableid=$.trim($('#selecttable').val());
 tableid=parseInt(tableid);
 if(tableid>0){
   getThisinfo(tableid);
 }
 <if condition="$tid gt 0">getThisinfo({pigcms:$tid});</if>
-
+</if>
 </script>
 {pigcms:$shareScript}
 </body>

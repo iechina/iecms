@@ -1,5 +1,5 @@
 <?php 
  return array(
    'TMPL_FILE_DEPR'=>'_',  
- 'DEFAULT_THEME' => 'pigcms',      );
+ 'DEFAULT_THEME' => 'demo',      );
 ?>

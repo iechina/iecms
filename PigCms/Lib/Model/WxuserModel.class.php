@@ -4,14 +4,14 @@ class WxuserModel extends Model{
 		array('wxname','require','公众号名称不能为空',1),
 		array('wxid','require','公众号原始id不能为空',1),
 		array('weixin','require','微信号不能为空',1),
-		array('headerpic','require','头像地址不能为空',1),
-		array('token','require','TOKEN不能为空',1),
-		array('token','','token已经存在！',1,'unique',1),
-		array('province','require','省份不能为空',1),
-		array('city','require','市级不能为空',1),
-		//array('qq','email','公众号邮箱格式不正确'),
-		array('wxfans','number','微信粉丝格式不正确'),
-		array('typename','require','分类必须选择！',0,'',3),
+		array('headerpic','require','头像地址不能为空',2),
+		array('token','require','TOKEN不能为空',2),
+		array('token','','token已经存在！',1,'unique',2),
+		array('province','require','省份不能为空',2),
+		array('city','require','市级不能为空',2),
+		array('qq','email','公众号邮箱格式不正确',2),
+		array('wxfans','number','微信粉丝格式不正确',2),
+		array('typename','require','分类必须选择！',2,'',3),
 		
 	);
 	
@@ -49,7 +49,7 @@ class WxuserModel extends Model{
 	}
 	
 	public function gettypeid(){
-		$res=explode(',',$_POST['type']);
+		$res=explode(',',$_POST['type_name']);
 		return $res[0];
 	}
 	

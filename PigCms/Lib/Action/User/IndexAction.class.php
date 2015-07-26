@@ -169,11 +169,19 @@ class IndexAction extends UserAction{
 		
 				$eqx['email_varchar']=$_GET['token'];
 				$eqx['password_varchar']=md5($_GET['token']);
+				$eqx['create_time'] = date('y-m-d H:i:s',time());
+			    $eqx['last_time'] = date('y-m-d H:i:s',time());
+				$eqx['createip_varchar'] = get_client_ip();
+			    $eqx['lastip_varchar'] = get_client_ip();
+				$eqx['limit_time'] = "2025-04-22 19:04:08";  //默认3天后到期
+			    $eqx['scene_times'] = '1000';  
+				
 				$eqx_User->add($eqx);
 				$db=D('Wxuser');
-				$date['id']=$_GET['id'];
+				
 				$date['eqx']=1;
-				$a=$db->save($date);
+				$a=M('Wxuser')->where(array('id'=>$_GET['id']))->save($date);
+				
 				if($a){$this->success('帐号同步成功',U(MODULE_NAME.'/index'));}else{$this->error('同步失败',U(MODULE_NAME.'/index'));}
 				
 				
@@ -215,6 +223,13 @@ class IndexAction extends UserAction{
 		}
 		
 	}
+	public function wql(){
+		$date['eqx']==0;
+		
+		M('Wxuser')->where(array('encode'=>0))->save($date);
+		
+		
+		}
 	
 	public function insert(){
 		
@@ -281,6 +296,12 @@ class IndexAction extends UserAction{
 		
 				$eqx['email_varchar']=$this->_post('token');
 				$eqx['password_varchar']=md5($this->_post('token'));
+				$eqx['create_time'] = date('y-m-d H:i:s',time());
+			    $eqx['last_time'] = date('y-m-d H:i:s',time());
+				$eqx['createip_varchar'] = get_client_ip();
+			    $eqx['lastip_varchar'] = get_client_ip();
+				$eqx['limit_time'] = "2025-04-22 19:04:08";  //默认3天后到期
+			    $eqx['scene_times'] = '1000';  
 				$eqx_User->add($eqx);
 				
 			

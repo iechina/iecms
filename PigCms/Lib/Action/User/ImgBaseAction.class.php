@@ -22,8 +22,24 @@ class ImgBaseAction extends UserAction{
 	public function add(){
 		$classify_db=M('Classify');
 		$class=$classify_db->field("fid,id,name,concat(path,'-',id) as bpath")->order('bpath ASC')->where(array('token'=>session('token')))->select();
-        if($class==false){$this->error('请先添加3G网站分类',U('Classify/index',array('token'=>session('token'))));}
- 		$this->assign('info',$class);
+		foreach($class as $k=>$v){
+			$total=(count(explode('-',$v['bpath']))-2)*10;
+				for($i=0;$i<$total;$i++){
+
+					$class[$k]['fg'].='-';
+				}
+
+			$id = $v['id'];
+			$fidArr[] = $classify_db->field('distinct(fid)')->where(array('token'=>session('token'),"fid"=>$id))->select();
+			if(!$fidArr[$k][0]['fid'] == NULL){
+				$fid[] = $fidArr[$k][0]['fid'];
+			}
+		}
+
+		
+		if($class==false){$this->error('请先添加3G网站分类',U('Classify/index',array('token'=>session('token'))));}
+		$this->assign('info',$class);
+		$this->assign('fid',$fid);
 	}
 	
 	

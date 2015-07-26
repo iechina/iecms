@@ -68,19 +68,27 @@ KISSY.use('node,io', function(S, Node, IO) {
 			companyName.hide();
 		}
 	});
-
+	var submit_islock=false;/**网络慢或手快者可能触发重复提交，加个锁处理**/
 	submit_broker.on('click', function() {
+		if(submit_islock){
+		   return false;
+		}else{
+		  submit_islock=true;
+		}
 		//姓名
 		if (name.length == 1) {
 			var nv = S.trim(name.val());
 			if (nv == '') {
 				alert('姓名不能为空！');
+				submit_islock=false;
 				return false;
 			} else if (nv.length > 15) {
 				alert('姓名不能超过15个字！');
+				submit_islock=false;
 				return false;
 			} else if (!REG.name.test(nv)) {
 				alert('请填写正确的姓名！');
+				submit_islock=false;
 				return false;
 			}
 		}
@@ -89,9 +97,11 @@ KISSY.use('node,io', function(S, Node, IO) {
 			var pv = S.trim(phone.val());
 			if (pv == '') {
 				alert('手机号不能为空！');
+				submit_islock=false;
 				return false;
 			} else if (!REG.phone.test(pv)) {
 				alert('请填写正确的手机号！');
+				submit_islock=false;
 				return false;
 			}
 		}
@@ -100,9 +110,11 @@ KISSY.use('node,io', function(S, Node, IO) {
             var psw=S.trim(password.val());
             if(psw==''){
                 alert('密码不能为空！');
+				submit_islock=false;
                 return false;
             }else if(psw.length<6 ||  psw.length>8 || !REG.number.test(psw)){
                 alert('密码必须为6到8个数字！');
+				submit_islock=false;
                 return false;
             }
         }
@@ -113,10 +125,12 @@ KISSY.use('node,io', function(S, Node, IO) {
             var prCompany=S.trim(company.val());
 			if (jobtype == 0) {
 				alert('请选择您的职业');
+				submit_islock=false;
 				return false;
 			}else if (jobtype == 3 || jobtype == 4 || jobtype == 5 || jobtype == 6) {
                if(prCompany==''){
                    alert('公司名称不能为空！');
+				   submit_islock=false;
                    return false;
                }
             }
@@ -124,13 +138,17 @@ KISSY.use('node,io', function(S, Node, IO) {
 		//注册协议
 		if (agree.prop('checked') == false) {
 			alert('请同意注册协议');
+			submit_islock=false;
 			return false;
 		}
+		var islock=false;/**网络慢或手快者可能触发重复提交，加个锁处理**/
 		var rpostUrl='/index.php?g=Wap&m=MicroBroker&a=Registering&token='+Token+'&wecha_id='+Open_id+'&bid='+Bid;
 		var ErrorStr=['OK','参数出错','手机号不能为空','手机号已经被注册过了','注册失败'];
+		
 		IO.post(rpostUrl,{phone:pv,sp:'check'},function(data) {
 			var regdata={name:nv,phone:pv,password:psw,myjob:jobtype,company:prCompany,sp:'save'};
-			if (data == 0) {
+			if (data == 0 && !islock) {
+				islock=true;
 				IO.post(rpostUrl,regdata,function(data) {
 					if (data == 0) {
 						var Openid= Open_id ? Open_id :"MBK_"+Bid+"_temp"+pv;
@@ -139,6 +157,8 @@ KISSY.use('node,io', function(S, Node, IO) {
 					} else {
 						alert(ErrorStr[data]);
 					}
+					islock=false;
+					submit_islock=false;
 				});
 
 			} else {
@@ -147,6 +167,8 @@ KISSY.use('node,io', function(S, Node, IO) {
 				} else {
 					alert('参数有误或系统异常，请稍后重试！');
 				}
+				islock=false;
+				submit_islock=false;
 			}
 		});
 	});
@@ -191,7 +213,44 @@ KISSY.use('node,io', function(S, Node, IO) {
         });
     });
 
+    //修改密码
+	var J_modifyPwd = $('#modifyPwd');
+    var newpwd=$('#newpwd');
+    J_modifyPwd.on('click', function() {
+		if (phone.length == 1) {
+			var pv = S.trim(phone.val());
+			if (pv == '') {
+				alert('手机号不能为空！');
+				return false;
+			} else if (!REG.phone.test(pv)) {
+				alert('请填写正确的手机号！');
+				return false;
+			}
+			
+		}
+        //密码
+        if(newpwd.length==1){
+            var ups=S.trim(newpwd.val());
+            if(ups==''){
+                alert('密码不能为空！');
+                return false;
+            }else if(ups.length<6 ||  ups.length>8 || !REG.number.test(ups)){
+                alert('密码必须为6到8个数字！');
+                return false;
+            }
+        }
 
+		var LoginErrorStr=['OK','参数出错','手机号必须为纯数字','如果确认已注册，请使用注册时的微信号进行重置密码。如果没注册，请您使用先注册'];
+		var lpostUrl='/index.php?g=Wap&m=MicroBroker&a=modifyPwding&token='+Token+'&wecha_id='+Open_id+'&bid='+Bid;
+        IO.post(lpostUrl,{phone:pv,password:ups}, function(data) {
+            if (data == 0) {
+				var Openid= Open_id ? Open_id :"MBK_"+Bid+'_temp'+pv;
+                window.location.href = SiteUrl+'/index.php?g=Wap&m=MicroBroker&a=login&token='+Token+'&wecha_id='+Openid+'&bid='+Bid;
+            } else {
+                alert(LoginErrorStr[data]);
+            }
+        });
+    });
     //个人中心登录
     var J_login_my = $('#J_login_my');
     var username=$('#user-name');
@@ -236,18 +295,27 @@ KISSY.use('node,io', function(S, Node, IO) {
 	//var selorderTime = $('#selorderTime');
 	//var selorderTime2 = $('#selorderTime2');
     var remark = $('#remark');
+	var tj_lock=false;
 	submitRec.on('click', function() {
 		//姓名
+		if(tj_lock){
+		   return false;
+		}else{
+		   tj_lock=true;
+		}
 		if (rname.length == 1) {
 			var rnv = S.trim(rname.val());
 			if (rnv == '') {
 				alert('姓名不能为空！');
+				tj_lock=false;
 				return false;
 			} else if (rnv.length > 15) {
 				alert('姓名不能超过15个字！');
+				tj_lock=false;
 				return false;
 			} else if (!REG.name.test(rnv)) {
 				alert('请填写正确的姓名！');
+				tj_lock=false;
 				return false;
 			}
 		}
@@ -256,9 +324,11 @@ KISSY.use('node,io', function(S, Node, IO) {
 			var rpv = S.trim(rphone.val());
 			if (rpv == '') {
 				alert('手机号不能为空！');
+				tj_lock=false;
 				return false;
 			} else if (!REG.phone.test(rpv)) {
 				alert('请填写正确的手机号！');
+				tj_lock=false;
 				return false;
 			}
 		}
@@ -267,6 +337,7 @@ KISSY.use('node,io', function(S, Node, IO) {
 			var rprv = S.trim(floor.val());
 			if (rprv == 0) {
 				alert('请选择您意向的楼盘');
+				tj_lock=false;
 				return false;
 			}
 		}
@@ -291,13 +362,14 @@ KISSY.use('node,io', function(S, Node, IO) {
             var rpre = S.trim(remark.val());
             if (rpre.length > 50) {
                 alert('备注不能超过50个字');
+				tj_lock=false;
                 return false;
             }
         }
 
 		var tpostUrl='/index.php?g=Wap&m=MicroBroker&a=Recommending&token='+Token+'&wecha_id='+Open_id+'&bid='+Bid;
 		var tjdata={clientname:rnv,cellphone:rpv,proid:rprv,remark:rpre};
-		var ReErrorStr=['OK','参数出错','网络或系统异常，请稍后重试！'];
+		var ReErrorStr=['OK','参数出错','网络或系统异常，请稍后重试！','此人在这个项目上您已经推荐过了'];
 		//请求
 		IO.post(tpostUrl,tjdata, function(data) {
 			if (data == 0) {
@@ -314,6 +386,7 @@ KISSY.use('node,io', function(S, Node, IO) {
 			} else {
 				alert(ReErrorStr[data]);
 			}
+			tj_lock=false;
 		});
 	});
 

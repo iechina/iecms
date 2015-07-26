@@ -1,19 +1,26 @@
 <?php
 class DiymenAction extends UserAction{
 	public $thisWxUser;
+	public $access_token;
 	public function _initialize() {
 		parent::_initialize();
+		// 2015-05-11 废弃代码
+		/*
 		$where=array('token'=>$this->token);
 		$this->thisWxUser=M('Wxuser')->where($where)->find();
-		if (!$this->thisWxUser['appid']||!$this->thisWxUser['appsecret']){
+		if($this->thisWxUser['type'] == 0){
 			$diyApiConfig=M('Diymen_set')->where($where)->find();
-			if (!$diyApiConfig['appid']||!$diyApiConfig['appsecret']){
-				$this->error('请先设置AppID和AppSecret再使用本功能，谢谢','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
-			}else {
-				$this->thisWxUser['appid']=$diyApiConfig['appid'];
-				$this->thisWxUser['appsecret']=$diyApiConfig['appsecret'];
+			if( (empty($this->thisWxUser['appid']) || empty($this->thisWxUser['appsecret'])) && (empty($diyApiConfig['appid']) || empty($diyApiConfig['appsecret'])) ){
+				$this->error('请先设置AppID和AppSecret 或 AppID(服务窗) 再使用本功能 ','?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']);
+			}else{
+				$this->thisWxUser['appid'] 		= $diyApiConfig['appid'];
+				$this->thisWxUser['appsecret']	= $diyApiConfig['appsecret'];				
+				$apiOauth 	= new apiOauth();
+				$this->access_token 	= $apiOauth->update_authorizer_access_token($this->thisWxUser['appid']);
 			}
 		}
+		*/
+		
 	}
 	//自定义菜单配置
 	public function index(){
@@ -29,23 +36,64 @@ class DiymenAction extends UserAction{
 			}
 			M('Wxuser')->where(array('token'=>$this->token))->save(array('appid'=>trim($this->_post('appid')),'appsecret'=>trim($this->_post('appsecret'))));
 		}else{
-			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0))->order('sort desc')->select();//dump($class);
+			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0))->order('sort desc, id ASC')->select();//dump($class);
+			$i=0;
+			$count = 3;
 			foreach($class as $key=>$vo){
-				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id']))->order('sort desc')->select();
+				if ($vo['is_show']) {
+					$i++;
+					$count = 4 < $i ? 4 : $i;
+					$displayMenu[] = $vo;
+				}
+				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id']))->order('sort desc, id ASC')->select();
 				$class[$key]['class']=$c;
+				foreach ($c as $k => $v) {
+					if ($v['is_show'] && $vo['is_show']) {
+						$displayMenu[$i-1]['class'][] = $v;
+					}
+					
+				}
 			}
 
-			$fuwuAppid = M('Wxuser')->where(array('token'=>session('token')))->getField('fuwuappid');
-
-			$this->assign('fuwuAppid',$fuwuAppid);
+			$model = M('Wxuser')->where(array('token'=>session('token')))->find();
+			$this->assign('id', $model['id']);
+			$this->assign('token', $model['token']);
+			$this->assign('fuwuAppid', $model['fuwuappid']);
 			$this->assign('class',$class);
+			
+			
+			$this->assign('wxsys', $this->_get_sys());
+			$this->assign('displayMenu', $displayMenu);
+			$this->assign('count', $count);
 			$this->display();
 		}
 	}
 
-
 	public function  class_add(){
 		if(IS_POST){
+			if ($_POST['menu_type']==2 && $_POST['url'] != '') {
+				if ($this->dwzQuery(array('tinyurl' => $_POST['url']))) {
+					$this->error('禁止使用短网址');
+				}
+				
+				$_POST['url'] = $this->replaceUrl($_POST['url'], array('query'=>array('wecha_id'=>'{wechat_id}')));
+				$_POST['url']=str_replace('{siteUrl}','http://'.$_SERVER['HTTP_HOST'],$_POST['url']);
+				
+				
+			}
+			// 2015-05-20 处理新增时会有多个值的 BUG 
+			$type = array('1'=>'keyword', '2'=>'url', '3'=>'wxsys', '4'=>'tel', '5'=>array('longitude', 'latitude'));
+			foreach ($type as $key => $value) {
+				if ($_POST['menu_type'] != $key) {
+					if (is_array($value)) {
+						foreach ($value as $v) {
+							unset($_POST[$v]);
+						}
+					} else {
+						unset($_POST[$value]);
+					}
+				}
+			}
 			$this->all_insert('Diymen_class','/index');
 		}else{
 			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0))->order('sort desc')->select();
@@ -61,7 +109,7 @@ class DiymenAction extends UserAction{
 		if($class==false){
 			$back=M('Diymen_class')->where(array('token'=>session('token'),'id'=>$this->_get('id')))->delete();
 			if($back==true){
-				$this->success('删除成功');
+				$this->success('删除成功', U('Diymen/index'));
 			}else{
 				$this->error('删除失败');
 			}
@@ -75,17 +123,45 @@ class DiymenAction extends UserAction{
 		if(IS_POST){
 			$_POST['id']=$this->_get('id');
 			if($_POST['menu_type']==1 && $_POST['keyword'] != ''){
-				$set = array('url'=>'','wxsys'=>'');
+				$set = array('url'=>'','wxsys'=>'', 'tel'=>'', 'nav'=>'');
 				unset($_POST['wxsys']);
+				$_POST['url']=str_replace('{siteUrl}','http://'.$_SERVER['HTTP_HOST'],$_POST['url']);
 				unset($_POST['url']);
+				
+				unset($_POST['tel']);
+				unset($_POST['longitude']);
+				unset($_POST['latitude']);
 			}else if($_POST['menu_type']==2 && $_POST['url'] != ''){
-				$set = array('keyword'=>'','wxsys'=>'');
+				if ($this->dwzQuery(array('tinyurl' => $_POST['url']))) {
+					$this->error('禁止使用短网址');
+				}
+				//$_POST['url'] = $this->replaceUrl($_POST['url'], array('query'=>array('wecha_id'=>'{wechat_id}')));
+				$set = array('keyword'=>'','wxsys'=>'', 'tel'=>'', 'nav'=>'');
 				unset($_POST['keyword']);
 				unset($_POST['wxsys']);
+				unset($_POST['tel']);
+				unset($_POST['longitude']);
+				unset($_POST['latitude']);
 			}else if($_POST['menu_type']==3 && $_POST['wxsys'] != ''){
-				$set = array('keyword'=>'','url'=>'');
+				$set = array('keyword'=>'','url'=>'', 'tel'=>'', 'nav'=>'');
 				unset($_POST['keyword']);
 				unset($_POST['url']);
+				unset($_POST['tel']);
+				unset($_POST['longitude']);
+				unset($_POST['latitude']);
+			}else if($_POST['menu_type']==4 && $_POST['tel'] != ''){
+				$set = array('keyword'=>'','url'=>'','wxsys'=>'', 'nav'=>'');
+				unset($_POST['keyword']);
+				unset($_POST['url']);
+				unset($_POST['wxsys']);
+				unset($_POST['longitude']);
+				unset($_POST['latitude']);
+			}else if($_POST['menu_type']==5 && $_POST['longitude'] != '' && $_POST['latitude'] != ''){
+				$set = array('keyword'=>'','url'=>'','wxsys'=>'', 'tel'=>'');
+				unset($_POST['keyword']);
+				unset($_POST['url']);
+				unset($_POST['wxsys']);
+				unset($_POST['tel']);
 			}
 
 			M('Diymen_class')->where(array('id'=>$_POST['id']))->save($set);
@@ -105,9 +181,19 @@ class DiymenAction extends UserAction{
 				$type = 2;
 			}elseif($data['wxsys'] != ''){
 				$type = 3;
+			}elseif($data['tel'] != ''){
+				$type = 4;
+			}elseif($data['nav'] != ''){
+				$type = 5;
+				list($data['longitude'], $data['latitude']) = explode(',', $data['nav']);
 			}
+			$this->assign('class',$class);
+			$this->assign('show',$data);
 			$this->assign('type',$type);
-			$this->display();
+			$json['html'] = $this->fetch();
+			$json['status'] = 200;
+			$json['url'] = U('Diymen/class_edit', array('id'=>$this->_get('id')));
+			exit(json_encode($json));
 		}
 	}
 
@@ -138,21 +224,42 @@ class DiymenAction extends UserAction{
 
 	public function  class_send(){
 		if(IS_GET){
-			$weixin=A('Home/Weixin');
-            $accessToken=$weixin::getAccessToken();
-
+			// 2015-05-25 需要填写保存后才能生成 修复托管用户获取不到 access_token的BUG
+			$model=M('Wxuser')->where(array('token'=>session('token')))->find();		
+			if (empty($model['appid'])) {
+				$this->error('AppId 不能为空，请填写保存后再进行生成菜单'); // , '?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']
+			} else if (empty($model['appsecret'])) {
+				if (1 != $model['type']) {
+					$this->error('非托管用户 AppSecret 不能为空，请填写保存后再进行生成菜单'); // , '?g=User&m=Index&a=edit&id='.$this->thisWxUser['id']
+				}
+			}
+			$this->thisWxUser['appid'] 		= $model['appid'];
+			$this->thisWxUser['appsecret']	= $model['appsecret'];				
+			$apiOauth 	= new apiOauth();
+			$this->access_token =$this->getAccessToken();;
+			  
+			
 			$data = '{"button":[';
-			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort desc')->select();//dump($class);
-			$kcount=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort desc')->count();
+
+			$class=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>0,'is_show'=>1))->limit(3)->order('sort DESC, id ASC')->select();//dump($class);
+			$kcount = count($class);
 			$k=1;
 			foreach($class as $key=>$vo){
 				//主菜单
 				$data.='{"name":"'.$vo['title'].'",';
-				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort desc')->select();
+				
+				$c=M('Diymen_class')->where(array('token'=>session('token'),'pid'=>$vo['id'],'is_show'=>1))->limit(5)->order('sort DESC, id ASC')->select();
+				
+				$count = count($c);
 				//子菜单
-				$vo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$vo['url']);
-				//如果有子菜单的情况
-                if($c!=false){
+				
+				$vo['url']=$vo['url'];
+				
+				// 2015-05-11   一键拔号 
+				$tel='{siteUrl}'.U('Wap/Index/tel', array('tel'=>$vo['tel'], 'token'=>session('token')));
+				// 2015-05-20 一键导航
+				$amap='{siteUrl}'.U('Wap/Index/map', array('nav'=>$vo['nav'], 'name'=>$vo['title'], 'token'=>session('token')));
+				if($c!=false){
 					$data.='"sub_button":[';
 				}else{
                     //如果没有子菜单的情况
@@ -162,19 +269,46 @@ class DiymenAction extends UserAction{
 						$data.='"type":"view","url":"'.$vo['url'].'"';
 					}else if($vo['wxsys']){
 						$data.='"type":"'.$this->_get_sys('send',$vo['wxsys']).'","key":"'.$vo['wxsys'].'"';
+					}else if($vo['tel']){
+						$data.='"type":"view","url":"'.$tel.'"';
+					}else if($vo['nav']){
+						$data.='"type":"view","url":"'.$amap.'"';
 					}
 				}
 
 				$i=1;
 				foreach($c as $voo){
-					$voo['url']=str_replace(array('{siteUrl}','&amp;','&wecha_id={wechat_id}'),array($this->siteUrl,'&','&diymenu=1'),$voo['url']);
+					$voo['url']=$this->convertLink($voo['url']);
+					// 2015-05-11   一键拔号 
+					$tel=$this->convertLink($this->siteUrl.U('Wap/Index/tel', array('tel'=>$voo['tel'], 'token'=>session('token'))));
+					// 2015-05-20 一键导航
+					$amap=$this->convertLink('{siteUrl}'.U('Wap/Index/map', array('nav'=>$voo['nav'], 'name'=>$voo['title'], 'token'=>session('token'))));
+					if($i==$count){
+						if($voo['keyword']){
+							$data.='{"type":"click","name":"'.$voo['title'].'","key":"'.$voo['keyword'].'"}';
+						}else if($voo['url']){
+							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$voo['url'].'"}';
+						}else if($voo['wxsys']){
+							$data.='{"type":"'.$this->_get_sys('send',$voo['wxsys']).'","name":"'.$voo['title'].'","key":"'.$voo['wxsys'].'"}';
+						}else if($voo['tel']){
+							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$tel.'"}';
+						}else if($voo['nav']){
+							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$amap.'"}';
+						}
+					}else{
 						if($voo['keyword']){
 							$data.='{"type":"click","name":"'.$voo['title'].'","key":"'.$voo['keyword'].'"},';
 						}else if($voo['url']){
 							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$voo['url'].'"},';
 						}else if($voo['wxsys']){
 							$data.='{"type":"'.$this->_get_sys('send',$voo['wxsys']).'","name":"'.$voo['title'].'","key":"'.$voo['wxsys'].'"},';
+						}else if($voo['tel']){
+							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$tel.'"},';
+						}else if($voo['nav']){
+							$data.='{"type":"view","name":"'.$voo['title'].'","url":"'.$amap.'"},';
 						}
+					}
+					$i++;
 				}
                 $data=trim($data,",");
 				if($c!=false){
@@ -191,17 +325,16 @@ class DiymenAction extends UserAction{
 				$k++;
 			}
 			$data.=']}';
-
-			file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$accessToken);
-			$url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$accessToken;
-
+			
+			file_get_contents('https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='.$this->access_token);
+			$url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->access_token;
 			$rt=$this->api_notice_increment($url,$data);
 
 			if($rt['rt']==false){
 				$errmsg=GetErrorMsg::wx_error_msg($rt['errorno']);
-				$this->error('操作失败,'.$rt['errorno'].':'.$errmsg);
+				$this->error($rt['errorno'].':'.$errmsg.'!');
 			}else{
-				$this->success('操作成功');
+				$this->success('生成菜单成功');
 			}
 			exit;
 		}else{
@@ -233,9 +366,37 @@ class DiymenAction extends UserAction{
 				return array('rt'=>true,'errorno'=>0);
 			}else {
 				$errmsg=GetErrorMsg::wx_error_msg($js['errcode']);
-				$this->error('发生错误：错误代码'.$js['errcode'].',微信返回错误信息：'.$errmsg);
+				$this->error($js['errcode'].':'.$errmsg.'!!');
 			}
 		}
+	}
+	public function getAccessToken()
+	{
+		$info = M('wxuser')->where(array('token' => $this->token))->find();
+		$this->_appid = $info['appid'];
+		$this->_secret = $info['appsecret'];
+		$data = json_decode(file_get_contents('weiqianlong/' . $this->token . 'access_token.json'));
+  
+		if ($data->expire_time < time()) {
+			$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $this->_appid . '&secret=' . $this->_secret . '';
+			$res = file_get_contents($url);
+			$arr = json_decode($res, true);
+			$access_token = $arr['access_token'];
+			
+
+			if ($access_token) {
+				$data->expire_time = time() + 7000;
+				$data->access_token = $access_token;
+				$fp = fopen('weiqianlong/' . $this->token . 'access_token.json', 'w');
+				fwrite($fp, json_encode($data));
+				fclose($fp);
+			}
+		}
+		else {
+			$access_token = $data->access_token;
+		}
+
+		return $access_token;
 	}
 	function curlGet($url){
 		$ch = curl_init();

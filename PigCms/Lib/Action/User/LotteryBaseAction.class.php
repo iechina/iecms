@@ -276,8 +276,6 @@ class LotteryBaseAction extends UserAction{
 		}
 		$this->assign('record',$record);
 	}
-
-
 	public function sendnull(){
 		$id=intval($this->_get('id'));
 		$where=array('id'=>$id,'token'=>$this->token);

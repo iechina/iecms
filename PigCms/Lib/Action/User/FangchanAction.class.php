@@ -160,7 +160,7 @@ class FangchanAction extends UserAction{
 
 		if(IS_POST){ 
 
-            $where=array('id'=>$this->_post('id'),'token'=>$this->token);
+            $where=array('id'=>$id,'token'=>$this->token);
 
 			$check=$this->Fangchan_model->where($where)->find();
 

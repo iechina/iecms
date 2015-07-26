@@ -8,6 +8,7 @@
 <script src="{pigcms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
 <script src="{pigcms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
 <script type="text/javascript" src="{pigcms::RES}/js/formCheck/formcheck.js"> </script>
+<script type="text/javascript" src="{pigcms:$staticPath}/tpl/static/address/PCASClass.js"> </script>
 <script>
 var editor;
 KindEditor.ready(function(K) {
@@ -61,12 +62,21 @@ function setlatlng(longitude,latitude){
 </div>
 <div class="clr"></div>
 </div>
-
+<if condition="$wxuser.wx_coupons eq 1">
+<div style="background:#fefbe4;border:1px solid #f3ecb9;color:#993300;padding:10px;margin-top:5px;">
+    使用“微信门店导”入门店前请检查门店的“名称”、“行业”等信息设置完整。需要更新门店信息时候，请登陆您的公众号将已导入的门店信息清除，以免出现重复的门店信息。
+</div>
+</if>
 <!--tab start-->
 <div class="tab">
 <ul>
 <li class="<if condition="$isBranch neq 1">current</if> tabli" id="tab0"><a href="{pigcms::U('Company/index',array('token'=>$token))}">公司信息</a></li>
 <li class="<if condition="$isBranch eq 1">current</if> tabli" id="tab2"><a href="{pigcms::U('Company/branches',array('token'=>$token,'isBranch'=>1))}">分支机构</a></li>
+
+<if condition="$wxuser.wx_coupons eq 1">
+  <li style="float:right;"><a href="{pigcms::U('Member_card/import_company',array('token'=>$token))}">微信门店导入</a></li>
+</if>
+
 </ul>
 </div>
 <!--tab end-->
@@ -79,14 +89,32 @@ function setlatlng(longitude,latitude){
     <div class="msgWrap bgfc"> 
      <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
       <tbody> 
+       <if condition="$set.id neq ''">
+          <tr> 
+            <th><span class="red"></span>商户ID：</th> 
+            <td>{pigcms:$set.id}</td> 
+          </tr>
+       </if>
        <tr> 
         <th><span class="red">*</span>名称：</th> 
         <td><input type="text" id="name" name="name" value="{pigcms:$set.name}" class="px require" style="width:400px;" /></td> 
        </tr>
-       <tr> 
-        <th><span class="red">*</span>简称：</th> 
-        <td><input type="text" id="shortname" name="shortname" value="{pigcms:$set.shortname}" class="px require" style="width:400px;" /></td> 
-       </tr>
+       <tr>
+        <th><span class="red">*</span>行业分类：</th>
+        <td>
+          <select id="type" autocomplete="off" name="cat_name" style="width:120px;">
+            		<option value="生活" <if condition="$set.cat_name eq '生活'">selected="selected"</if> >生活</option>
+                    <option value="服务" <if condition="$set.cat_name eq '服务'">selected="selected"</if> >服务</option>
+                    <option value="情感" <if condition="$set.cat_name eq '情感'">selected="selected"</if> >情感</option>
+                    <option value="数码" <if condition="$set.cat_name eq '数码'">selected="selected"</if> >数码</option>
+                    <option value="娱乐" <if condition="$set.cat_name eq '娱乐'">selected="selected"</if> >娱乐</option>
+                    <option value="IT"  <if condition="$set.cat_name eq 'IT'">selected="selected"</if> >IT</option>
+                    <option value="数码" <if condition="$set.cat_name eq '数码'">selected="selected"</if> >数码</option>
+                    <option value="购物" <if condition="$set.cat_name eq '购物'">selected="selected"</if> >购物</option>
+                    <option value="其他" <if condition="$set.cat_name eq '其他'">selected="selected"</if> >其他</option>
+                  </select>
+        </td>
+       <tr>
        <tr> 
         <th><span class="red">*</span>电话：</th> 
         <td><input type="text" id="tel" name="tel" value="{pigcms:$set.tel}" class="px require" style="width:400px;" /></td> 
@@ -113,7 +141,15 @@ function setlatlng(longitude,latitude){
        </tr>
        </if>
        <tr> 
-        <th><span class="red">*</span>地址：</th> 
+        <th><span class="red">*</span>门店地址</th> 
+        <td>
+          <select name="province"></select>
+          <select name="city"></select>
+          <select name="district"></select>
+        </td> 
+       </tr> 
+       <tr> 
+        <th><span class="red">*</span>详细地址：</th> 
         <td><input type="text" id="address" name="address" value="{pigcms:$set.address}" class="px require" style="width:400px;" /></td> 
        </tr> 
        <tr> 
@@ -135,8 +171,8 @@ function setlatlng(longitude,latitude){
        <tr>         
        <th>&nbsp;</th>
        <td>
-       <if condition="$isBranch eq 1">
-      <input type="hidden" name="isbranch" value="1" />
+      <if condition="$isBranch eq 1">
+        <input type="hidden" name="isbranch" value="1" />
       </if>
       <input type="hidden" name="token" value="{pigcms::$token}" />
        <button type="submit" name="button" class="btnGreen">保存</button></td> 
@@ -156,7 +192,7 @@ function setlatlng(longitude,latitude){
 </div>
 <script language="javascript">
 $(function(){
-
+  new PCAS("province","city","district","{pigcms:$set.province}","{pigcms:$set.city}","{pigcms:$set.district}");
 	$("#form").valid([
 	{ name:"name",simple:"名称",require:true}
 	
